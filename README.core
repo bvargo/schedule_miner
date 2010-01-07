@@ -1,0 +1,45 @@
+At the core of the schedule miner is a modular architecture that follows the
+model-view-controller design philosophy. The models are largely handled by
+ADOdb's ActiveRecord, which is very similar to Ruby on Rail's ActiveRecord
+implementation. However, these models can be extended, as can be seen in some
+of the modules in the schedule miner application. Views are handled by the
+smarty templating system. Controllers extend the Module class, which makes
+the display system magically work.
+
+Every URL is associated with a module, an action, arguments, and query
+parameters. The core automatically extracts these components from the URL,
+making them available to to the rest of the system, and executes the correct
+function in the correct module. For instance, if my application is at the root
+of my domain, example.com, then the following applies:
+   http://example.com/module/action/argument1/argument2?parameter1=1
+   - An object extending the module class named action is instantiated.
+      - This is called the controller
+   - SM_ARGS is the zero-indexed array ['action', 'argument1', 'argument2']
+   - SM_QUERY is an associative array of the passed parameters
+
+Furthermore, templates are automatically selected based on the defined module
+and action, unless overriden. For the above example, the template found in
+templates/module/action.tpl will be used unless the controller specifies a
+different template. The template can be overriden by changing the controller's
+$template_name variable, which is defined by the contstructor in the module
+superclass. The template suffix is automatically affixed to the template name.
+For example, if instead of action, we wanted to use the action_foo template,
+then the module would contain a line of code similar to:
+   $this->template_name = "action_foo";
+
+Template variables:
+
+Variables available within the templates (smarty variables) are defined by
+adding entries to the associative array args from within the controller.
+For example:
+   $this->args['foo'] = 'bar';  // makes $foo available in the template
+There only one several special variable for now:
+   - args['title'] - the page title
+     if defined, this text is prepended to the application name, as defined
+     in the configuration file, in the title of the page
+In addition, several global variables are available in all templates:
+   - $SM_ROOT - the URL root for the application, without the trailing slash
+   - $SM_SELF - the URL of the current page
+   - $SM_ARGS - the arguments array, as above
+   - $SM_RR   - the URL for resources such as images, javascript, etc
+   - $SM_USER - the current user, only defined if someone is logged in
