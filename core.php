@@ -168,10 +168,10 @@ try {
 
    // if the user is not logged in, and this isn't the login page, the 
    // registration page, or the homepage, send them to the homepage
-   //if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "users" && ($SM_ACTION == "login" || $SM_ACTION == "create"))))
-   // FIXME: registration is turned off here
+   // FIXME: registration is turned off here - uncomment the next line and 
+   // comment the second if statement to enable registration
+   //if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "schedules" && $SM_ACTION == "display") || ($SM_MODULE == "users" && ($SM_ACTION == "login" || $SM_ACTION == "create"))))
    if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "schedules" && $SM_ACTION == "display") || ($SM_MODULE == "users" && ($SM_ACTION == "login"))))
-   //if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "users" && ($SM_ACTION == "login")) || $SM_MODULE="schedules" ))
    {
       // show the homepage
       $SM_MODULE = $SM_MODULE = smconfig_get('startmodule', 'home');
