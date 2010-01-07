@@ -1,0 +1,17 @@
+# replace FILESYSTEM_LOCATION with the location in the filesystem
+#   example: /var/www/localhost/htdocs/directory/miner
+#   (note the lack of a trailing slash)
+# replace WEB_LOCATION with the URL
+#   example: /directory/miner/
+#   (not the trailing slash)
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase WEB_LOCATION
+	RewriteRule ^(FILESYSTEM_LOCATION$) FILESYSTEM_LOCATION/core.php [L]
+	RewriteRule ^www/ - [L]
+	RewriteRule ^private/ - [L]
+	RewriteRule ^images/ - [L]
+	RewriteRule ^login - [L]
+	RewriteRule ^(.*)$ FILESYSTEM_LOCATION/core.php?$1?%{QUERY_STRING} [L]
+</IfModule>

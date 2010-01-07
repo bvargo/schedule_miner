@@ -1,0 +1,23 @@
+[core]
+cache_dir = /tmp/miner/
+timezone = America/Denver
+startmodule = home
+
+[logging]
+log_dir = /tmp/miner/logs/
+access_log = access.log
+error_log = error.log
+debug_log = debug.log
+auth_log = auth.log
+default_debug_level = 9
+debug_threshold = 0
+
+[module]
+page_title = Schedule Miner
+
+[database]
+type = mysql
+server = localhost
+username = YOUR_USERNAME
+password = YOUR_PASSWORD
+database = YOUR_DATABASE

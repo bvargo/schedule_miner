@@ -1,0 +1,5 @@
+// class1 hasmany children
+ADODB_Active_Record::ClassHasMany('class1', 'children_table', 'id for class1 in children', 'children_class');
+
+// class2 belongsto parent (class2 has one of parent)
+ADODB_Active_Record::ClassBelongsTo('class2', 'parent_table - not plural', 'id for parent in class2', 'id of parent in parent', 'parent class');
