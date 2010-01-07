@@ -1,0 +1,9 @@
+Installation instructions for the schedule miner.
+
+1. Create database tables using the schemas in the sql directory.
+   For the moment, only MySQL is supported, though other databases will be
+   supported at some point in the future.
+2. Copy config.ini.example to config.ini, modifying the database settings
+   as appropriate.
+3. Copy .htaccess.example to .htaccess, modifying the filesystem location
+   and website location as appropriate.
