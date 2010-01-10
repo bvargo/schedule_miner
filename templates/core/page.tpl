@@ -9,7 +9,12 @@ found in the LICENSE file.
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
       <title>[<$title>]</title>
-      <link rel="stylesheet" href="[<$SM_RR>]/css.css" />
+      <link rel="stylesheet" href="[<$SM_RR>]/page.css" />
+      [<if isset($css)>]
+         [<foreach from=$css item=css_sheet>]
+            <link rel="stylesheet" href="[<$css_sheet>]" />
+         [</foreach>]
+      [</if>]
       <meta http-equiv="Content-TYpe" content="text/html; charset=utf-8" />
    </head>
    <body>
