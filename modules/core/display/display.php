@@ -1,5 +1,10 @@
 <?php
 
+// Copyright 2009-2010 The Schedule Miner Authors
+// Copyright 2004-2008 The Intranet 2 Development Team
+// Use of this source code is governed by an MIT-style license that can be
+// found in the LICENSE file.
+
 class Display
 {
    // the smarty object for this display
@@ -34,21 +39,21 @@ class Display
       // root directory for templates
       self::$tpl_root = $SM_FS_ROOT . 'templates/';
    }
-   
+
    // displays a template for the given module
    public function display_template($module, $template, $args=array())
    {
       $tpl = $this->prepare_template($module, $template, $args);
       $this->smarty->display($tpl);
 	}
-   
+
    // fetches a template for the given module
    public function fetch_template($module, $template, $args=array())
    {
       $tpl = $this->prepare_template($module, $template, $args);
       return $this->smarty->fetch($tpl);
 	}
-   
+
    // assign a particular value or an array of values
    public function smarty_assign($var, $value=null)
    {
@@ -95,7 +100,7 @@ class Display
    private static function get_template($tpl) 
    {
 		$path = self::$tpl_root . $tpl;
-		
+
       if (is_readable($path))
       {
 			return $path;

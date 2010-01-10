@@ -1,5 +1,9 @@
 <?php
 
+// Copyright 2009-2010 The Schedule Miner Authors
+// Use of this source code is governed by an MIT-style license that can be
+// found in the LICENSE file.
+
 class SessionManager
 {
    // starts a session
@@ -7,7 +11,7 @@ class SessionManager
    {
       session_start();
 
-      // if we wanted to have custom handlelers, but php does everything we 
+      // if we wanted to have custom handlelers, but php does everything we
       // need
       //session_set_save_handler("open", "close", "read", "gc");
    }
