@@ -30,23 +30,27 @@ class Module
       else
          $this->args['title'] = smconfig_get('page_title');
 
-      // look for additional css
-      if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE/$SM_ACTION.css"))
+      // setup additional css array
+      if(!array_key_exists('css', $this->args))
       {
-         if(!array_key_exists('css', $this->args))
-         {
-            $this->args['css'] = array();
-            $this->args['css'][] = $SM_RR . "/css/$SM_MODULE/$SM_ACTION.css";
-         }
-         else
-         {
-            // TODO: the module has set additional css files
-            // if it's a full path, include it in addition to the found css 
-            // files
-            // if it isn't a full path, find the requested file and make the
-            // reference a full path
-         }
+         $this->args['css'] = array();
       }
+      else
+      {
+         // TODO: the module has set additional css files already
+         // if it's a full path, include it in addition to the found css
+         // files
+         // if it isn't a full path, find the requested file and make the
+         // reference a full path
+      }
+
+      // look for module-specific css
+      if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE.css"))
+         $this->args['css'][] = $SM_RR . "/css/$SM_MODULE.css";
+
+      // look for action-specific css
+      if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE/$SM_ACTION.css"))
+         $this->args['css'][] = $SM_RR . "/css/$SM_MODULE/$SM_ACTION.css";
 
       // display the page template
       $display->smarty_assign('CONTENT', $display->fetch_template($SM_MODULE, $template, $this->args));
