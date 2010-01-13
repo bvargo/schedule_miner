@@ -309,17 +309,23 @@ class Import extends Module
 
          // make sure we have enough fields; if we don't, skip
          if(!$cols->item(22))
+         {
+            d("Skipping a row during the import - not enough columns");
             continue;
+         }
 
          // if this course has not been assigned a time yet, skip it
          // TODO: is it worth it to put a course in the database, even if it
          // doesn't have a time yet?
          if($cols->item(8)->nodeValue == "TBA" || $cols->item(9)->nodeValue == "TBA")
+         {
+            d("Skipping a row during the import - no time given");
             continue;
+         }
 
          // figure out if this row is the start of a new section, or a
          // continuation of the last section
-         $select = $cols->item(0)->nodeValue;
+         $select = $cols->item(1)->nodeValue;
          if(!preg_match('/^[ \t]*$/', $select) && ord($select) != 194)
          {
             // this is a new section - start a new record
