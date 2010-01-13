@@ -25,9 +25,6 @@
    padding: 2px;
    border-left: solid #b8b8b8 1px;
    border-right: solid #b8b8b8 1px;
-   /* rounded corners: firefox/webkit only, but doesn't affect others */
-   -moz-border-radius: 10px 10px 10px 10px;
-   -webkit-border-radius: 10px 10px 10px 10px;
 }
 
 /* the first block in the hour */
