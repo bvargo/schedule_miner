@@ -111,21 +111,23 @@ class Schedules extends Module
 
       // assign colors to the courses
       $color_assign = array();
-      //$colors = array('#ff4848', '#6a6aff', '#75d6ff', '#1fcb4a', '#edef85', '#3923d6', '#99c7ff', '#23819c');
-      //              red         purple/blue teal      green      yellow     dark blue  sky blue   dark teal
       $colors = array(
-                      '#ff0000',   // red
-                      '#009900',   // green
-                      '#ff9933',   // orange
-                      '#00aaff',   // blue
-                      '#ffff00',   // yellow
-                      '#00ffff',   // teal
-                      '#9999ff',   // lilac
-                      '#cc6600',   // brown / dark orange
-                      '#990099',   // dark purple
-                      '#3366ff',   // dark blue
-                      '#00ff00'    // lime green
-                   );
+                     '#ff0000',   // red
+                     '#ff8100',   // orange
+                     '#ffff00',   // yellow
+                     '#00ff00',   // lime green
+                     '#107000',   // darker green
+                     '#9999ff',   // lilac
+                     '#00aaff',   // light blue
+                     '#0f94a9',   // teal blue
+                     '#990099',   // purple/pink
+                     '#AAAAAA',   // lightgrey
+                     '#cc6600',   // brown / dark orange
+                     '#45c300',   // bright green
+                     '#3366ff',   // dark blue
+                     '#f2679a',   // pink
+                     '#666666'    // darkgrey
+                  );
       $color_index = 0;
       foreach($course_sections as $course_section)
       {
