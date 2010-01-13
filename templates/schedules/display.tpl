@@ -104,6 +104,7 @@ found in the LICENSE file.
                            [<$course_section->course->department->abbreviation>]-[<$course_section->course->course_number>] [<$course_section->section>] ([<$course_section->crn>])
                         </h3>
                         <h4 class="name">[<$course_section->name>]</h4>
+                        <h4 class="name">[<$course_section->instructor->name>]</h4>
                         [<math equation="credit_hours" credit_hours=$course_section->course->credit_hours format="%.1f" assign=credit_hours>]
 
                         <div class="credit-hours">[<$credit_hours>] <abbr title="Credit Hours">CR</abbr></div>
