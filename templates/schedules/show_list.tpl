@@ -38,7 +38,7 @@ found in the LICENSE file.
                   [</if>]
                   [<if count($SM_USER->schedules) gt 1>]
                      [<if $schedule->id eq $SM_USER->active_schedule_id>]
-                        <td class="center"><input type="radio" name="active_schedule" value="[<$schedule->id>]" checked="1"/></td>
+                        <td class="center"><input type="radio" name="active_schedule" value="[<$schedule->id>]" checked="checked"/></td>
                      [<else>]
                         <td class="center"><input type="radio" name="active_schedule" value="[<$schedule->id>]" /></td>
                      [</if>]
