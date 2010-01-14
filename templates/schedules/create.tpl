@@ -15,6 +15,12 @@ found in the LICENSE file.
          <td>Publically viewable?</td>
          <td><input type="checkbox" name="public" checked="checked" /></td>
       </tr>
+      [<if count($SM_USER->schedules) gte 1>]
+         <tr>
+            <td>Active Schedule?</td>
+            <td><input type="checkbox" name="active" checked="checked" /></td>
+         </tr>
+      [</if>]
       <tr>
          <td colspan="2"><input type="submit" value="Create Schedule" /></td>
       </tr>

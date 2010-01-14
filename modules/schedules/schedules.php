@@ -15,6 +15,11 @@ class Schedules extends Module
       redirect('schedules/show_list');
    }
 
+   private static function byname($a, $b)
+   {
+      return strcasecmp($a->name, $b->name);
+   }
+
    public function show_list()
    {
       global $SM_USER;
@@ -23,7 +28,9 @@ class Schedules extends Module
       // id references a schedule does not exist
       // if the user does not have any schedules, set the id to -1 
       $schedule_ids = array();
-      foreach($SM_USER->schedules as $schedule)
+      $schedules = $SM_USER->schedules;
+      usort($schedules, array("Schedules", "byname"));
+      foreach($schedules as $schedule)
       {
          $schedule_ids[] = $schedule->id;
       }
@@ -93,6 +100,14 @@ class Schedules extends Module
             $schedule->public = 0;
 
          $schedule->save();
+
+         // make this the default schedule, if selected, or if this is the 
+         // user's only schedule
+         if(isset($_POST["active"]) || count($SM_USER->schedules) == 1)
+         {
+            $SM_USER->active_schedule_id = $schedule->id;
+            $SM_USER->save();
+         }
 
          redirect('schedules/show_list');
       }
