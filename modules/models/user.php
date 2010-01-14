@@ -41,6 +41,9 @@ class user extends ADOdb_Active_Record
 // users have many schedules
 ADODB_Active_Record::ClassHasMany('user', 'schedules', 'user_id', 'schedule');
 
+// a user has one active schedule
+ADODB_Active_Record::ClassBelongsTo('user', 'schedule', 'active_schedule_id', 'id', 'schedule');
+
 // id - int
 // username - varchar (128)
 // epassword - varchar (32) (MD5)

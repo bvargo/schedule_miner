@@ -19,6 +19,26 @@ class Schedules extends Module
    {
       global $SM_USER;
 
+      // set the active schedule if the active schedule id is not set or the 
+      // id references a schedule does not exist
+      // if the user does not have any schedules, set the id to -1 
+      $schedule_ids = array();
+      foreach($SM_USER->schedules as $schedule)
+      {
+         $schedule_ids[] = $schedule->id;
+      }
+      if(count($schedule_ids) < 1)
+      {
+         $SM_USER->active_schedule_id = -1;
+         $SM_USER->save();
+      } 
+      else if(!in_array($SM_USER->active_schedule_id, $schedule_ids))
+      {
+         $SM_USER->active_schedule_id = $schedule_ids[0];
+         $SM_USER->save();
+      }
+
+      // check for the saving of preferences
       if(!empty($_POST))
       {
          // check for updated visible values
@@ -29,6 +49,13 @@ class Schedules extends Module
             else
                $schedule->public = 0;
             $schedule->save();
+         }
+
+         // set the active schedule
+         if(isset($_POST['active_schedule']) && in_array($_POST['active_schedule'], $schedule_ids))
+         {
+            $SM_USER->active_schedule_id = $_POST['active_schedule'];
+            $SM_USER->save();
          }
 
          // check if a schedule as deleted
