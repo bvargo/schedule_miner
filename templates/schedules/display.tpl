@@ -101,9 +101,9 @@ found in the LICENSE file.
                   <li style="background-color: [<$course_section->color>]" class="editable">
                      <div class="course">
                         <h3 class="number">
-                           [<$course_section->course->department->abbreviation>]-[<$course_section->course->course_number>] [<$course_section->section>] ([<$course_section->crn>])
+                           <a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->course->department->abbreviation>]-[<$course_section->course->course_number>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->section>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">([<$course_section->crn>])</a>
                         </h3>
-                        <h4 class="name">[<$course_section->name>]</h4>
+                        <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->name>]</a></h4>
                         <h4 class="name">[<$course_section->instructor->name>]</h4>
                         [<math equation="credit_hours" credit_hours=$course_section->course->credit_hours format="%.1f" assign=credit_hours>]
 
