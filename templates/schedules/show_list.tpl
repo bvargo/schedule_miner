@@ -27,7 +27,7 @@ found in the LICENSE file.
                   <td>
                      [<assign var=course_sections value=$schedule->course_sections()>]
                      [<foreach from=$course_sections|@sortby:"name,#crn" item=course_section>]
-                        <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->name>] ([<$course_section->crn>])</a><br />
+                        <a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->name>]</a> - <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->crn>]</a><br />
                      [</foreach>]
                   </td>
                   <td class="center">[<$schedule->credit_hours()>]</td>
