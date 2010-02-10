@@ -22,7 +22,7 @@ class Courses extends Module
    public function display()
    {
       global $SM_ARGS;
-      
+
       // if we are not provided an id, redirect to the search page
       // user
       if(!isset($SM_ARGS[2]))
@@ -46,7 +46,7 @@ class Courses extends Module
          if(!empty($results))
             $course_section = $results[0];
          $this->template_name = "display_section";
-         
+
          $this->args["course"] = $course;
          $this->args["course_section"] = $course_section;
       }
@@ -63,7 +63,7 @@ class Courses extends Module
          if(!empty($results))
             $course = $results[0];
          $this->template_name = "display_course";
-         
+
          $this->args["course"] = $course;
       }
       else
@@ -75,12 +75,10 @@ class Courses extends Module
             $course_section = $results[0];
          $course = $course_section->course;
          $this->template_name = "display_section";
-         
+
          $this->args["course"] = $course;
          $this->args["course_section"] = $course_section;
       }
-
-
    }
 }
 
