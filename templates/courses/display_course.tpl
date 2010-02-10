@@ -1,3 +1,6 @@
+[<* display descriptions column only if one is found *>]
+[<assign var=description value=0>]
+
 <h3>Course Information:</h3>
 <table>
    <tr>
@@ -26,7 +29,6 @@
       [</if>]
    </thead>
    
-   [<assign var=description value=0>]
    [<foreach from=$course->course_sections item=course_section>]
       [<if $course_section->description>]
          [<assign var=description value=1>]
