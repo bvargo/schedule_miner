@@ -38,16 +38,16 @@ class Courses extends Module
       {
          redirect('courses');
       }
-      
+
       if($SM_ARGS[2] == "instructor" && isset($SM_ARGS[3]))
       {
          // courses/display/instructor/instructor_id
          // display an instructor
          $this->template_name = "display_instructor";
-         
+
          $instructor = new instructor();
          $results = $instructor->Find("id=?", array($SM_ARGS[3]));
-         if(!empty($results))
+         if(count($results))
             $instructor = $results[0];
          $this->args['instructor'] = $instructor;
 
@@ -59,7 +59,7 @@ class Courses extends Module
          // courses/display/department/department_abbr
          // display a department
          $this->template_name = "display_department";
-         
+
          $department = new department();
          $results = $department->Find("abbreviation=?", array($SM_ARGS[3]));
          if(count($results))
@@ -128,7 +128,7 @@ class Courses extends Module
          $this->args["department"] = $department;
          $course = new course();
          $results = $course->Find("department_id=? and course_number=?", array($department->id, $SM_ARGS[3]));
-         if(!empty($results))
+         if(count($results))
             $course = $results[0];
 
          $this->args["course"] = $course;
@@ -138,10 +138,10 @@ class Courses extends Module
          // courses/display/crn
          // display a section
          $this->template_name = "display_section";
-         
+
          $course_section = new course_section();
          $results = $course_section->Find("crn=?", array($SM_ARGS[2]));
-         if(!empty($results))
+         if(count($results))
             $course_section = $results[0];
          $course = $course_section->course;
 

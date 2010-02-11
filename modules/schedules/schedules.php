@@ -130,7 +130,7 @@ class Schedules extends Module
       // get the course sections for the specified schedule
       $schedule = new schedule();
       $results = $schedule->Find("id=?", array($id));
-      if(empty($results))
+      if(!count($results))
       {
          $this->args['error'] = "The requested schedule could not be found.";
          return;
