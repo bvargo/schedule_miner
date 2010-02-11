@@ -104,7 +104,7 @@ found in the LICENSE file.
                            <a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->course->department->abbreviation>]-[<$course_section->course->course_number>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->section>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">([<$course_section->crn>])</a>
                         </h3>
                         <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->name>]</a></h4>
-                        <h4 class="name"><a href="[<$SM_ROOT>]/browse/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></h4>
+                        <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></h4>
                         [<math equation="credit_hours" credit_hours=$course_section->course->credit_hours format="%.1f" assign=credit_hours>]
 
                         <div class="credit-hours">[<$credit_hours>] <abbr title="Credit Hours">CR</abbr></div>

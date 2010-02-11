@@ -6,7 +6,7 @@
    </tr>
    <tr>
       <td>Instructor:</td>
-      <td><a href="[<$SM_ROOT>]/browse/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></td>
+      <td><a href="[<$SM_ROOT>]/courses/display/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></td>
    </tr>
    <tr>
       <td>CRN:</td>

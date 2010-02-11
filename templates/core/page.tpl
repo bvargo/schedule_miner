@@ -28,7 +28,7 @@ found in the LICENSE file.
             <div id="menu-div">
                <ul class="menu menu-left">
                   <li><a href="[<$SM_ROOT>]">Home</a></li>
-                  <li><a href="[<$SM_ROOT>]/search">Search Classes</a></li>
+                  <li><a href="[<$SM_ROOT>]/courses">Browse Courses</a></li>
                   [<*<li><a href="[<$SM_ROOT>]/builder">Automated Scheduler</a></li>*>]
                   <li><a href="[<$SM_ROOT>]/schedules">My Schedules</a></li>
                </ul>
