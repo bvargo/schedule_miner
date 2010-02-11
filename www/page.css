@@ -165,7 +165,7 @@ p {
    float: right;
 }
 
-thead th {
+.data thead th {
    background-color: #4f4f4f;
    color: white;
    text-align: center;
@@ -173,7 +173,7 @@ thead th {
    padding: .4em .4em .4em .4em;
 }
 
-td {
+.data td {
    padding: 0.3em;
    border: dashed #b8b8b8 1px;
 }

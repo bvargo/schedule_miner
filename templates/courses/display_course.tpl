@@ -18,7 +18,7 @@
 </table>
 
 <h3>Sections:</h3>
-<table>
+<table class="data">
    <thead>
       <th>Section</th>
       <th>CRN</th>

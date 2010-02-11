@@ -9,7 +9,7 @@ found in the LICENSE file.
    <h3>Please <a href="[<$SM_ROOT>]/schedules/create">create a schedule</a>.</h3>
 [<else>]
    <form action="[<$SM_ROOT>]/schedules/show_list" method="post">
-      <table class="schedule_list">
+      <table class="schedule_list data">
          <thead>
             <th>Schedule</th>
             <th>Course Sections</th>

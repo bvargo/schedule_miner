@@ -24,7 +24,7 @@
 </table>
 
 <h3>Class Meeting Times:</h3>
-<table>
+<table class="data">
    <thead>
       <th>Building</th>
       <th>Room</th>
