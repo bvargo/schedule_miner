@@ -40,21 +40,27 @@ function array_sort_by(&$data, $sortby)
             $number = 1;
          }
          $code .= "
-         if(method_exists(\$a, '$key'))
+         if(method_exists(\$a, '$key') && method_exists(\$b, '$key'))
          {
             \$keya = \$a->$key();
             \$keyb = \$b->$key();
          }
-         else if(isset(\$a->$key))
+         else if(isset(\$a->$key) && isset(\$b->$key))
          {
             \$keya = \$a->$key;
             \$keyb = \$b->$key;
          }
-         else
+         else if(is_array(\$a) && is_array(\$b))
          {
             \$keya = \$a['$key'];
             \$keyb = \$b['$key'];
-         }";
+         }
+         else
+         {
+            \$keya = 0;
+            \$keyb = 0;
+         }
+         ";
          if($number)
          {
             $code .= "if(\$keya > \$keyb) return $direction * 1;\n";
