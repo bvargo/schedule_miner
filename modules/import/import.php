@@ -138,10 +138,10 @@ class Import extends Module
 
          // get the building and room number
          $room_array = explode(" ", trim($record[21][$row]));
-         $building = $room_array[0];
+         $building = trim($room_array[0]);
          $room = -1;
          if(count($room_array) >= 2)
-            $room = $room_array[1];
+            $room = trim($room_array[1]);
 
          // loop over each of the charactes for the days of the week
          foreach(str_split($record[8][$row]) as $day)
