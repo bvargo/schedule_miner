@@ -1,0 +1,22 @@
+/*
+ *********************************
+ * course brose home
+ *********************************
+ */
+
+li.column1 { margin-left: 0em; }
+li.column2 { margin-left: 25em; }
+li.column3 { margin-left: 55em; }
+li { line-height: 1.4em; }
+
+.browse_list {
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.browse_list td {
+   padding-left: 0.5em;
+   padding-right: 0.5em;
+   height: 15px;
+}
+

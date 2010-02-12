@@ -12,19 +12,113 @@ class Courses extends Module
    public function index()
    {
       // show departments
+      $show = smconfig_get("home_show_departments", "all");
       $departments = new department();
       $departments = $departments->Find("", array());
-      $this->args["departments"] = $departments;
+      if($show == "all")
+      {
+         // show all departments
+         $this->args["departments"] = $departments;
+      }
+      else if($show == "useful")
+      {
+         // show departments that have courses
+         $depts = array();
+         foreach($departments as $department)
+         {
+            if(count($department->courses))
+               $depts[] = $department;
+         }
+         $this->args["departments"] = $depts;
+      }
+      else
+      {
+         // show only the specified departments
+         $show = explode(",", $show);
+         $include = array();
+         $depts = array();
+         foreach($show as $abbreviation)
+         {
+            $abbreviation = trim($abbreviation);
+            $include[] = $abbreviation;
+         }
+         foreach($departments as $department)
+         {
+            if(in_array($department->abbreviation, $include))
+               $depts[] = $department;
+         }
+         $this->args["departments"] = $depts;
+      }
 
-      // show instructors
-      $instructors = new instructor();
-      $instructors = $instructors->Find("", array());
-      $this->args["instructors"] = $instructors;
 
       // show buildings
+      $show = smconfig_get("home_show_buildings", "all");
       $buildings = new building();
       $buildings = $buildings->Find("", array());
-      $this->args["buildings"] = $buildings;
+      if($show == "all")
+      {
+         // show all buildings
+         $this->args["buildings"] = $buildings;
+      }
+      else if($show == "useful")
+      {
+         // show useful buildings
+         $builds = array();
+         foreach($buildings as $building)
+         {
+            if(count($building->class_periods))
+               $builds[] = $building;
+         }
+         $this->args["buildings"] = $builds;
+      }
+      else
+      {
+         // shows only the specified buildings
+         $show = explode(",", $show);
+         $include = array();
+         $builds = array();
+         foreach($show as $abbreviation)
+         {
+            $abbreviation = trim($abbreviation);
+            $include[] = $abbreviation;
+         }
+         foreach($buildings as $building)
+         {
+            if(in_array($building->abbreviation, $include))
+               $builds[] = $building;
+         }
+         $this->args["buildings"] = $builds;
+      }
+
+      // show instructors
+      $show = smconfig_get("home_show_instructors", "all");
+      $instructors = new instructor();
+      $instructors = $instructors->Find("", array());
+      if($show == "all")
+      {
+         $this->args["instructors"] = $instructors;
+      }
+      else if($show == "useful")
+      {
+         $instructs = array();
+         foreach($instructors as $instructor)
+         {
+            if(count($instructor->course_sections))
+               $instructs[] = $instructor;
+         }
+         $this->args["instructors"] = $instructs;
+      }
+      else
+      {
+         // show all instructors if there is a bad value
+         warn("Bad value for home_show_instructors: $show");
+         $this->args["instructors"] = $instructors;
+      }
+
+      // number of columns to display
+      $this->args["department_columns"]  = smconfig_get("index_department_columns", 3);
+      $this->args["building_columns"]    = smconfig_get("index_building_columns",   5);
+      $this->args["instructor_columns"]  = smconfig_get("index_instructor_columns", 5);
    }
 
    // displays a course or course section
