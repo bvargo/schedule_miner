@@ -2,7 +2,7 @@
 <table>
    <tr>
       <td>Building:</td>
-      <td>[<$building->name>] ([<$building->abbreviation>])</td>
+      <td><a href="[<$SM_ROOT>]/courses/display/building/[<$building->abbreviation>]">[<$building->name>] ([<$building->abbreviation>])</a></td>
    </tr>
    <tr>
       <td>Room number:</td>
