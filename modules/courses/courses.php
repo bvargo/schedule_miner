@@ -163,6 +163,34 @@ class Courses extends Module
          if(!count($department->courses))
             $this->args['empty'] = 1;
       }
+      else if($SM_ARGS[2] == "building" && isset($SM_ARGS[4]))
+      {
+         // courses/display/building/building_abbr/room_number
+         // display a room in a building
+         $this->template_name = "display_building_room";
+
+         $room = $SM_ARGS[4];
+         $this->args['room'] = $room;
+
+         $building = new building();
+         $results = $building->Find("abbreviation=?", array($SM_ARGS[3]));
+         if(count($results))
+            $building = $results[0];
+         $this->args['building'] = $building;
+
+         // create a list of courses in the room
+         $course_sections = array();
+         foreach($building->class_periods as $class_period)
+         {
+            if($class_period->room_number == $room)
+               if(!in_array($class_period->course_section, $course_sections))
+                  $course_sections[] = $class_period->course_section;
+         }
+         $this->args['course_sections'] = $course_sections;
+
+         if(!count($course_sections))
+            $this->args['empty'] = 1;
+      }
       else if($SM_ARGS[2] == "building" && isset($SM_ARGS[3]))
       {
          // courses/display/building/building_abbr

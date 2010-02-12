@@ -34,8 +34,8 @@
    </thead>
    [<foreach from=$course_section->class_periods item=class_period>]
    <tr>
-      <td>[<$class_period->building->name>] ([<$class_period->building->abbreviation>])</td>
-      <td>[<$class_period->room_number>]</td>
+      <td><a href="[<$SM_ROOT>]/courses/display/building/[<$class_period->building->abbreviation>]">[<$class_period->building->name>] ([<$class_period->building->abbreviation>])</a></td>
+      <td><a href="[<$SM_ROOT>]/courses/display/building/[<$class_period->building->abbreviation>]/[<$class_period->room_number>]">[<$class_period->room_number>]</a></td>
       <td>[<$class_period->day>]</td>
       <td>[<$class_period->start_time>]</td>
       <td>[<$class_period->end_time>]</td>
