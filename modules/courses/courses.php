@@ -12,7 +12,7 @@ class Courses extends Module
    public function index()
    {
       // show departments
-      $show = smconfig_get("home_show_departments", "all");
+      $show = smconfig_get("index_show_departments", "all");
       $departments = new department();
       $departments = $departments->Find("", array());
       if($show == "all")
@@ -52,7 +52,7 @@ class Courses extends Module
 
 
       // show buildings
-      $show = smconfig_get("home_show_buildings", "all");
+      $show = smconfig_get("index_show_buildings", "all");
       $buildings = new building();
       $buildings = $buildings->Find("", array());
       if($show == "all")
@@ -91,7 +91,7 @@ class Courses extends Module
       }
 
       // show instructors
-      $show = smconfig_get("home_show_instructors", "all");
+      $show = smconfig_get("index_show_instructors", "all");
       $instructors = new instructor();
       $instructors = $instructors->Find("", array());
       if($show == "all")
@@ -111,7 +111,7 @@ class Courses extends Module
       else
       {
          // show all instructors if there is a bad value
-         warn("Bad value for home_show_instructors: $show");
+         warn("Bad value for index_show_instructors: $show");
          $this->args["instructors"] = $instructors;
       }
 
