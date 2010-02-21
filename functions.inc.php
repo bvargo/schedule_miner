@@ -107,7 +107,7 @@ function get_sm_module($module_name)
 // default is the value to be returned if the config entry does not exist
 // section is the section in the config file to look - if not specified, the
 // calling classname is used or core, depending on the calling location
-function smconfig_get($field, $default = NULL, $section = NULL)
+function smconfig_get($field, $default = NULL, $section = NULL, $recurse = false)
 {
    static $config = NULL;
 
@@ -132,7 +132,8 @@ function smconfig_get($field, $default = NULL, $section = NULL)
       if($default === NULL)
       {
          // configuration variable does not exist
-         d("Configuration variable $field in section $section is invalid", 1);
+         if($recurse == false)
+            d("Configuration variable $field in section $section is invalid", 1);
          return NULL;
       }
       else
@@ -149,7 +150,7 @@ function smconfig_get($field, $default = NULL, $section = NULL)
    // if called from a class, use that class as the sectionname
    if (isSet($trace[1]['class']))
    {
-      $result = smconfig_get($field, $default, strtolower($trace[1]['class']));
+      $result = smconfig_get($field, $default, strtolower($trace[1]['class']), true);
       if($result != NULL)
       {
          return $result;
