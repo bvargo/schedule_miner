@@ -147,6 +147,10 @@ class Courses extends Module
 
          if(!count($instructor->course_sections))
             $this->args['empty'] = 1;
+
+         // FIXME - the CSS should be specified in the template, not here
+         global $SM_RR;
+         $this->args['css'][] = $SM_RR . "/css/partials/_schedule_display.css";
       }
       else if($SM_ARGS[2] == "department" && isset($SM_ARGS[3]))
       {
@@ -178,18 +182,27 @@ class Courses extends Module
             $building = $results[0];
          $this->args['building'] = $building;
 
-         // create a list of courses in the room
+         // create a list of courses in the room and class periods in the room
          $course_sections = array();
+         $class_periods = array();
          foreach($building->class_periods as $class_period)
          {
             if($class_period->room_number == $room)
+            {
                if(!in_array($class_period->course_section, $course_sections))
                   $course_sections[] = $class_period->course_section;
+               $class_periods[] = $class_period;
+            }
          }
          $this->args['course_sections'] = $course_sections;
+         $this->args['class_periods'] = $class_periods;
 
          if(!count($course_sections))
             $this->args['empty'] = 1;
+
+         // FIXME - the CSS should be specified in the template, not here
+         global $SM_RR;
+         $this->args['css'][] = $SM_RR . "/css/partials/_schedule_display.css";
       }
       else if($SM_ARGS[2] == "building" && isset($SM_ARGS[3]))
       {
@@ -236,6 +249,10 @@ class Courses extends Module
 
          $this->args["course"] = $course;
          $this->args["course_section"] = $course_section;
+
+         // FIXME - the CSS should be specified in the template, not here
+         global $SM_RR;
+         $this->args['css'][] = $SM_RR . "/css/partials/_schedule_display.css";
       }
       else if(isset($SM_ARGS[3]))
       {
@@ -254,6 +271,10 @@ class Courses extends Module
             $course = $results[0];
 
          $this->args["course"] = $course;
+
+         // FIXME - the CSS should be specified in the template, not here
+         global $SM_RR;
+         $this->args['css'][] = $SM_RR . "/css/partials/_schedule_display.css";
       }
       else
       {
@@ -269,6 +290,10 @@ class Courses extends Module
 
          $this->args["course"] = $course;
          $this->args["course_section"] = $course_section;
+
+         // FIXME - the CSS should be specified in the template, not here
+         global $SM_RR;
+         $this->args['css'][] = $SM_RR . "/css/partials/_schedule_display.css";
       }
    }
 }

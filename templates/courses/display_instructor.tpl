@@ -27,4 +27,7 @@
          </tr>
       [</foreach>]
    </table>
+
+   <h3>Course Schedule:</h3>
+   [<include file="_schedule_display.tpl" course_sections=$instructor->course_sections>]
 [</if>]

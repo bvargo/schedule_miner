@@ -42,3 +42,6 @@
    </tr>
    [</foreach>]
 </table>
+
+<h3>Section Schedule:</h3>
+[<include file="_schedule_display.tpl">]

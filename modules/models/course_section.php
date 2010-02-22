@@ -6,11 +6,7 @@
 
 require_once('adodb/adodb-active-record.inc.php');
 
-class course_section extends ADOdb_Active_Record
-{
-   // used for assigning colors when displaying a schedule
-   public $color;
-}
+class course_section extends ADOdb_Active_Record {}
 
 // a course section has many class periods
 ADODB_Active_Record::ClassHasMany('course_section', 'class_periods', 'section_id', 'class_period');

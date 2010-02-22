@@ -35,7 +35,7 @@ class Display
       $this->smarty->caching = false;
 
       // TODO: turn this off for production?
-      // checks all template files for modification time to see if 
+      // checks all template files for modification time to see if
       // recompilation of the template is necessary
       $this->smarty->compile_check = true;
 
@@ -46,6 +46,15 @@ class Display
    // displays a template for the given module
    public function display_template($module, $template, $args=array())
    {
+      // ensure each module gets its own compiled template file, so two
+      // different modules using the same filename for an included template do
+      // not get the wrong compiled template file.
+      // for example, if modules a and b both have a partial template _foo.tpl
+      // under templates/a and templates/b, respectfully, then this will
+      // produce compiled templates in the cache directory for each _foo.tpl,
+      // instead of just one for the name _foo.tpl.
+      $this->smarty->compile_id = $module;
+
       $tpl = $this->prepare_template($module, $template, $args);
       $this->smarty->display($tpl);
 	}
@@ -54,11 +63,11 @@ class Display
    public function fetch_template($module, $template, $args=array())
    {
       // ensure each module gets its own compiled template file, so two
-      // different modules using the same filename for an included template do 
+      // different modules using the same filename for an included template do
       // not get the wrong compiled template file.
-      // for example, if modules a and b both have a partial template _foo.tpl 
-      // under templates/a and templates/b, respectfully, then this will 
-      // produce compiled templates in the cache directory for each _foo.tpl, 
+      // for example, if modules a and b both have a partial template _foo.tpl
+      // under templates/a and templates/b, respectfully, then this will
+      // produce compiled templates in the cache directory for each _foo.tpl,
       // instead of just one for the name _foo.tpl.
       $this->smarty->compile_id = $module;
 
@@ -103,7 +112,7 @@ class Display
       $tpl = self::get_template($template, $module);
       // if both have failed, throw an error
       if($tpl === NULL)
-			error("Invalid template `$tpl` passed to Display");
+         error("Invalid template `$tpl` passed to Display");
 
       return $tpl;
    }
@@ -130,12 +139,12 @@ class Display
 
    // returns the full path to the specified template, if the template can be 
    // found
-   private static function get_template($template, $module = NULL) 
+   static function get_template($template, $module = NULL) 
    {
       // look first for a template under the module's template directory
       $tpl = $module . '/' . $template;
       $path = self::$tpl_root . $tpl;
-      
+
       // if a template is not found, search for a partial template
       if(!self::check_template($path))
       {

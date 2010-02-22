@@ -32,4 +32,7 @@
          </tr>
       [</foreach>]
    </table>
+   
+   <h3>Room Schedule:</h3>
+   [<include file="_schedule_display.tpl">]
 [</if>]

@@ -13,6 +13,7 @@ class Module
    {
       global $SM_ACTION;
       $this->template_name = $SM_ACTION;
+      $this->args['css'] = array();
    }
 
    function __destruct()
@@ -25,24 +26,18 @@ class Module
       $template = $this->template_name.".tpl";
 
       // set the title
-      if(in_array('title', array_keys($this->args)))
+      if(array_key_exists('title', $this->args))
          $this->args['title'] .= " - ".smconfig_get('page_title');
       else
          $this->args['title'] = smconfig_get('page_title');
 
       // setup additional css array
-      if(!array_key_exists('css', $this->args))
-      {
-         $this->args['css'] = array();
-      }
-      else
-      {
-         // TODO: the module has set additional css files already
-         // if it's a full path, include it in addition to the found css
-         // files
-         // if it isn't a full path, find the requested file and make the
-         // reference a full path
-      }
+
+      // TODO: the module has set additional css files already
+      // if it's a full path, include it in addition to the found css
+      // files
+      // if it isn't a full path, find the requested file and make the
+      // reference a full path
 
       // look for module-specific css
       if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE.css"))
@@ -56,7 +51,7 @@ class Module
       $display->smarty_assign('CONTENT', $display->fetch_template($SM_MODULE, $template, $this->args));
 
       // TODO: theming would be here - just select a different page template
-      $display->display_template('core', 'page.tpl');
+      $display->display_template('core', 'page.tpl', $this->args);
    }
 }
 
