@@ -17,7 +17,7 @@ Display a schedule, given a schedule object or a list of course sections.
       $minutes = $hour * 60 + $minute;
       return $minutes;
    }
-   
+
    if(array_key_exists('class_periods', $this->_tpl_vars))
    {
       $class_periods = $this->_tpl_vars['class_periods'];
@@ -98,6 +98,26 @@ Display a schedule, given a schedule object or a list of course sections.
    // find meeting times
    foreach($class_periods as $class_period)
    {
+      // round down to the closest five minute interval for the start time
+      // use fixed width strings so that string comparisons of times can be
+      // used without errors
+      $start_minutes = intval(date_to_minutes($class_period->start_time) / 5) * 5;
+      $start_hour = intval($start_minutes / 60);
+      $start_minute = $start_minutes % 60;
+      $start_time = sprintf("%02d:%0.2d:00", $start_hour, $start_minute);
+
+      // round up to the closest five minute interval for the end time
+      // use fixed width strings so that string comparisons of times can be
+      // used without errors
+      $end_minutes = intval(date_to_minutes($class_period->end_time));
+      if($end_minutes % 5 != 0)
+         $end_minutes = (intval($end_minutes / 5) + 1) * 5;
+      else
+         $end_minutes = intval($end_minutes / 5) * 5;
+      $end_hour = intval($end_minutes / 60);
+      $end_minute = $end_minutes % 60;
+      $end_time = sprintf("%02d:%0.2d:00", $end_hour, $end_minute);
+
       $meeting_times[] = array($class_period->course_section->name,
                                  $class_period->course_section->section,
                                  $class_period->course_section->course->department->abbreviation,
@@ -106,8 +126,8 @@ Display a schedule, given a schedule object or a list of course sections.
                                  $class_period->building->abbreviation,
                                  $class_period->room_number,
                                  $class_period->day,
-                                 $class_period->start_time,
-                                 $class_period->end_time,
+                                 $start_time,
+                                 $end_time,
                                  -1,
                                  1,
                                  $class_period->building->name,
@@ -180,7 +200,7 @@ Display a schedule, given a schedule object or a list of course sections.
       {
          if($meeting_time[7] == $day)
          {
-            for($time = date_to_minutes($meeting_time[8]); $time < date_to_minutes($meeting_time[9]); $time += 10)
+            for($time = date_to_minutes($meeting_time[8]); $time < date_to_minutes($meeting_time[9]); $time += 5)
             {
                // make sure the arrays exist
                if(!array_key_exists($time, $calendar[$day]))
@@ -194,12 +214,7 @@ Display a schedule, given a schedule object or a list of course sections.
                   $state = 2;
 
                // set the number of rows to span
-               $meeting_time[11] = date_to_minutes($meeting_time[9]) - date_to_minutes($meeting_time[8]);
-               if($meeting_time[11] % 10 != 0)
-                  $meeting_time[11] = intval($meeting_time[11] / 10) + 1;
-               else
-                  $meeting_time[11] = intval($meeting_time[11] / 10);
-
+               $meeting_time[11] = (date_to_minutes($meeting_time[9]) - date_to_minutes($meeting_time[8])) / 5;
 
                // add it
                $calendar[$day][$time][] = array(&$meeting_time, $state);
@@ -213,7 +228,7 @@ Display a schedule, given a schedule object or a list of course sections.
    $colspan = array(0,1,1,1,1,1,0);
    for($day = 1; $day < 6; $day++)
    {
-      for($time = $first_class_hour * 60; $time < $last_class_hour * 60; $time += 10)
+      for($time = $first_class_hour * 60; $time < $last_class_hour * 60; $time += 5)
       {
          if(array_key_exists($time, $calendar[$day]))
             if(count($calendar[$day][$time]) > $colspan[$day])
@@ -226,7 +241,7 @@ Display a schedule, given a schedule object or a list of course sections.
    {
       if($colspan[$day] > 1)
       {
-         for($time = $first_class_hour * 60; $time < $last_class_hour * 60; $time += 10)
+         for($time = $first_class_hour * 60; $time < $last_class_hour * 60; $time += 5)
          {
             if(array_key_exists($time, $calendar[$day]))
             {
@@ -277,7 +292,7 @@ Display a schedule, given a schedule object or a list of course sections.
       else if($colspan[$day] == 1)
       {
          // no conflicts here - just set all the slots to 0
-         for($time = $first_class_hour * 60; $time < $last_class_hour * 60; $time += 10)
+         for($time = $first_class_hour * 60; $time < $last_class_hour * 60; $time += 5)
          {
             if(array_key_exists($time, $calendar[$day]))
             {
@@ -324,17 +339,19 @@ Display a schedule, given a schedule object or a list of course sections.
             </tr>
          </thead>
          <tbody>
-            [<assign var=timecounter value=-4>]
-            [<section name=minute start=$first_class_hour*60-60 loop=$last_class_hour*60+60 step=10>]
+            [<*timecounter controls when the time on the left-hand side of the schedule is displayed*>]
+            [<assign var=timecounter value=-7>]
+            [<section name=minute start=$first_class_hour*60-60 loop=$last_class_hour*60+60 step=5>]
                [<assign var=spacer value=-1>]
-               <tr class="[<cycle name=block values="first_block, middle_block, middle_block, middle_block, middle_block, last_block">] [<cycle name=color values=",,,,,,colorhour,colorhour,colorhour,colorhour,colorhour,colorhour">]">
-                  [<math equation="(timecounter + 1) % 6" timecounter=$timecounter assign=timecounter>]
+               <tr class="[<cycle name=block values="first_block, middle_block_bottom, middle_block_top, middle_block_bottom, middle_block_top, middle_block_bottom, middle_block_top, middle_block_bottom, middle_block_top, middle_block_bottom, middle_block_top, last_block">] [<cycle name=color values=",,,,,,,,,,,,colorhour,colorhour,colorhour,colorhour,colorhour,colorhour,colorhour,colorhour,colorhour,colorhour,colorhour,colorhour">]">
+                  [<math equation="(timecounter + 1) % 12" timecounter=$timecounter assign=timecounter>]
                   [<if $timecounter lt 0 or $smarty.section.minute.index - $last_class_hour*60 gte 30>]
                      <td class="time"></td>
                   [<elseif $timecounter eq 0>]
                      [<math equation="floor((minutes + 30) / 60)" minutes=$smarty.section.minute.index assign=hour>]
                      [<math equation="(minutes + 30) % 60" minutes=$smarty.section.minute.index assign=minute>]
-                     <td class="time" rowspan="6">[<$hour>]:[<$minute|string_format:"%02d">]</td>
+                     [<*the rowspan should be the number of blocks in an hour; here, there are 12 blocks in 5 minute incremenets in an hour*>]
+                     <td class="time" rowspan="12">[<$hour>]:[<$minute|string_format:"%02d">]</td>
                   [</if>]
                   <td class="vspacer"></td>
                   [<section name=day start=1 loop=6>]
@@ -343,7 +360,6 @@ Display a schedule, given a schedule object or a list of course sections.
                            [<if $calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][1] eq 0>]
                               [<*math equation="colspan - count" day=$smarty.section.day.index minute=$smarty.section.minute.index count=$calendar[day][minute]|@count colspan=$colspan[day] assign=columns*>]
                               [<math equation="1" assign=columns>]
-                              <!-- colspan is [<$colspan[day]>], count is [<$calendar[day][minute]|@count>]-->
                               [<* start of course block *>]
                               <td class="class" rowspan="[<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][11]>]" colspan="[<$columns>]" style="background-color: [<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][13]>];">
                                  <div class="number" title="[<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][0]>]">

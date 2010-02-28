@@ -32,14 +32,14 @@
    background: white;
 }
 /* the middle block in the hour */
-.calendar tr.middle_block td {
+.calendar tr.middle_block_top td {
    border-top: dashed #b8b8b8 1px;
+}
+.calendar tr.middle_block_bottom td {
    border-bottom: dashed #b8b8b8 1px;
 }
 /* the last block in the hour */
 .calendar tr.last_block td {
-   /*background: white;*/
-   border-top: dashed #b8b8b8 1px;
    border-bottom: solid #b8b8b8 1px;
 }
 
@@ -52,9 +52,9 @@
    padding: 0 0 0 1px;
    width: 1px !important;
 }
-.calendar td.vspacer { 
-   padding: 0; 
-   height: 0.7em; 
+.calendar td.vspacer {
+   padding: 0;
+   height: 0.4em;
    border-top: hidden !important;
    border-bottom: hidden !important;
 }
