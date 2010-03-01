@@ -47,37 +47,6 @@ Display a schedule, given a schedule object or a list of course sections.
          $class_periods = array_merge($class_periods, $course_section->class_periods);
    }
 
-   // assign colors to the courses
-   $color_assign = array();
-   $colors = array(
-                  '#ff0000',   // red
-                  '#ff8100',   // orange
-                  '#ffff00',   // yellow
-                  '#00ff00',   // lime green
-                  '#107000',   // darker green
-                  '#9999ff',   // lilac
-                  '#00aaff',   // light blue
-                  '#0f94a9',   // teal blue
-                  '#990099',   // purple/pink
-                  '#AAAAAA',   // lightgrey
-                  '#cc6600',   // brown / dark orange
-                  '#45c300',   // bright green
-                  '#3366ff',   // dark blue
-                  '#f2679a',   // pink
-                  '#666666'    // darkgrey
-               );
-   $color_index = 0;
-   foreach($course_sections as $course_section)
-   {
-      if(!array_key_exists($course_section->crn, $color_assign))
-      {
-         $course_section->color = $colors[$color_index];;
-         $color_assign[$course_section->crn] = $colors[$color_index];
-         $color_index += 1;
-         $color_index %= count($colors);
-      }
-   }
-
    // construct an array of meeting times containing:
    // 0 - name
    // 1 - section
@@ -130,8 +99,7 @@ Display a schedule, given a schedule object or a list of course sections.
                                  $end_time,
                                  -1,
                                  1,
-                                 $class_period->building->name,
-                                 $color_assign[$class_period->course_section->crn]);
+                                 $class_period->building->name);
    }
 
    // the following should really go in the template, but smarty is really
@@ -313,6 +281,40 @@ Display a schedule, given a schedule object or a list of course sections.
       $total_credit_hours += $course_section->course->credit_hours;
    }
 
+   // assign colors to the courses
+   $color_assign = array();
+   $colors = array(
+                  '#ff0000',   // red
+                  '#ff8100',   // orange
+                  '#ffff00',   // yellow
+                  '#00ff00',   // lime green
+                  '#107000',   // darker green
+                  '#9999ff',   // lilac
+                  '#00aaff',   // light blue
+                  '#0f94a9',   // teal blue
+                  '#990099',   // purple/pink
+                  '#AAAAAA',   // lightgrey
+                  '#cc6600',   // brown / dark orange
+                  '#45c300',   // bright green
+                  '#3366ff',   // dark blue
+                  '#f2679a',   // pink
+                  '#666666'    // darkgrey
+               );
+   $color_index = 0;
+
+   // sort the course_sections list and then actually assign the colors
+   uasort($course_sections, sortby("course->department->abbreviation,#course->course_number,section"));
+   foreach($course_sections as $course_section)
+   {
+      if(!array_key_exists($course_section->crn, $color_assign))
+      {
+         $course_section->color = $colors[$color_index];;
+         $color_assign[$course_section->crn] = $colors[$color_index];
+         $color_index += 1;
+         $color_index %= count($colors);
+      }
+   }
+
    // now calendar contains all of the data, including slot information
    // pass this off to the template to display
    $this->assign('first_class_hour', $first_class_hour);
@@ -361,7 +363,8 @@ Display a schedule, given a schedule object or a list of course sections.
                               [<*math equation="colspan - count" day=$smarty.section.day.index minute=$smarty.section.minute.index count=$calendar[day][minute]|@count colspan=$colspan[day] assign=columns*>]
                               [<math equation="1" assign=columns>]
                               [<* start of course block *>]
-                              <td class="class" rowspan="[<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][11]>]" colspan="[<$columns>]" style="background-color: [<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][13]>];">
+                              [<assign var=crn value=$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][4]>]
+                              <td class="class" rowspan="[<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][11]>]" colspan="[<$columns>]" style="background-color: [<$color_assign[$crn]>];">
                                  <div class="number" title="[<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][0]>]">
                                     [<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][2]>]-[<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][3]>] [<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][1]>] ([<$calendar[$smarty.section.day.index][$smarty.section.minute.index][$smarty.section.slot.index][0][4]>])
                                  </div>
@@ -399,10 +402,11 @@ Display a schedule, given a schedule object or a list of course sections.
       <div class="sidebar">
          <div id="courses">
             <ul id="course-list">
+               [<*course_sections is already sorted above*>]
                [<foreach from=$course_sections item=course_section>]
                [<*TODO: make editable follow if there is more than one section, permissions, etc*>]
                   [<assign var=crn value=$course_section->crn>]
-                  <li style="background-color: [< $color_assign[$crn] >]" class="editable">
+                  <li style="background-color: [<$color_assign[$crn]>]" class="editable">
                      <div class="course">
                         <h3 class="number">
                            <a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->course->department->abbreviation>]-[<$course_section->course->course_number>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->section>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">([<$course_section->crn>])</a>
