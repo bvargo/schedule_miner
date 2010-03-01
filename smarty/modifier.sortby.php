@@ -9,12 +9,13 @@
 //    object->field()
 //    object->field
 //    object['field']
+// if a field is not given, then the data is sorted directly
 // usage (in smarty template):
 //    {foreach item=item from=$arr|@sortby:"-name, #age"}
 // modifiers:
 //    prefix '-' to do a reverse sort
-//    prefix '#' to sort numerically
-//    prefix '-#' to sort numerically in reverse
+//    prefix '#' to sort numerically / direct comparison
+//    prefix '-#' to sort numerically / direct comparison in reverse
 //
 
 function array_sort_by(&$data, $sortby)
@@ -39,28 +40,44 @@ function array_sort_by(&$data, $sortby)
             $key = substr($key, 1);
             $number = 1;
          }
-         $code .= "
-         if(method_exists(\$a, '$key') && method_exists(\$b, '$key'))
+         if($key == "")
          {
-            \$keya = \$a->$key();
-            \$keyb = \$b->$key();
-         }
-         else if(isset(\$a->$key) && isset(\$b->$key))
-         {
-            \$keya = \$a->$key;
-            \$keyb = \$b->$key;
-         }
-         else if(is_array(\$a) && is_array(\$b))
-         {
-            \$keya = \$a['$key'];
-            \$keyb = \$b['$key'];
+            // assume a direct sort of data, since no fields were given
+            $code .= "
+            \$keya = \$a;
+            \$keyb = \$b;
+            ";
          }
          else
          {
-            \$keya = 0;
-            \$keyb = 0;
+            $code .= "
+            if(is_numeric(\$a))
+            {
+               \$keya = \$a;
+               \$keyb = \$b;
+            }
+            else if(method_exists(\$a, '$key') && method_exists(\$b, '$key'))
+            {
+               \$keya = \$a->$key();
+               \$keyb = \$b->$key();
+            }
+            else if(isset(\$a->$key) && isset(\$b->$key))
+            {
+               \$keya = \$a->$key;
+               \$keyb = \$b->$key;
+            }
+            else if(is_array(\$a) && is_array(\$b))
+            {
+               \$keya = \$a['$key'];
+               \$keyb = \$b['$key'];
+            }
+            else
+            {
+               \$keya = 0;
+               \$keyb = 0;
+            }
+            ";
          }
-         ";
          if($number)
          {
             $code .= "if(\$keya > \$keyb) return $direction * 1;\n";

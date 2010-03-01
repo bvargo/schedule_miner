@@ -216,16 +216,16 @@ class Courses extends Module
             $building = $results[0];
          $this->args['building'] = $building;
 
-         // create a list of courses in the building
-         $courses = array();
+         // create a list of courses in the room
+         $course_sections = array();
          foreach($building->class_periods as $class_period)
          {
-            if(!in_array($class_period->course_section->course, $courses))
-               $courses[] = $class_period->course_section->course;
+            if(!in_array($class_period->course_section, $course_sections))
+               $course_sections[] = $class_period->course_section;
          }
-         $this->args['courses'] = $courses;
+         $this->args['course_sections'] = $course_sections;
 
-         if(!count($courses))
+         if(!count($course_sections))
             $this->args['empty'] = 1;
       }
       else if(isset($SM_ARGS[4]))
