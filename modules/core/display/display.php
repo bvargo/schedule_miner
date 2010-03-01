@@ -137,9 +137,9 @@ class Display
       }
    }
 
-   // returns the full path to the specified template, if the template can be 
+   // returns the full path to the specified template, if the template can be
    // found
-   static function get_template($template, $module = NULL) 
+   static function get_template($template, $module = NULL)
    {
       // look first for a template under the module's template directory
       $tpl = $module . '/' . $template;

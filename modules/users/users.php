@@ -40,7 +40,7 @@ class Users extends Module
       {
          $user = $results[0];
          $this->args['user'] = $user;
-         
+
          // see if there is a POST request to update a user
          if(!empty($_POST))
          {
@@ -196,7 +196,7 @@ class Users extends Module
             {
                // bad password
                $this->args['error'] = 1;
-               
+
                // log the error
                $SM_LOG->log_auth($_POST['username'], false);
             }

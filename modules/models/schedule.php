@@ -54,7 +54,7 @@ class schedule extends ADOdb_Active_Record
          if(count($result2) >= 1)
             $course_sections[] = $result2[0];
       }
- 
+
       return $course_sections;
    }
 

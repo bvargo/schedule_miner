@@ -22,7 +22,7 @@
          <th>Name</th>
          <th>Instructor</th>
       </thead>
-      [<foreach  from=$course_sections|@sortby:"course->department->abbreviation,#course->course_number,section" item=course_section>]
+      [<foreach from=$course_sections|@sortby:"course->department->abbreviation,#course->course_number,section" item=course_section>]
          <tr>
             <td><a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->course->department->abbreviation>] [<$course_section->course->course_number>]</a></td>
             <td class="center"><a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->section>]</a></td>
@@ -32,7 +32,7 @@
          </tr>
       [</foreach>]
    </table>
-   
+
    <h3>Room Schedule:</h3>
    [<include file="_schedule_display.tpl">]
 [</if>]

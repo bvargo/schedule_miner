@@ -10,7 +10,7 @@ class user extends ADOdb_Active_Record
 {
    public $password;
 
-   // encrypt and save the password when the object is saved, if the password 
+   // encrypt and save the password when the object is saved, if the password
    // has been changed
    public function save()
    {

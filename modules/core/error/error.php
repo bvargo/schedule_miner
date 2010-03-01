@@ -65,7 +65,7 @@ class Error
          die();
       }
 
-      //TODO: make this go somewhere in the template with buffering instead of 
+      //TODO: make this go somewhere in the template with buffering instead of
       //printing
       print($out."\n");
       $SM_LOG->log_error($out);
@@ -74,7 +74,7 @@ class Error
    }
 
 
-   // nonfatal errors - may be fatal for a particular module, but should not 
+   // nonfatal errors - may be fatal for a particular module, but should not
    // stop processing of the entire application
    function nonfatal_error($msg)
    {

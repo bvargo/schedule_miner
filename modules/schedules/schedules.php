@@ -24,9 +24,9 @@ class Schedules extends Module
    {
       global $SM_USER;
 
-      // set the active schedule if the active schedule id is not set or the 
+      // set the active schedule if the active schedule id is not set or the
       // id references a schedule does not exist
-      // if the user does not have any schedules, set the id to -1 
+      // if the user does not have any schedules, set the id to -1
       $schedule_ids = array();
       $schedules = $SM_USER->schedules;
       usort($schedules, array("Schedules", "byname"));
@@ -38,7 +38,7 @@ class Schedules extends Module
       {
          $SM_USER->active_schedule_id = -1;
          $SM_USER->save();
-      } 
+      }
       else if(!in_array($SM_USER->active_schedule_id, $schedule_ids))
       {
          $SM_USER->active_schedule_id = $schedule_ids[0];
@@ -68,7 +68,7 @@ class Schedules extends Module
          // check if a schedule as deleted
          if(!isset($_POST['save']))
          {
-            // the save button wasn't used, so a delete button was probably 
+            // the save button wasn't used, so a delete button was probably
             // hit (these buttons are also submit buttons)
             foreach($SM_USER->schedules as &$schedule)
             {
@@ -101,7 +101,7 @@ class Schedules extends Module
 
          $schedule->save();
 
-         // make this the default schedule, if selected, or if this is the 
+         // make this the default schedule, if selected, or if this is the
          // user's only schedule
          if(isset($_POST["active"]) || count($SM_USER->schedules) == 1)
          {
@@ -117,7 +117,7 @@ class Schedules extends Module
    {
       global $SM_USER, $SM_ARGS;
 
-      // if we are not provided an id, show a list of all schedules for this 
+      // if we are not provided an id, show a list of all schedules for this
       // user
       if(!isset($SM_ARGS[2]))
       {

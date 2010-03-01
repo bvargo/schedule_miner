@@ -79,7 +79,7 @@ class ModuleMapper {
 
       if (!file_exists($filename) || $generate)
       {
-         // the module map does not exist, or the user requests it to be 
+         // the module map does not exist, or the user requests it to be
          // regenerated, generate it
          d('Generating module map at ' . $filename , 4);
 
@@ -98,7 +98,7 @@ class ModuleMapper {
       {
          error('Could not load module map: could not unserialize contents of file ' . $filename);
       }
-      
+
       d('Module map successfully loaded', 8);
    }
 

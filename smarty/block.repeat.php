@@ -9,7 +9,7 @@
 //
 // parameters:
 // count (required) - the number of times to repeat the block
-// assign (optional) - the variable to which the results should be assigned, 
+// assign (optional) - the variable to which the results should be assigned,
 //    instead of printing the results to the page
 function smarty_block_repeat($parameters, $content, &$smarty)
 {

@@ -186,7 +186,7 @@ Display a schedule, given a schedule object or a list of course sections.
 
    // an array of days, each containing an entry for each slot
    // calendar[day][minute][slot] = [meeting_time, state]
-   // slot is the class (usually 0), but is incremented if two classes 
+   // slot is the class (usually 0), but is incremented if two classes
    // overlap - see below
    // state is 0 if start of block, 1 if in the middle, 2 if at the end
    $calendar = array();
@@ -250,7 +250,7 @@ Display a schedule, given a schedule object or a list of course sections.
                   // we have found a time that has multiple classes
                   // this needs to be resolved
 
-                  // as temporary place to keep track of block assignments for 
+                  // as temporary place to keep track of block assignments for
                   // this timeperiod
                   $slot_assignments = array();
 

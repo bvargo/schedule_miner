@@ -63,7 +63,6 @@ class Logging
          }
       }
 
-      
       $this->default_debug_level = smconfig_get("default_debug_level", 9);
       $this->debug_threshold = smconfig_get('debug_threshold', 0);
 
@@ -112,7 +111,7 @@ class Logging
          $message .= $_SERVER['HTTP_USER_AGENT'];
       }
       $message .= "\n";
-      
+
       if($this->access_log)
       {
          fwrite($this->access_log, $message);
@@ -153,12 +152,12 @@ class Logging
          if (isSet($trace['file']) && isSet($trace['line']))
          {
             $trace_arr[] = $trace['file'] .':'. $trace['line'];
-         } 
+         }
          else if (isSet($trace['line']))
          {
-            $trace_arr[] = 'Unknown file:'. $trace['line'];	
-         } 
-         else 
+            $trace_arr[] = 'Unknown file:'. $trace['line'];
+         }
+         else
          {
             $trace_arr[] = 'Unknown file: Unknown line';
          }
