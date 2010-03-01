@@ -16,94 +16,13 @@
 //    prefix '-' to do a reverse sort
 //    prefix '#' to sort numerically / direct comparison
 //    prefix '-#' to sort numerically / direct comparison in reverse
-//
-
-function array_sort_by(&$data, $sortby)
-{
-   // caches generated functions
-   static $sort_funcs = array();
-
-   if(empty($sort_funcs[$sortby]))
-   {
-      $code = "\$compare = 0;";
-      foreach(split(',', $sortby) as $key)
-      {
-         $direction = '1';
-         $number = 0;
-         if(substr($key, 0, 1) == '-')
-         {
-            $direction = '-1';
-            $key = substr($key, 1);
-         }
-         if(substr($key, 0, 1) == '#')
-         {
-            $key = substr($key, 1);
-            $number = 1;
-         }
-         if($key == "")
-         {
-            // assume a direct sort of data, since no fields were given
-            $code .= "
-            \$keya = \$a;
-            \$keyb = \$b;
-            ";
-         }
-         else
-         {
-            $code .= "
-            if(is_numeric(\$a))
-            {
-               \$keya = \$a;
-               \$keyb = \$b;
-            }
-            else if(method_exists(\$a, '$key') && method_exists(\$b, '$key'))
-            {
-               \$keya = \$a->$key();
-               \$keyb = \$b->$key();
-            }
-            else if(isset(\$a->$key) && isset(\$b->$key))
-            {
-               \$keya = \$a->$key;
-               \$keyb = \$b->$key;
-            }
-            else if(is_array(\$a) && is_array(\$b))
-            {
-               \$keya = \$a['$key'];
-               \$keyb = \$b['$key'];
-            }
-            else
-            {
-               \$keya = 0;
-               \$keyb = 0;
-            }
-            ";
-         }
-         if($number)
-         {
-            $code .= "if(\$keya > \$keyb) return $direction * 1;\n";
-            $code .= "if(\$keya < \$keyb) return $direction * -1;\n";
-         }
-         else
-         {
-            $code .= "if ( (\$compare = strcasecmp(\$keya, \$keyb)) != 0 ) return $direction * \$compare;\n";
-         }
-      }
-      $code .= 'return $compare;';
-      $sort_func = $sort_funcs[$sortby] = create_function('$a, $b', $code);
-   }
-   else
-   {
-      $sort_func = $sort_funcs[$sortby];
-   }
-   uasort($data, $sort_func);
-}
 
 // smarty modifier: sortby
 // allows arrays of named arrays, objects with functions, or objects with
 // fields to be sorted by a given field or fields
 function smarty_modifier_sortby($arr_data, $sortfields)
 {
-   array_sort_by($arr_data, $sortfields);
+   uasort($arr_data, sortby($sortfields));
    return $arr_data;
 }
 

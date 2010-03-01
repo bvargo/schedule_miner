@@ -271,4 +271,98 @@ function makedir($directory)
       mkdir($directory, 0700, true);
 }
 
+
+// generates a function that can be used for comparisions while sorting
+// in order, compares by:
+//    object->field()
+//    object->field
+//    object['field']
+// if a field is not given, then the data is compared directly
+// modifiers:
+//    prefix '-' to do a reverse sort
+//    prefix '#' to sort numerically / direct comparison
+//    prefix '-#' to sort numerically / direct comparison in reverse
+// example:
+//    sortby("-name, #age") returns a function that first compares name in
+//    reverse and, if those are equal, then compares by age numerically
+function sortby($sortby)
+{
+   // caches generated functions
+   static $sort_funcs = array();
+
+   if(empty($sort_funcs[$sortby]))
+   {
+      $code = "\$compare = 0;";
+      foreach(split(',', $sortby) as $key)
+      {
+         $direction = '1';
+         $number = 0;
+         if(substr($key, 0, 1) == '-')
+         {
+            $direction = '-1';
+            $key = substr($key, 1);
+         }
+         if(substr($key, 0, 1) == '#')
+         {
+            $key = substr($key, 1);
+            $number = 1;
+         }
+         if($key == "")
+         {
+            // assume a direct sort of data, since no fields were given
+            $code .= "
+            \$keya = \$a;
+            \$keyb = \$b;
+            ";
+         }
+         else
+         {
+            $code .= "
+            if(is_numeric(\$a))
+            {
+               \$keya = \$a;
+               \$keyb = \$b;
+            }
+            else if(method_exists(\$a, '$key') && method_exists(\$b, '$key'))
+            {
+               \$keya = \$a->$key();
+               \$keyb = \$b->$key();
+            }
+            else if(isset(\$a->$key) && isset(\$b->$key))
+            {
+               \$keya = \$a->$key;
+               \$keyb = \$b->$key;
+            }
+            else if(is_array(\$a) && is_array(\$b))
+            {
+               \$keya = \$a['$key'];
+               \$keyb = \$b['$key'];
+            }
+            else
+            {
+               \$keya = 0;
+               \$keyb = 0;
+            }
+            ";
+         }
+         if($number)
+         {
+            $code .= "if(\$keya > \$keyb) return $direction * 1;\n";
+            $code .= "if(\$keya < \$keyb) return $direction * -1;\n";
+         }
+         else
+         {
+            $code .= "if ( (\$compare = strcasecmp(\$keya, \$keyb)) != 0 ) return $direction * \$compare;\n";
+         }
+      }
+      $code .= 'return $compare;';
+      $sort_func = $sort_funcs[$sortby] = create_function('$a, $b', $code);
+   }
+   else
+   {
+      $sort_func = $sort_funcs[$sortby];
+   }
+   return $sort_func;
+}
+
 ?>
