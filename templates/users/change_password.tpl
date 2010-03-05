@@ -27,6 +27,7 @@ found in the LICENSE file.
 [<else>]
    <h1>User [<$username>] not found!</h1>
 [</if>]
-<br />
-<a href="[<$SM_ROOT>]/users/show_list">List of users</a>
-
+[<if $SM_USER->admin>]
+   <br />
+   <a href="[<$SM_ROOT>]/users/show_list">List of users</a>
+[</if>]

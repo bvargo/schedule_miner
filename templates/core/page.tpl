@@ -34,6 +34,7 @@ found in the LICENSE file.
                </ul>
                <ul class="menu menu-right">
                   <li><a href="[<$SM_ROOT>]/users/logout">Logout</a></li>
+                  <li><a href="[<$SM_ROOT>]/users/edit">Preferences</a></li>
                </ul>
             </div>
          [</if>]

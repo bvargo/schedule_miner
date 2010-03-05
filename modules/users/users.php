@@ -24,21 +24,26 @@ class Users extends Module
    // arguments: username
    public function edit()
    {
-      global $SM_ARGS;
+      global $SM_ARGS, $SM_USER;
 
-      // if the username was not given as an argument, redirect to the list of
-      // users
+      // if the username was not given as an argument, use the current user
       if(count($SM_ARGS) < 3)
       {
-         redirect("users/show_list");
+         $user = $SM_USER;
+      }
+      else
+      {
+         // a username was provided
+         $user = new user();
+         $results = $user->Find("username=?", array($SM_ARGS[2]));
+         if(count($results))
+            $user = $results[0];
+         else
+            $user = null;
       }
 
-      // find the requested user
-      $user = new user();
-      $results = $user->Find("username=?", array($SM_ARGS[2]));
-      if(count($results))
+      if($user)
       {
-         $user = $results[0];
          $this->args['user'] = $user;
 
          // see if there is a POST request to update a user
@@ -50,7 +55,6 @@ class Users extends Module
             $user->email = $_POST['email'];
             $success = $user->save();
             $this->args['update_success'] = $success;
-            $this->args['user'] = $user;
          }
       }
       else
@@ -111,21 +115,26 @@ class Users extends Module
    // change a user's password
    public function change_password()
    {
-      global $SM_ARGS;
+      global $SM_ARGS, $SM_USER;
 
-      // if the username was not given as an argument, redirect to the list of
-      // users
+      // if the username was not given as an argument, use the current user
       if(count($SM_ARGS) < 3)
       {
-         redirect("users/show_list");
+         $user = $SM_USER;
+      }
+      else
+      {
+         // a username was provided
+         $user = new user();
+         $results = $user->Find("username=?", array($SM_ARGS[2]));
+         if(count($results))
+            $user = $results[0];
+         else
+            $user = null;
       }
 
-      // find the requested user
-      $user = new user();
-      $results = $user->Find("username=?", array($SM_ARGS[2]));
-      if(count($results))
+      if($user)
       {
-         $user = $results[0];
          $this->args['user'] = $user;
 
          // see if there is a POST request to update a user

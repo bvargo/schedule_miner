@@ -34,8 +34,12 @@ found in the LICENSE file.
    </table>
 [<else>]
    <h1>User [<$username>] not found!</h1>
-   Create user <a href="[<$SM_ROOT>]/users/create/[<$username>]">[<$username>]</a>. <br />
+   [<if $SM_USER->admin>]
+      Create user <a href="[<$SM_ROOT>]/users/create/[<$username>]">[<$username>]</a>. <br />
+   [</if>]
 [</if>]
-<br />
-<a href="[<$SM_ROOT>]/users/show_list">List of users</a>
+[<if $SM_USER->admin>]
+   <br />
+   <a href="[<$SM_ROOT>]/users/show_list">List of users</a>
+[</if>]
 
