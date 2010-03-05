@@ -30,7 +30,7 @@ found in the LICENSE file.
                   <li><a href="[<$SM_ROOT>]">Home</a></li>
                   <li><a href="[<$SM_ROOT>]/courses">Browse Courses</a></li>
                   [<*<li><a href="[<$SM_ROOT>]/builder">Automated Scheduler</a></li>*>]
-                  <li><a href="[<$SM_ROOT>]/schedules">My Schedules</a></li>
+                  <li><a href="[<$SM_ROOT>]/schedules">Saved Schedules</a></li>
                </ul>
                <ul class="menu menu-right">
                   <li><a href="[<$SM_ROOT>]/users/logout">Logout</a></li>

@@ -8,10 +8,11 @@ found in the LICENSE file.
    <h1>You do not have any schedules yet!</h1>
    <h3>Please <a href="[<$SM_ROOT>]/schedules/create">create a schedule</a>.</h3>
 [<else>]
+   <h1>Saved Schedules</h1>
    <form action="[<$SM_ROOT>]/schedules/show_list" method="post">
       <table class="schedule_list data">
          <thead>
-            <th>Schedule</th>
+            <th>Name</th>
             <th>Course Sections</th>
             <th>Credit Hours</th>
             <th>Publically Visible?</th>
