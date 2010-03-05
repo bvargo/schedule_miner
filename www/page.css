@@ -116,6 +116,10 @@
    text-align: right;
 }
 
+.login_box #username, #password {
+   width: 175px;
+}
+
 a {
    color: #000;
    text-decoration: underline;

@@ -11,11 +11,11 @@ found in the LICENSE file.
          <table>
             <tr>
                <td>Username:</td>
-               <td><input type="text" name="username" value="" size="20" /></td>
+               <td><input type="text" name="username" value="" id="username" /></td>
             </tr>
             <tr>
                <td>Password:</td>
-               <td><input type="password" name="password" value="" size="20" /></td>
+               <td><input type="password" name="password" value="" id="password" /></td>
             </tr>
             <tr>
                <td colspan="2" class="login_submit"><input type="submit" value="Login" /></td>
