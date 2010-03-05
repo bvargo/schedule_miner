@@ -42,9 +42,9 @@ found in the LICENSE file.
             <div id="search_bar">
                <form action="[<$SM_ROOT>]/courses/search" method="get">
                   [<if isset($search_query)>]
-                     <input type="text" name="q" size="35" value="[<$search_query>]" />
+                     <input type="text" name="q" id="search_field" size="35" value="[<$search_query>]" />
                   [<else>]
-                     <input type="text" name="q" size="35" />
+                     <input type="text" name="q" id="search_field" size="35" />
                   [</if>]
                   <input type="submit" value="Search" />
                </form>
@@ -66,9 +66,14 @@ found in the LICENSE file.
             {
                e.preventDefault();
                if($("#search_open_close").is(":hidden"))
+               {
                   $("#search_bar").animate({marginTop:"0px"}, 300);
+                  $("#search_field").focus();
+               }
                else
+               {
                   $("#search_bar").animate({marginTop:"-33px"}, 300);
+               }
                $("#search_open_close").toggle();
             });
 
