@@ -15,6 +15,7 @@ found in the LICENSE file.
             <link rel="stylesheet" href="[<$css_sheet>]" />
          [</foreach>]
       [</if>]
+      <script src="[<$SM_RR>]/js/jquery.js" type="text/javascript"></script>
       <meta http-equiv="Content-TYpe" content="text/html; charset=utf-8" />
    </head>
    <body>
@@ -25,17 +26,28 @@ found in the LICENSE file.
 
          [<if isset($SM_USER)>]
             [<* display this menu if a user is logged in*>]
-            <div id="menu-div">
+            <div class="menu-div">
                <ul class="menu menu-left">
                   <li><a href="[<$SM_ROOT>]">Home</a></li>
                   <li><a href="[<$SM_ROOT>]/courses">Browse Courses</a></li>
                   [<*<li><a href="[<$SM_ROOT>]/builder">Automated Scheduler</a></li>*>]
+                  <li><a href="[<$SM_ROOT>]/courses/search" id="search_link">Search</a></li>
                   <li><a href="[<$SM_ROOT>]/schedules">Saved Schedules</a></li>
                </ul>
                <ul class="menu menu-right">
                   <li><a href="[<$SM_ROOT>]/users/logout">Logout</a></li>
                   <li><a href="[<$SM_ROOT>]/users/edit">Preferences</a></li>
                </ul>
+            </div>
+            <div id="search_bar">
+               <form action="[<$SM_ROOT>]/courses/search" method="get">
+                  [<if isset($search_query)>]
+                     <input type="text" name="q" size="35" value="[<$search_query>]" />
+                  [<else>]
+                     <input type="text" name="q" size="35" />
+                  [</if>]
+                  <input type="submit" value="Search" />
+               </form>
             </div>
          [</if>]
 
@@ -44,6 +56,42 @@ found in the LICENSE file.
          </div>
 
       </div>
+
+      <div id="search_open_close" style="display:none"></div>
+      <script type="text/javascript">
+         $(document).ready(function()
+         {
+            //$("#search_bar").width($("#search_bar").width() + 105);
+            $("#search_link").click(function(e)
+            {
+               e.preventDefault();
+               if($("#search_open_close").is(":hidden"))
+                  $("#search_bar").animate({marginTop:"0px"}, 300);
+               else
+                  $("#search_bar").animate({marginTop:"-33px"}, 300);
+               $("#search_open_close").toggle();
+            });
+
+            $("#search_bar").mouseup(function()
+            {
+               return false;
+            });
+
+            $(document).mouseup(function(e)
+            {
+               if($(e.target).attr("id") != "search_link")
+               {
+                  //$("#search_bar").hide();
+                  if($("#search_open_close").is(":visible"))
+                  {
+                     $("#search_bar").animate({marginTop:"-33px"}, 500);
+                     $("#search_open_close").hide();
+                  }
+               }
+            });
+         });
+      </script>
+
    </body>
 </html>
 

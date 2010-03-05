@@ -12,8 +12,8 @@
 }
 
 #page-container {
-   margin-left: 2em;
-   margin-right: 2em;
+   margin-left: 24px;
+   margin-right: 24px;
    min-width: 885px;
    /*width: 90%;*/
 }
@@ -30,15 +30,19 @@
    /*background-image: url(syslablogo.png);*/
    background-repeat: no-repeat;
    background-position: right top;
+   position: relative;
+   z-index: 5;
 }
 
-#menu-div {
+.menu-div {
    background-color: #4f4f4f;
    height: 2.4em;
    max-height: 2.4em;
    border-left: 1px solid #000000;
    border-right: 1px solid #000000;
    border-bottom: 1px solid #000000;
+   position: relative;
+   z-index: 5;
 }
 
 .menu {
@@ -85,13 +89,13 @@
 }
 
 #content {
-   /*background-color: #fafafa;*/
    background-color: white;
    opacity: .90;
    border: 1px solid #202020;
    border-top: 0;
    color: #000;
    padding: 1.5em;
+   z-index: 0;
 }
 
 .login_box {
@@ -180,4 +184,18 @@ p {
 .data td {
    padding: 0.3em;
    border: dashed #b8b8b8 1px;
+}
+
+#search_bar {
+   padding: 3px 5px 3px 5px;
+   -moz-border-radius: 0px 0px 0px 10px;
+   -webkit-border-radius: 0px 0px 0px 10px;
+   background-color: #818181;
+   /* hide beneath the header, but above the content */
+   z-index: 1;
+   /* position on the right side of the menu */
+   position: absolute;
+   right: 33px;
+   /* initially hidden */
+   margin-top: -33px;
 }

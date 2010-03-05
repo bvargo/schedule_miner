@@ -121,6 +121,28 @@ class Courses extends Module
       $this->args["instructor_columns"]  = smconfig_get("index_instructor_columns", 5);
    }
 
+   // serach module
+   public function search()
+   {
+      global $SM_QUERY;
+
+      // see if there is a GET request with a search
+      if(array_key_exists("q", $SM_QUERY))
+      {
+         $search_query = $SM_QUERY["q"];
+         $this->args["search_query"] = $search_query;
+
+         $search = new search();
+         $results = $search->course_sections($search_query);
+         if($results === false)
+            $this->args["error"] = $search->error;
+         else if(empty($results))
+            $this->args["no_results"] = true;
+         else
+            $this->args["course_sections"] = $results;
+      }
+   }
+
    // displays a course or course section
    public function display()
    {

@@ -9,3 +9,5 @@ Installation instructions for the schedule miner.
    as appropriate.
 4. Copy .htaccess.example to .htaccess, modifying the filesystem location
    and website location as appropriate.
+5. If using the search module, install and configure sphinx using the sample
+   sphinx configuration file in config.
