@@ -5,8 +5,8 @@ Installation instructions for the schedule miner.
 2. Create database tables using the schemas in the sql directory.
    For the moment, only MySQL is supported, though other databases will be
    supported at some point in the future.
-3. Copy config.example.ini to config.ini, modifying the database settings
-   as appropriate.
+3. Copy config/config.example.ini to config/config.ini, modifying the database
+   settings as appropriate.
 4. Copy .htaccess.example to .htaccess, modifying the filesystem location
    and website location as appropriate.
 5. If using the search module, install and configure sphinx using the sample

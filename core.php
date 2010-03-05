@@ -15,7 +15,7 @@ require_once("adodb/adodb.inc.php");
 require_once('adodb/adodb-active-record.inc.php');
 
 // path to the main configuration file
-define('CONFIG_FILENAME', 'config.ini');
+define('CONFIG_FILENAME', 'config/config.ini');
 
 // helpful global variables
 $SM_SELF = $_SERVER['REDIRECT_URL'];
