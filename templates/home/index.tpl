@@ -27,7 +27,7 @@ found in the LICENSE file.
 [</if>]
 
 <h1>Plan you classes</h1>
-<h2>Mine the coure catalog. Make your schedule golden.</h2>
+<h2>Mine the course catalog. Make your schedule golden.</h2>
 <p>CSM has hundreds of classes to choose from and almost one-thousand
 sections. Get an edge in the schedule-making process and build the
 perfect schedule, without having to navigate Trailhead.</p>
