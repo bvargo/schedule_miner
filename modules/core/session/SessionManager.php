@@ -9,6 +9,8 @@ class SessionManager
    // starts a session
    public static function session_start()
    {
+      $session_name = smconfig_get("session_name", "schedule_miner");
+      session_name($session_name);
       session_start();
 
       // if we wanted to have custom handlelers, but php does everything we
