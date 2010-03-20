@@ -10,19 +10,26 @@ found in the LICENSE file.
 
    [<if isset($SM_USER) && $schedule->user eq $SM_USER>]
       <h1>Your Schedule - [<$schedule->name>]</h1>
-      <form>
+      <form action="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]" method="post">
          <span class="bold">Schedule Name:</span>
-         <input type="text" value="[<$schedule->name>]" />
-         <input type="submit" value="Save" />
-         <br />
-         <br />
+         <input type="text" name="name" value="[<$schedule->name>]" />
+         <input type="submit" value="Save Name" />
       </form>
+      <form action="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]" method="post">
+         <span class="bold">Course Sections:</span>
+         <input type="text" name="sections" value="[<$course_sections_string>]" size="40" />
+         <input type="submit" value="Save Sections" />
+      </form>
+      <br />
    [<else>]
       <h1>[<$schedule->user->name>]&#8217;s Schedule - [<$schedule->name>]</h1>
       <br />
-      <br />
    [</if>]
 
-   [<include file="_schedule_display.tpl">]
+   [<if count($schedule->course_sections())>]
+      [<include file="_schedule_display.tpl">]
+   [<else>]
+      The current schedule does not have any course sections.
+   [</if>]
 
 [</if>]

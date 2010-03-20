@@ -109,7 +109,7 @@ class Schedules extends Module
             $SM_USER->save();
          }
 
-         redirect('schedules/show_list');
+         redirect("schedules/display/".$schedule->id);
       }
    }
 
@@ -127,7 +127,7 @@ class Schedules extends Module
       // we were provided an id; show that schedule
       $id = $SM_ARGS[2];
 
-      // get the course sections for the specified schedule
+      // get the specified schedule
       $schedule = new schedule();
       $results = $schedule->Find("id=?", array($id));
       if(!count($results))
@@ -143,12 +143,45 @@ class Schedules extends Module
       // if the schedule is our schedule, it can be displayed
       // or, if the schedule is public, it can be displayed
       // otherwise, don't display the schedule
-      if(!$schedule->public && $SM_USER && $schedule->user_id != $SM_USER->id)
+      if(!$schedule->public && isset($SM_USER) && $schedule->user_id != $SM_USER->id)
       {
          $this->args['error'] = "The requested schedule is private.";
          return;
       }
 
+      // check for updated schedule name
+      if(array_key_exists('name', $_POST) && $schedule->user_id == $SM_USER->id)
+      {
+         $schedule->name = $_POST['name'];
+         $schedule->save();
+      }
+
+      // check for the modification of any CRNs
+      if(array_key_exists('sections', $_POST) && $schedule->user_id == $SM_USER->id)
+      {
+         // create an array of CRNs
+         // split on any number of spaces or commas
+         $crns = preg_split('/[\s,]+/', $_POST['sections']);
+
+         // add the course section - if it isn't valid, nothing will change
+         $schedule->remove_all_course_sections();
+         $schedule->add_course_sections($crns);
+         $schedule->save();
+      }
+
+      // create a list of course sections, comma separated
+      $string = "";
+      $sections = $schedule->course_sections();
+      uasort($sections, sortby("course->department->abbreviation,#course->course_number,section"));
+      foreach($sections as $course_section)
+      {
+         $string .= $course_section->crn . ",";
+      }
+      if(strlen($string) > 0)
+         $string = substr($string, 0, -1);
+      $this->args['course_sections_string'] = $string;
+
+      // assign the schedule variable
       $this->args['schedule'] = $schedule;
       // FIXME - the CSS should be specified in the template, not here
       global $SM_RR;
