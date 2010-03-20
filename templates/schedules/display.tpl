@@ -9,7 +9,11 @@ found in the LICENSE file.
 [<else>]
 
    [<if isset($SM_USER) && $schedule->user eq $SM_USER>]
-      <h1>Your Schedule - [<$schedule->name>]</h1>
+      [<if $SM_USER->active_schedule_id eq $schedule->id>]
+         <h1>Your Schedule - [<$schedule->name>] (active schedule)</h1>
+      [<else>]
+         <h1>Your Schedule - [<$schedule->name>]</h1>
+      [</if>]
       <form action="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]" method="post">
          <span class="bold">Schedule Name:</span>
          <input type="text" name="name" value="[<$schedule->name>]" />

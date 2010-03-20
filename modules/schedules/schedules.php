@@ -117,15 +117,23 @@ class Schedules extends Module
    {
       global $SM_USER, $SM_ARGS;
 
-      // if we are not provided an id, show a list of all schedules for this
-      // user
-      if(!isset($SM_ARGS[2]))
+      if(!isset($SM_ARGS[2]) && !isset($SM_USER))
       {
-         redirect('schedules/show_list');
+         // if we are not provided an id, and there is no user logged in, 
+         // redirect to the homepage
+         redirect('');
       }
-
-      // we were provided an id; show that schedule
-      $id = $SM_ARGS[2];
+      else if(!isset($SM_ARGS[2]) && isset($SM_USER))
+      {
+         // if we are not provided an id, but there is a user logged in, 
+         // redirect to the active schedule
+         $id = $SM_USER->active_schedule_id;
+      }
+      else
+      {
+         // provided an ID - show that schedule
+         $id = $SM_ARGS[2];
+      }
 
       // get the specified schedule
       $schedule = new schedule();
