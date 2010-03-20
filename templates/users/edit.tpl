@@ -5,12 +5,12 @@ found in the LICENSE file.
 *>]
 
 [<if isset($user)>]
-<h1>Edit User</h1>
-[<if isset($update_success) and $update_success eq 1>]
-   <h3>User updated successfully</h3>
-[</if>]
-   <table>
-      <form action="[<$SM_ROOT>]/users/edit/[<$user->username>]" method="post">
+   <h1>Edit User</h1>
+   [<if isset($update_success) and $update_success eq 1>]
+      <h3>User updated successfully</h3>
+   [</if>]
+   <form action="[<$SM_ROOT>]/users/edit/[<$user->username>]" method="post">
+      <table>
          <tr>
             <td>Username:</td>
             <td>[<$user->username>]</td>
@@ -30,8 +30,8 @@ found in the LICENSE file.
          <tr>
             <td colspan="2"><input type="submit" value="Update" /></td>
          </tr>
-      </form>
-   </table>
+      </table>
+   </form>
 [<else>]
    <h1>User [<$username>] not found!</h1>
    [<if $SM_USER->admin>]
