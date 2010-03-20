@@ -138,8 +138,17 @@ function smconfig_get($field, $default = NULL, $section = NULL, $recurse = false
       }
       else
       {
-         d("Configuration variable $field in section $section not found, returning default $default", 2);
-         return $default;
+         if($recurse == false)
+         {
+            // original call specified the section, return the default
+            d("Configuration variable $field in section $section not found, returning default $default", 2);
+            return $default;
+         }
+         else
+         {
+            // not the original call, return NULL
+            return NULL;
+         }
       }
    }
 
@@ -158,7 +167,7 @@ function smconfig_get($field, $default = NULL, $section = NULL, $recurse = false
    }
 
    // if the config value has not been found yet, try to use a value from the
-   // core section
+   // core section - this will return the default if not found
    return smconfig_get($field, $default, 'core');
 }
 
