@@ -59,6 +59,7 @@ class schedule extends ADOdb_Active_Record
    }
 
    // add a course section to a schedule
+   // TODO: these should really take section objects or CRNs
    public function add_course_section($crn)
    {
       global $SM_SQL;
@@ -99,6 +100,42 @@ class schedule extends ADOdb_Active_Record
       // TODO some kind of return code, as above
    }
 
+   // remove a course section from the schedule
+   public function remove_course_section($crn)
+   {
+      global $SM_SQL;
+
+      // if this is only a temporary object, and is not from the database, do 
+      // not allow course_sections
+      // FIXME
+      if(!$this->id)
+         return null;
+
+      $SM_SQL->Execute("DELETE FROM schedule_course_section_map WHERE schedule_id=? AND crn=?", array($this->id, $crn));
+
+      // TODO some kind of return code to make sure this worked, error out,
+      // etc
+   }
+
+   // removes more than one course section from a schedule
+   public function remove_course_sections($crns)
+   {
+      foreach($crns as $crn)
+         $this->remove_course-section($crn);
+
+      // TODO some kind of return code, as above
+   }
+
+   // removes all course sections from the schedule
+   public function remove_all_course_sections()
+   {
+      global $SM_SQL;
+
+      $SM_SQL->Execute("DELETE FROM schedule_course_section_map WHERE schedule_id=?", array($this->id));
+
+      // TODO some kind of return code, as above
+   }
+
    public function credit_hours()
    {
       $credit_hours = 0;
@@ -107,6 +144,16 @@ class schedule extends ADOdb_Active_Record
          $credit_hours += $course_section->course->credit_hours;
       }
       return $credit_hours;
+   }
+
+   // delete the schedule
+   public function delete()
+   {
+      // remove all course sections for this object
+      $this->remove_all_course_sections();
+
+      // remove the object from the database
+      parent::delete();
    }
 
 }
