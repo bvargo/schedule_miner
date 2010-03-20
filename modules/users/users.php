@@ -96,6 +96,7 @@ class Users extends Module
             $user->username = $_POST['username'];
             $user->email = $_POST['email'];
             $user->password = $_POST['password'];
+            $user->admin = 0;
             $user->save();
             redirect("users/show_list");
          }
