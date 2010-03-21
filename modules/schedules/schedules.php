@@ -177,16 +177,27 @@ class Schedules extends Module
          $schedule->save();
       }
 
+      // check for the addition of a CRN (used by other pages to add a section)
+      if(array_key_exists('add', $_POST) && $schedule->user_id == $SM_USER->id)
+      {
+         // get the crn
+         $crn = trim($_POST['add']);
+
+         // add the course section - if it isn't valid, nothing will change
+         $schedule->add_course_section($crn);
+         $schedule->save();
+      }
+
       // create a list of course sections, comma separated
       $string = "";
       $sections = $schedule->course_sections();
       uasort($sections, sortby("course->department->abbreviation,#course->course_number,section"));
       foreach($sections as $course_section)
       {
-         $string .= $course_section->crn . ",";
+         $string .= $course_section->crn . ", ";
       }
       if(strlen($string) > 0)
-         $string = substr($string, 0, -1);
+         $string = substr($string, 0, -2);
       $this->args['course_sections_string'] = $string;
 
       // assign the schedule variable

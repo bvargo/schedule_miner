@@ -16,6 +16,7 @@
          <th>Section</th>
          <th>CRN</th>
          <th>Name</th>
+         <th>Add to active schedule</th>
       </thead>
 
       [<foreach from=$instructor->course_sections item=course_section>]
@@ -24,6 +25,7 @@
             <td class="center"><a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->section>]</a></td>
             <td><a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->crn>]</a></td>
             <td>[<$course_section->name>]</td>
+            <td class="center">[<include file="_add_course_section.tpl">]</td>
          </tr>
       [</foreach>]
    </table>

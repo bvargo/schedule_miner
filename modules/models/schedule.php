@@ -82,8 +82,7 @@ class schedule extends ADOdb_Active_Record
 
       // make sure the CRN isn't already in the schedule
       // TODO: can we optimize this?
-      $results = $SM_SQL->GetAll("SELECT crn FROM schedule_course_section_map where schedule_id=? and crn=?", array($this->id, $crn));
-      if(!count($results))
+      if(!$this->contains_course_section($crn))
          $SM_SQL->Execute("INSERT INTO schedule_course_section_map (schedule_id,crn) VALUES (?,?)", array($this->id, $crn));
 
       // TODO some kind of return code to make sure this worked, error out,
@@ -134,6 +133,16 @@ class schedule extends ADOdb_Active_Record
       $SM_SQL->Execute("DELETE FROM schedule_course_section_map WHERE schedule_id=?", array($this->id));
 
       // TODO some kind of return code, as above
+   }
+
+   // returns whether the schedule contains the indicated course_section
+   public function contains_course_section($course_section)
+   {
+      global $SM_SQL;
+
+      // TODO: can we optimize this?
+      $results = $SM_SQL->GetAll("SELECT crn FROM schedule_course_section_map where schedule_id=? and crn=?", array($this->id, $course_section->crn));
+      return count($results);
    }
 
    public function credit_hours()

@@ -17,6 +17,12 @@
    </tr>
 </table>
 
+[<foreach from=$course->course_sections item=course_section>]
+   [<if $course_section->description>]
+      [<assign var=description value=1>]
+   [</if>]
+[</foreach>]
+
 <h3>Sections:</h3>
 <table class="data">
    <thead>
@@ -27,13 +33,8 @@
       [<if $description eq 1>]
          <th>Description</th>
       [</if>]
+      <th>Add to active schedule</th>
    </thead>
-
-   [<foreach from=$course->course_sections item=course_section>]
-      [<if $course_section->description>]
-         [<assign var=description value=1>]
-      [</if>]
-   [</foreach>]
 
    [<foreach from=$course->course_sections|@sortby:"section" item=course_section>]
       <tr>
@@ -50,6 +51,7 @@
                [</if>]
             </td>
          [</if>]
+         <td class="center">[<include file="_add_course_section.tpl">]</td>
       </tr>
    [</foreach>]
 </table>

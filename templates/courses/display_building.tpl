@@ -14,9 +14,9 @@
    [</foreach>]
 [</if>]
 
-<h3>Courses:</h3>
+<h3>Courses sections:</h3>
 [<if isset($empty)>]
-   This building does not have any courses in it.
+   This building does not have any course sections in it.
 [<else>]
    <table class="data">
       <thead>
@@ -25,6 +25,7 @@
          <th>CRN</th>
          <th>Name</th>
          <th>Instructor</th>
+         <th>Add to active schedule</th>
       </thead>
       [<foreach from=$course_sections|@sortby:"course->department->abbreviation,#course->course_number,section" item=course_section>]
          <tr>
@@ -33,6 +34,7 @@
             <td><a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->crn>]</a></td>
             <td>[<$course_section->name>]</td>
             <td><a href="[<$SM_ROOT>]/courses/display/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></td>
+            <td class="center">[<include file="_add_course_section.tpl">]</td>
          </tr>
       [</foreach>]
    </table>

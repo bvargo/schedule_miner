@@ -16,10 +16,11 @@
          <th>CRN</th>
          <th>Name</th>
          <th>Instructor</th>
+         <th>Add to active schedule</th>
       </thead>
       [<foreach from=$department->courses|@sortby:"#course_number" item=course>]
          <tr>
-            <td colspan="4" class="bold">
+            <td colspan="5" class="bold">
                <a href="[<$SM_ROOT>]/courses/display/[<$course->department->abbreviation>]/[<$course->course_number>]">[<$course->department->abbreviation>] [<$course->course_number>]</a>:
             </td>
          </tr>
@@ -29,6 +30,7 @@
                <td><a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->crn>]</a></td>
                <td>[<$course_section->name>]</td>
                <td><a href="[<$SM_ROOT>]/courses/display/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></td>
+               <td class="center">[<include file="_add_course_section.tpl">]</td>
             </tr>
          [</foreach>]
       [</foreach>]

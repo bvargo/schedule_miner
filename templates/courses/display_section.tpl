@@ -21,6 +21,11 @@
          <td>[<$course_section->description>]</td>
       </tr>
    [</if>]
+   <tr>
+      [<assign var="button_text" value="Add Section to Schedule">]
+      [<assign var="exists_text" value="Section is present in active schedule">]
+      <td colspan="2">[<include file="_add_course_section.tpl">]</td>
+   </tr>
 </table>
 
 <h3>Class Meeting Times:</h3>

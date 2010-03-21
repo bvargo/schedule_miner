@@ -36,6 +36,7 @@ found in the LICENSE file.
          [<if $description eq 1>]
             <th>Description</th>
          [</if>]
+         <th>Add to active schedule</th>
       </thead>
       [<foreach from=$course_sections|@sortby:"-#weight,course->department->abbreviation,#course->course_number,section" item=course_section>]
          <tr>
@@ -53,6 +54,7 @@ found in the LICENSE file.
                   [</if>]
                </td>
             [</if>]
+            <td class="center">[<include file="_add_course_section.tpl">]</td>
          </tr>
       [</foreach>]
    </table>
