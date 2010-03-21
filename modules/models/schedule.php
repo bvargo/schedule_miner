@@ -56,8 +56,8 @@ class schedule extends ADOdb_Active_Record
    }
 
    // add a course section to a schedule
-   // TODO: these should really take section objects or CRNs
-   public function add_course_section($crn)
+   // course_section can be an object or a CRN
+   public function add_course_section($course_section)
    {
       global $SM_SQL;
 
@@ -67,36 +67,55 @@ class schedule extends ADOdb_Active_Record
       if(!$this->id)
          return null;
 
-      // make sure the crn is valid
-      $course_section = new course_section();
-      if(!$course_section->load('crn=?', array($crn)))
+      if($course_section instanceof course_section)
       {
-         // crn not found - error
-         d('Invalid CRN added to schedule');
+         // given a course_section object
+         $crn = $course_section->crn;
+      }
+      else if(is_numeric($course_section))
+      {
+         // make sure the crn is valid
+         $section = new course_section();
+         if(!$section->load('crn=?', array($course_section)))
+         {
+            // crn not found - error
+            d('Invalid CRN given to add_course_section');
+            return -1;
+         }
+         else
+         {
+            $course_section = $section;
+         }
+      }
+      else
+      {
+         // not given a course_section or a number, error
+         d('Invalid argument given to add_course_section');
          return -1;
       }
 
       // make sure the CRN isn't already in the schedule
-      // TODO: can we optimize this?
-      if(!$this->contains_course_section($crn))
-         $SM_SQL->Execute("INSERT INTO schedule_course_section_map (schedule_id,crn) VALUES (?,?)", array($this->id, $crn));
+      if(!$this->contains_course_section($course_section))
+         $SM_SQL->Execute("INSERT INTO schedule_course_section_map (schedule_id,crn) VALUES (?,?)", array($this->id, $course_section->crn));
 
       // TODO some kind of return code to make sure this worked, error out,
       // etc
    }
 
    // add more than one course section to a schedule
-   public function add_course_sections($crns)
+   // course_sections can be an array of objects or CRNs, or a mixture of both
+   public function add_course_sections($course_sections)
    {
       global $SM_SQL;
-      foreach($crns as $crn)
-         $this->add_course_section($crn);
+      foreach($course_sections as $course_section)
+         $this->add_course_section($course_section);
 
       // TODO some kind of return code, as above
    }
 
    // remove a course section from the schedule
-   public function remove_course_section($crn)
+   // course_section can be an object or a CRN
+   public function remove_course_section($course_section)
    {
       global $SM_SQL;
 
@@ -106,17 +125,30 @@ class schedule extends ADOdb_Active_Record
       if(!$this->id)
          return null;
 
-      $SM_SQL->Execute("DELETE FROM schedule_course_section_map WHERE schedule_id=? AND crn=?", array($this->id, $crn));
+      if($course_section instanceof course_section)
+      {
+         $SM_SQL->Execute("DELETE FROM schedule_course_section_map WHERE schedule_id=? AND crn=?", array($this->id, $course_section->crn));
+      }
+      else if(is_numeric($course_section))
+      {
+         $SM_SQL->Execute("DELETE FROM schedule_course_section_map WHERE schedule_id=? AND crn=?", array($this->id, $course_section));
+      }
+      else
+      {
+         d('Invalid argument given to remove_course_section');
+         return -1;
+      }
 
       // TODO some kind of return code to make sure this worked, error out,
       // etc
    }
 
    // removes more than one course section from a schedule
-   public function remove_course_sections($crns)
+   // course_sections can be an array of objects or CRNs, or a mixture of both
+   public function remove_course_sections($course_sections)
    {
-      foreach($crns as $crn)
-         $this->remove_course-section($crn);
+      foreach($course_sections as $course_section)
+         $this->remove_course-section($course_section);
 
       // TODO some kind of return code, as above
    }
@@ -132,12 +164,17 @@ class schedule extends ADOdb_Active_Record
    }
 
    // returns whether the schedule contains the indicated course_section
+   // course_section can be an object or a CRN
    public function contains_course_section($course_section)
    {
       global $SM_SQL;
 
+      if(is_numeric($course_section))
+         $results = $SM_SQL->GetAll("SELECT crn FROM schedule_course_section_map where schedule_id=? and crn=?", array($this->id, $course_section));
+      else
+         $results = $SM_SQL->GetAll("SELECT crn FROM schedule_course_section_map where schedule_id=? and crn=?", array($this->id, $course_section->crn));
+
       // TODO: can we optimize this?
-      $results = $SM_SQL->GetAll("SELECT crn FROM schedule_course_section_map where schedule_id=? and crn=?", array($this->id, $course_section->crn));
       return count($results);
    }
 
