@@ -4,6 +4,10 @@ Use of this source code is governed by an MIT-style license that can be
 found in the LICENSE file.
 *>]
 
+[<*
+Login form.
+*>]
+
 <h1>Login</h1>
 [<if isset($username)>]
    You are currently logged in as [<$username>]

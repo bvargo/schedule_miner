@@ -4,6 +4,10 @@ Use of this source code is governed by an MIT-style license that can be
 found in the LICENSE file.
 *>]
 
+[<*
+Create a user.
+*>]
+
 <h1>Create an Account</h1>
 <form action="[<$SM_ROOT>]/users/create" method="post">
    <table>

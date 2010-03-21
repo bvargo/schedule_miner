@@ -4,6 +4,10 @@ Use of this source code is governed by an MIT-style license that can be
 found in the LICENSE file.
 *>]
 
+[<*
+Change password.
+*>]
+
 [<if isset($user)>]
    <h1>Change password for [<$user->username>]</h1>
    [<if isset($update_success) and $update_success eq 1>]

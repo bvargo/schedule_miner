@@ -102,9 +102,6 @@ Display a schedule, given a schedule object or a list of course sections.
                                  $class_period->building->name);
    }
 
-   // the following should really go in the template, but smarty is really
-   // stupid
-
    // transform days "M, T, W, etc" into numbers (0 = Sunday)
    for($i = 0; $i < count($meeting_times); $i++)
    {
@@ -419,8 +416,6 @@ Display a schedule, given a schedule object or a list of course sections.
                      </div>
                   </li>
                [</foreach>]
-
-
             </ul>
             <div id="total-credit-hours">
                Total: [<$total_credit_hours>] credit hours

@@ -4,6 +4,10 @@ Use of this source code is governed by an MIT-style license that can be
 found in the LICENSE file.
 *>]
 
+[<*
+Displays a list of schedules
+*>]
+
 [<if count($SM_USER->schedules) eq 0>]
    <h1>You do not have any schedules yet!</h1>
    <h3>Please <a href="[<$SM_ROOT>]/schedules/create">create a schedule</a>.</h3>

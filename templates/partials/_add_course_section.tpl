@@ -1,4 +1,13 @@
 [<*
+Copyright 2009-2010 The Schedule Miner Authors
+Use of this source code is governed by an MIT-style license that can be
+found in the LICENSE file.
+*>]
+
+[<*
+Display a button to add a course section to the schedule.
+If the course ection is alrady in the schedule, display a message.
+
 Arguments:
    $course_section - course section to add - mandatory
    $button_text - text to put in the button - optional

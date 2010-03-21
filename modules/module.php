@@ -4,6 +4,8 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
+// module superclass
+
 class Module
 {
    protected $template_name = NULL;

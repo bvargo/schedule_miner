@@ -1,3 +1,13 @@
+[<*
+Copyright 2009-2010 The Schedule Miner Authors
+Use of this source code is governed by an MIT-style license that can be
+found in the LICENSE file.
+*>]
+
+[<*
+Display the homepage. Show departments, buildings, and instructors.
+*>]
+
 <h3>Departments:</h3>
 [<assign var="columns" value=$department_columns>]
 [<assign var="current_column" value="0">]

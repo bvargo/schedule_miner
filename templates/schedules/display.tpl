@@ -4,6 +4,11 @@ Use of this source code is governed by an MIT-style license that can be
 found in the LICENSE file.
 *>]
 
+[<*
+Displays a schedule, with options to edit the schedule if it belongs to the
+current user.
+*>]
+
 [<if isset($error)>]
    <h1>[<$error>]</h1>
 [<else>]

@@ -80,7 +80,7 @@ class Schedules extends Module
    {
       global $SM_USER;
 
-      // see if there is a POST request to create a user
+      // see if there is a POST request to create a schedule
       if(!empty($_POST) && isset($_POST['schedule_name']) && $_POST['schedule_name'] != "")
       {
          // create a schedule
@@ -114,13 +114,13 @@ class Schedules extends Module
 
       if(!isset($SM_ARGS[2]) && !isset($SM_USER))
       {
-         // if we are not provided an id, and there is no user logged in, 
+         // if we are not provided an id, and there is no user logged in,
          // redirect to the homepage
          redirect('');
       }
       else if(!isset($SM_ARGS[2]) && isset($SM_USER))
       {
-         // if we are not provided an id, but there is a user logged in, 
+         // if we are not provided an id, but there is a user logged in,
          // redirect to the active schedule
          $id = $SM_USER->active_schedule_id;
       }

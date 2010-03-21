@@ -4,6 +4,10 @@ Use of this source code is governed by an MIT-style license that can be
 found in the LICENSE file.
 *>]
 
+[<*
+Search interface
+*>]
+
 <form action="[<$SM_ROOT>]/courses/search" method="get">
    [<if isset($search_query)>]
       <input type="text" name="q" size="55" value="[<$search_query>]" />

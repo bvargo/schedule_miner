@@ -4,6 +4,10 @@ Use of this source code is governed by an MIT-style license that can be
 found in the LICENSE file.
 *>]
 
+[<*
+Interface to create a schedule
+*>]
+
 <h1>Create a Schedule</h1>
 <form action="[<$SM_ROOT>]/schedules/create" method="post">
    <table>

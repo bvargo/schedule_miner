@@ -4,6 +4,10 @@ Use of this source code is governed by an MIT-style license that can be
 found in the LICENSE file.
 *>]
 
+[<*
+Display a list of users
+*>]
+
 <h1>Users</h1>
 <table class="data">
    <thead>
