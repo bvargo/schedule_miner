@@ -29,7 +29,7 @@ found in the LICENSE file.
             <div class="menu-div">
                <ul class="menu menu-left">
                   <li><a href="[<$SM_ROOT>]">Home</a></li>
-                  <li><a href="[<$SM_ROOT>]/courses">Browse Courses</a></li>
+                  <li><a href="[<$SM_ROOT>]/courses">Browse</a></li>
                   [<*<li><a href="[<$SM_ROOT>]/builder">Automated Scheduler</a></li>*>]
                   <li><a href="[<$SM_ROOT>]/courses/search" id="search_link">Search</a></li>
                   <li><a href="[<$SM_ROOT>]/schedules">Saved Schedules</a></li>
