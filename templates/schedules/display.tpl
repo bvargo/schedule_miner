@@ -8,7 +8,7 @@ found in the LICENSE file.
    <h1>[<$error>]</h1>
 [<else>]
 
-   [<if isset($SM_USER) && $schedule->user eq $SM_USER>]
+   [<if isset($SM_USER) && $schedule->user->id eq $SM_USER->id>]
       [<if $SM_USER->active_schedule_id eq $schedule->id>]
          <h1>Your Schedule - [<$schedule->name>] (active schedule)</h1>
       [<else>]

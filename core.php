@@ -123,9 +123,8 @@ try {
    if(isset($_SESSION['username']))
    {
       $user = new user();
-      $results = $user->Find("username=?", array($_SESSION['username']));
-      if(count($results))
-         $SM_USER = $results[0];
+      if($user->load("username=?", array($_SESSION['username'])))
+         $SM_USER = $user;
    }
    else
    {

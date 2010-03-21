@@ -137,8 +137,7 @@ class Schedules extends Module
 
       // get the specified schedule
       $schedule = new schedule();
-      $results = $schedule->Find("id=?", array($id));
-      if(!count($results))
+      if(!$schedule->load("id=?", array($id)))
       {
          if(!isset($SM_ARGS[2]) && isset($SM_USER))
          {
@@ -150,10 +149,6 @@ class Schedules extends Module
             $this->args['error'] = "The requested schedule could not be found.";
          }
          return;
-      }
-      else
-      {
-         $schedule = $results[0];
       }
 
       // if the schedule is our schedule, it can be displayed

@@ -14,7 +14,7 @@ class Courses extends Module
       // show departments
       $show = smconfig_get("index_show_departments", "all");
       $departments = new department();
-      $departments = $departments->Find("", array());
+      $departments = $departments->find("", array());
       if($show == "all")
       {
          // show all departments
@@ -54,7 +54,7 @@ class Courses extends Module
       // show buildings
       $show = smconfig_get("index_show_buildings", "all");
       $buildings = new building();
-      $buildings = $buildings->Find("", array());
+      $buildings = $buildings->find("", array());
       if($show == "all")
       {
          // show all buildings
@@ -93,7 +93,7 @@ class Courses extends Module
       // show instructors
       $show = smconfig_get("index_show_instructors", "all");
       $instructors = new instructor();
-      $instructors = $instructors->Find("", array());
+      $instructors = $instructors->find("", array());
       if($show == "all")
       {
          $this->args["instructors"] = $instructors;
@@ -162,9 +162,11 @@ class Courses extends Module
          $this->template_name = "display_instructor";
 
          $instructor = new instructor();
-         $results = $instructor->Find("id=?", array($SM_ARGS[3]));
-         if(count($results))
-            $instructor = $results[0];
+         if(!$instructor->load("id=?", array($SM_ARGS[3])))
+         {
+            $this->args['error'] = "Requested instructor not found.";
+            return;
+         }
          $this->args['instructor'] = $instructor;
 
          if(!count($instructor->course_sections))
@@ -181,9 +183,11 @@ class Courses extends Module
          $this->template_name = "display_department";
 
          $department = new department();
-         $results = $department->Find("abbreviation=?", array($SM_ARGS[3]));
-         if(count($results))
-            $department = $results[0];
+         if(!$department->load("abbreviation=?", array($SM_ARGS[3])))
+         {
+            $this->args['error'] = "Requested department not found.";
+            return;
+         }
          $this->args['department'] = $department;
 
          if(!count($department->courses))
@@ -199,9 +203,11 @@ class Courses extends Module
          $this->args['room'] = $room;
 
          $building = new building();
-         $results = $building->Find("abbreviation=?", array($SM_ARGS[3]));
-         if(count($results))
-            $building = $results[0];
+         if(!$building->load("abbreviation=?", array($SM_ARGS[3])))
+         {
+            $this->args['error'] = "Requested room not found.";
+            return;
+         }
          $this->args['building'] = $building;
 
          // create a list of courses in the room and class periods in the room
@@ -233,9 +239,11 @@ class Courses extends Module
          $this->template_name = "display_building";
 
          $building = new building();
-         $results = $building->Find("abbreviation=?", array($SM_ARGS[3]));
-         if(count($results))
-            $building = $results[0];
+         if(!$building->load("abbreviation=?", array($SM_ARGS[3])))
+         {
+            $this->args['error'] = "Requested building not found.";
+            return;
+         }
          $this->args['building'] = $building;
 
          // create a list of courses in the room
@@ -257,17 +265,25 @@ class Courses extends Module
          $this->template_name = "display_section";
 
          $department = new department();
-         $results = $department->Find("abbreviation=?", array($SM_ARGS[2]));
-         if(count($results))
-            $department = $results[0];
+         if(!$department->load("abbreviation=?", array($SM_ARGS[2])))
+         {
+            $this->args['error'] = "Requested department not found.";
+            return;
+         }
+
          $course = new course();
-         $results = $course->Find("department_id=? and course_number=?", array($department->id, $SM_ARGS[3]));
-         if(count($results))
-            $course = $results[0];
+         if(!$course->load("department_id=? and course_number=?", array($department->id, $SM_ARGS[3])))
+         {
+            $this->args['error'] = "Requested course not found.";
+            return;
+         }
+
          $course_section = new course_section();
-         $results = $course_section->Find("course_id=? and section=?", array($course->id, $SM_ARGS[4]));
-         if(count($results))
-            $course_section = $results[0];
+         if(!$course_section->load("course_id=? and section=?", array($course->id, $SM_ARGS[4])))
+         {
+            $this->args['error'] = "Requested course section not found.";
+            return;
+         }
 
          $this->args["course"] = $course;
          $this->args["course_section"] = $course_section;
@@ -283,14 +299,20 @@ class Courses extends Module
          $this->template_name = "display_course";
 
          $department = new department();
-         $results = $department->Find("abbreviation=?", array($SM_ARGS[2]));
-         if(count($results))
-            $department = $results[0];
+         ;
+         if(!$department->load("abbreviation=?", array($SM_ARGS[2])))
+         {
+            $this->args['error'] = "Requested department not found.";
+            return;
+         }
          $this->args["department"] = $department;
+
          $course = new course();
-         $results = $course->Find("department_id=? and course_number=?", array($department->id, $SM_ARGS[3]));
-         if(count($results))
-            $course = $results[0];
+         if(!$course->load("department_id=? and course_number=?", array($department->id, $SM_ARGS[3])))
+         {
+            $this->args['error'] = "Requested course not found.";
+            return;
+         }
 
          $this->args["course"] = $course;
 
@@ -305,9 +327,11 @@ class Courses extends Module
          $this->template_name = "display_section";
 
          $course_section = new course_section();
-         $results = $course_section->Find("crn=?", array($SM_ARGS[2]));
-         if(count($results))
-            $course_section = $results[0];
+         if(!$course_section->load("crn=?", array($SM_ARGS[2])))
+         {
+            $this->args['error'] = "Requested course section not found.";
+            return;
+         }
          $course = $course_section->course;
 
          $this->args["course"] = $course;

@@ -89,11 +89,10 @@ class Search
       foreach($matches as $section => $document_info)
       {
          $s = new course_section();
-         $results = $s->Find("id=?", array($section));
-         if(count($results))
+         if($s->load("id=?", array($section)))
          {
-            $results[0]->weight = $document_info["weight"];
-            $course_sections[] = $results[0];
+            $s->weight = $document_info["weight"];
+            $course_sections[] = $s;
          }
       }
 

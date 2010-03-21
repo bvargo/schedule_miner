@@ -16,7 +16,7 @@ class Users extends Module
    public function show_list()
    {
       $user = new user();
-      $results = $user->Find('');
+      $results = $user->find("");
       $this->args['users'] = $results;
    }
 
@@ -35,10 +35,7 @@ class Users extends Module
       {
          // a username was provided
          $user = new user();
-         $results = $user->Find("username=?", array($SM_ARGS[2]));
-         if(count($results))
-            $user = $results[0];
-         else
+         if(!$user->load("username=?", array($SM_ARGS[2])))
             $user = null;
       }
 
@@ -86,12 +83,12 @@ class Users extends Module
             // FIXME - check for all parameters
             $user = new user();
 
-            $results = $user->Find("username=?", array($_POST['username']));
-            if(count($results))
-            {
-               // user already exists
-               $user = $results[0];
-            }
+            // TODO - should we throw an error instead of proceeding if the
+            // user already exists?
+            // see if the user already exists
+            // if not, $user is still a new user
+            $user->load("username=?", array($_POST['username']));
+
             $user->name = $_POST['name'];
             $user->username = $_POST['username'];
             $user->email = $_POST['email'];
@@ -127,10 +124,7 @@ class Users extends Module
       {
          // a username was provided
          $user = new user();
-         $results = $user->Find("username=?", array($SM_ARGS[2]));
-         if(count($results))
-            $user = $results[0];
-         else
+         if(!$user->load("username=?", array($SM_ARGS[2])))
             $user = null;
       }
 
@@ -162,12 +156,9 @@ class Users extends Module
       if(!empty($_POST))
       {
          $user = new user();
-
-         $results = $user->Find("username=?", array($_POST['username']));
-         if(count($results))
+         if($user->load("username=?", array($_POST['username'])))
          {
             // user found, check the password
-            $user = $results[0];
             if($user->check_password($_POST['password']))
             {
                // success

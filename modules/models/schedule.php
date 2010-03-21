@@ -48,11 +48,8 @@ class schedule extends ADOdb_Active_Record
 
          // get the section object
          $course_section = new course_section();
-         $result2 = $course_section->Find("crn=?", array($crn));
-
-         // FIXME: this should not return more than 1
-         if(count($result2) >= 1)
-            $course_sections[] = $result2[0];
+         if($course_section->load("crn=?", array($crn)))
+            $course_sections[] = $course_section;
       }
 
       return $course_sections;
@@ -72,8 +69,7 @@ class schedule extends ADOdb_Active_Record
 
       // make sure the crn is valid
       $course_section = new course_section();
-      $results = $course_section->Find('crn=?', array($crn));
-      if(!count($results))
+      if(!$course_section->load('crn=?', array($crn)))
       {
          // crn not found - error
          d('Invalid CRN added to schedule');

@@ -46,20 +46,6 @@
 class Import extends Module
 {
 
-   public function test()
-   {
-      $department = new department();
-      $result = $department->Find("abbreviation='CSCI'");
-      $department = $result[0];
-
-      $course = new course();
-      $result = $course->Find("course_number=341 and department_id=?", array($department->id));
-      $course = $result[0];
-
-      print_r($section = $course->course_sections[0]->instructor->course_sections);
-      print("\n");
-   }
-
    // the main index action that makes the import module go vrooom
    public function index()
    {
@@ -167,55 +153,36 @@ class Import extends Module
 
       // departments - add if it does not exist already
       $dept = new department();
-      $result = $dept->Find("abbreviation=?", array($department));
-      if(!count($result))
+      if(!$dept->load("abbreviation=?", array($department)))
       {
          $dept->abbreviation = $department;
-         $result = $dept->save();
-      }
-      else
-      {
-         $dept = $result[0];
+         $dept->save();
       }
 
       // instructor - add if it does not exist already
       $instruct = new instructor();
-      $result = $instruct->Find("name=?", array($instructor));
-      if(!count($result))
+      if(!$instruct->load("name=?", array($instructor)))
       {
          $instruct->name = $instructor;
-         $result = $instruct->save();
-      }
-      else
-      {
-         $instruct = $result[0];
+         $instruct->save();
       }
 
-      // add the course, if it does not exist already
+      // add the course
+      // if the course exists already, modify it
       $course = new course();
-      $result = $course->Find("course_number=? and department_id=?", array($course_number, $dept->id));
-      if(count($result))
-      {
-         $course = $result[0];
-         if(count($result) > 1)
-            warn("Course search for course_number $course_number and department_id $department_id matches multiple records");
-      }
+      // load the course if it exists - if it doesn't, this does nothing
+      $course->load("course_number=? and department_id=?", array($course_number, $dept->id));
       // add/modify the course
       $course->department_id = $dept->id;
       $course->course_number = $course_number;
       $course->credit_hours = floatval($credit_hours);
       $course->save();
 
-      // add the course section, if it does not exist already - update
-      // otherwise
+      // add the course section
+      // if the course section exists alrady, modify it
       $course_section = new course_section();
-      $result = $course_section->Find("course_id=? and section=?", array($course->id, $section_letter));
-      if(count($result))
-      {
-         $course_section = $result[0];
-         if(count($result) > 1)
-            warn("Course section search for course_id $course->id matches multiple records");
-      }
+      // load the course section if it exists - if it doesn't, this does nothing
+      $course_section->load("course_id=? and section=?", array($course->id, $section_letter));
       // add/modify the course section
       $course_section->crn = $crn;
       $course_section->course_id = $course->id;
@@ -223,7 +190,6 @@ class Import extends Module
       $course_section->section = $section_letter;
       $course_section->name = $title;
       $course_section->save();
-
 
       // class periods:
       // building, course_section, class_period
@@ -234,15 +200,10 @@ class Import extends Module
 
          // add the building, it does not exist already
          $build = new building();
-         $result = $build->Find("abbreviation=?", array($time[3]));
-         if(!count($result))
+         if(!$build->load("abbreviation=?", array($time[3])))
          {
             $build->abbreviation = $time[3];
-            $result = $build->save();
-         }
-         else
-         {
-            $build = $result[0];
+            $build->save();
          }
 
          // add the class period, if it does not exist already - if it does
@@ -251,7 +212,7 @@ class Import extends Module
          $class_period = new class_period();
          if($first_run)
          {
-            $results = $class_period->Find("section_id=?", array($course_section->id));
+            $results = $class_period->find("section_id=?", array($course_section->id));
             if(count($results))
             {
                // a previous class period was found - remove all the old
