@@ -140,7 +140,15 @@ class Schedules extends Module
       $results = $schedule->Find("id=?", array($id));
       if(!count($results))
       {
-         $this->args['error'] = "The requested schedule could not be found.";
+         if(!isset($SM_ARGS[2]) && isset($SM_USER))
+         {
+            // tried to get the active schedule, but it doesn't exist
+            $this->args['error'] = "You do not have a valid active schedule.";
+         }
+         else
+         {
+            $this->args['error'] = "The requested schedule could not be found.";
+         }
          return;
       }
       else

@@ -33,6 +33,9 @@ found in the LICENSE file.
                   [<*<li><a href="[<$SM_ROOT>]/builder">Automated Scheduler</a></li>*>]
                   <li><a href="[<$SM_ROOT>]/courses/search" id="search_link">Search</a></li>
                   <li><a href="[<$SM_ROOT>]/schedules">Saved Schedules</a></li>
+                  [<if count($SM_USER->schedules)>]
+                     <li><a href="[<$SM_ROOT>]/schedules/display">Active Schedule</a></li>
+                  [</if>]
                </ul>
                <ul class="menu menu-right">
                   <li><a href="[<$SM_ROOT>]/users/logout">Logout</a></li>
