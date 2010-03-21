@@ -15,11 +15,6 @@ class Schedules extends Module
       redirect('schedules/show_list');
    }
 
-   private static function byname($a, $b)
-   {
-      return strcasecmp($a->name, $b->name);
-   }
-
    public function show_list()
    {
       global $SM_USER;
@@ -29,7 +24,7 @@ class Schedules extends Module
       // if the user does not have any schedules, set the id to -1
       $schedule_ids = array();
       $schedules = $SM_USER->schedules;
-      usort($schedules, array("Schedules", "byname"));
+      usort($schedules, sortby("name"));
       foreach($schedules as $schedule)
       {
          $schedule_ids[] = $schedule->id;
