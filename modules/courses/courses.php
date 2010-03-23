@@ -124,7 +124,13 @@ class Courses extends Module
    // serach module
    public function search()
    {
-      global $SM_QUERY;
+      global $SM_QUERY, $SM_ARGS;
+
+      if(isset($SM_ARGS[2]) && $SM_ARGS[2] == "help")
+      {
+         $this->args['display_help'] = 1;
+         return;
+      }
 
       // see if there is a GET request with a search
       if(array_key_exists("q", $SM_QUERY))
