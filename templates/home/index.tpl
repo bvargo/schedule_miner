@@ -51,10 +51,18 @@ perfect schedule, without having to navigate Trailhead.</p>
    <li>Let the scheduler show you all the options</li>
 </ol>*>]
 
-[<if isset($SM_USER)>]
-   <h1 class="center"><a href="[<$SM_ROOT>]/search">Get Started Now</a></h1>
-[</if>]
 
+[<if isset($SM_USER)>]
+   <h1>Need Help? Have a suggestion?</h1>
+   <p>Take a look at the <a href="[<$SM_ROOT>]/faq">FAQ</a>. If your question is
+   not answered, or you have a suggestion, please visit the <a href="[<$SM_ROOT>]/suggestions">suggestions page</a>.</p>
+
+   [<if count($SM_USER->schedules) eq 0>]
+      <h1 class="center"><a href="[<$SM_ROOT>]/schedules/create">Create a Schedule</a></h1>
+   [<else>]
+      <h1 class="center"><a href="[<$SM_ROOT>]/courses">Browse Courses</a> or <a href="[<$SM_ROOT>]/schedules">View Schedules</a>.</h1>
+   [</if>]
+[</if>]
 
 <script type="text/javascript">
    document.getElementById('login_form').username.focus();
