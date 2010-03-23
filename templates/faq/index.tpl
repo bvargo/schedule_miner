@@ -46,6 +46,14 @@
    sections. Generally, you should set your active schedule to the schedule
    with which you are currently working.</dd>
 
+   <dt>In the credit hours column, what is the number in parenthesis?</dt>
+   <dd>If you have multiple sections of the same course in your schedule, for
+   example if you are trying to decide which section you like best, the value
+   in parenthesis is the number of credit hours in your schedule when each
+   course is only counted once. This prevents double counting of courses. If
+   you do not have the same course in your schedule multiple times, you will
+   not see this value.</dd>
+
    <dt>Is there an advanced search feature?</dt>
    <dd>The search interface supports complex queries with boolean operators.
    Please see the <a href="[<$SM_ROOT>]/courses/search/help">search help</a> page.</dd>

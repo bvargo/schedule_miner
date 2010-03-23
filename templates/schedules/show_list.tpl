@@ -35,7 +35,13 @@ Displays a list of schedules
                         <a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->name>]</a> - <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->crn>]</a><br />
                      [</foreach>]
                   </td>
-                  <td class="center">[<$schedule->credit_hours()>]</td>
+                  [<assign var="credit_hours" value=$schedule->credit_hours()>]
+                  [<assign var="credit_hours_unique" value=$schedule->credit_hours_unique()>]
+                  [<if $credit_hours eq $credit_hours_unique>]
+                     <td class="center">[<$credit_hours>]</td>
+                  [<else>]
+                     <td class="center">[<$credit_hours>] ([<$credit_hours_unique>])</td>
+                  [</if>]
                   [<if $schedule->public eq 1>]
                      <td class="center"><input type="checkbox" name="public[<$schedule->id>]" checked="checked" /></td>
                   [<else>]

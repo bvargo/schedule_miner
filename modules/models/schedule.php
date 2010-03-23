@@ -178,12 +178,30 @@ class schedule extends ADOdb_Active_Record
       return count($results);
    }
 
+   // returns the number of credit hours in a course
    public function credit_hours()
    {
       $credit_hours = 0;
       foreach($this->course_sections() as $course_section)
       {
          $credit_hours += $course_section->course->credit_hours;
+      }
+      return $credit_hours;
+   }
+
+   // returns the number of credit hours in a course, where each course is
+   // only counted once if multiple sections are in the same schedule
+   public function credit_hours_unique()
+   {
+      $credit_hours = 0;
+      $courses = array();
+      foreach($this->course_sections() as $course_section)
+      {
+         if(!in_array($course_section->course->id, $courses))
+         {
+            $courses[] = $course_section->course->id;
+            $credit_hours += $course_section->course->credit_hours;
+         }
       }
       return $credit_hours;
    }
