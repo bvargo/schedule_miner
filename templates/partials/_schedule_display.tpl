@@ -405,14 +405,23 @@ Display a schedule, given a schedule object or a list of course sections.
                   [<assign var=crn value=$course_section->crn>]
                   <li style="background-color: [<$color_assign[$crn]>]" class="editable">
                      <div class="course">
-                        <h3 class="number">
-                           <a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->course->department->abbreviation>]-[<$course_section->course->course_number>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->section>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">([<$course_section->crn>])</a>
-                        </h3>
-                        <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->name>]</a></h4>
-                        <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></h4>
-                        [<math equation="credit_hours" credit_hours=$course_section->course->credit_hours format="%.1f" assign=credit_hours>]
-
-                        <div class="credit-hours">[<$credit_hours>] <abbr title="Credit Hours">CR</abbr></div>
+                        [<if isset($SM_USER)>]
+                           <h3 class="number">
+                              <a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->course->department->abbreviation>]-[<$course_section->course->course_number>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">[<$course_section->section>]</a> <a href="[<$SM_ROOT>]/courses/display/[<$course_section->crn>]">([<$course_section->crn>])</a>
+                           </h3>
+                           <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->name>]</a></h4>
+                           <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></h4>
+                           [<math equation="credit_hours" credit_hours=$course_section->course->credit_hours format="%.1f" assign=credit_hours>]
+                           <div class="credit-hours">[<$credit_hours>] <abbr title="Credit Hours">CR</abbr></div>
+                        [<else>]
+                           <h3 class="number">
+                              [<$course_section->course->department->abbreviation>]-[<$course_section->course->course_number>] [<$course_section->section>] ([<$course_section->crn>])
+                           </h3>
+                           <h4 class="name">[<$course_section->name>]</h4>
+                           <h4 class="name">[<$course_section->instructor->name>]</h4>
+                           [<math equation="credit_hours" credit_hours=$course_section->course->credit_hours format="%.1f" assign=credit_hours>]
+                           <div class="credit-hours">[<$credit_hours>] <abbr title="Credit Hours">CR</abbr></div>
+                        [</if>]
                      </div>
                   </li>
                [</foreach>]
