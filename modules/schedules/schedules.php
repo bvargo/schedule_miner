@@ -149,10 +149,13 @@ class Schedules extends Module
       // if the schedule is our schedule, it can be displayed
       // or, if the schedule is public, it can be displayed
       // otherwise, don't display the schedule
-      if(!$schedule->public && isset($SM_USER) && $schedule->user_id != $SM_USER->id)
+      if(!$schedule->public)
       {
-         $this->args['error'] = "The requested schedule is private.";
-         return;
+        if(!(isset($SM_USER) && $schedule->user_id == $SM_USER->id))
+         {
+            $this->args['error'] = "The requested schedule is private.";
+            return;
+         }
       }
 
       // check for updated schedule name
