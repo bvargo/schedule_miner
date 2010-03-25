@@ -1,0 +1,15 @@
+/*
+ *********************************
+ * suggestion form
+ *********************************
+ */
+
+#suggestion_box {
+   width: 95%;
+   height: 200px;
+   text-align: left;
+}
+
+#suggestion_div {
+   text-align: center;
+}

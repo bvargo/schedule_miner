@@ -36,7 +36,7 @@ Main page layout
                   <li><a href="[<$SM_ROOT>]/courses">Browse</a></li>
                   [<*<li><a href="[<$SM_ROOT>]/builder">Automated Scheduler</a></li>*>]
                   <li><a href="[<$SM_ROOT>]/courses/search" id="search_link">Search</a></li>
-                  <li><a href="[<$SM_ROOT>]/schedules">Saved Schedules</a></li>
+                  <li><a href="[<$SM_ROOT>]/schedules">Schedules</a></li>
                   [<if count($SM_USER->schedules)>]
                      <li><a href="[<$SM_ROOT>]/schedules/display">Active Schedule</a></li>
                   [</if>]
@@ -44,6 +44,7 @@ Main page layout
                <ul class="menu menu-right">
                   <li><a href="[<$SM_ROOT>]/users/logout">Logout</a></li>
                   <li><a href="[<$SM_ROOT>]/users/edit">Preferences</a></li>
+                  <li><a href="[<$SM_ROOT>]/suggestions">Suggestions</a></li>
                </ul>
             </div>
             <div id="search_bar">
