@@ -59,6 +59,10 @@ function __autoload($class_name)
    // since the module map does not exist, we need to load the mapper manually
    require_once('modules/core/modulemapper.class.php');
 
+   // make sure the module map is loaded
+   if(!ModuleMapper::loaded())
+      ModuleMapper::load();
+
    d("Loading $class_name");
    $class_file = '';
 

@@ -7,9 +7,17 @@
 
 // generate the module map
 
-class ModuleMapper {
+class ModuleMapper
+{
 
    static $map = array();
+
+   static $loaded = false;
+
+   public static function loaded()
+   {
+      return ModuleMapper::$loaded;
+   }
 
    private static function process_dir($dir)
    {
@@ -69,7 +77,7 @@ class ModuleMapper {
    }
 
    // loads the module map
-   public static function load($generate=0)
+   public static function load($generate=false)
    {
       global $SM_MODULE_MAP;
 
@@ -98,6 +106,8 @@ class ModuleMapper {
       {
          error('Could not load module map: could not unserialize contents of file ' . $filename);
       }
+
+      ModuleMapper::$loaded = 1;
 
       d('Module map successfully loaded', 8);
    }
