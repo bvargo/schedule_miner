@@ -11,7 +11,6 @@ class Home extends Module
    function index()
    {
    }
-
 }
 
 ?>

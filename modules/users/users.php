@@ -8,13 +8,28 @@ class Users extends Module
 {
    function index()
    {
-      redirect("users/show_list");
+      global $SM_USER;
+
+      if(!isset($SM_USER))
+         redirect("users/create");
+      else if($SM_USER->admin)
+         redirect("users/show_list");
+      else
+         redirect("users/edit");
    }
 
    // shows a list of users
    // no arguments
    public function show_list()
    {
+      global $SM_USER;
+
+      if(!$SM_USER->admin)
+      {
+         $this->args['error'] = "You are not an admin.";
+         return;
+      }
+
       $user = new user();
       $results = $user->find("");
       $this->args['users'] = $results;
@@ -34,6 +49,14 @@ class Users extends Module
       else
       {
          // a username was provided
+
+         // make sure the user is an admin to edit someone else
+         if(!$SM_USER->admin && $SM_USER->username != $SM_ARGS[2])
+         {
+            $this->args['error'] = "You are not an admin.";
+            return;
+         }
+
          $user = new user();
          if(!$user->load("username=?", array($SM_ARGS[2])))
             $user = null;
@@ -65,37 +88,69 @@ class Users extends Module
    // if arguments, then add the user
    public function create()
    {
-      global $SM_ARGS;
+      global $SM_ARGS, $SM_USER;
+
+      if(isset($SM_USER) && !$SM_USER->admin)
+      {
+         // if a user is logged in and they are not an admin, redirect to the
+         // edit page
+         redirect("users/edit");
+      }
 
       // see if there is a POST request to create a user
       if(!empty($_POST))
       {
          // create the user
 
+         // make sure all the fields are present and filled
+         if(!isset($_POST['username']) ||
+            !isset($_POST['name']) ||
+            !isset($_POST['email']) ||
+            !isset($_POST['password']) ||
+            !isset($_POST['password_verify']) ||
+            trim($_POST['username']) == "" ||
+            trim($_POST['name']) == "" ||
+            trim($_POST['email']) == "" ||
+            trim($_POST['password']) == "" ||
+            trim($_POST['password_verify']) == "")
+         {
+            $this->args['error'] = "You must complete all of the fields.";
+            return;
+         }
+
          // the two passwords must be the same
          if($_POST['password'] != $_POST['password_verify'])
          {
             // passwords do not match
-            // FIXME
+            $this->args['error'] = "The entered passwords do not match.";
+            return;
          }
          else
          {
-            // FIXME - check for all parameters
             $user = new user();
 
-            // TODO - should we throw an error instead of proceeding if the
-            // user already exists?
             // see if the user already exists
+            // if so, display an error message
             // if not, $user is still a new user
             $user->load("username=?", array($_POST['username']));
-
-            $user->name = $_POST['name'];
-            $user->username = $_POST['username'];
-            $user->email = $_POST['email'];
-            $user->password = $_POST['password'];
-            $user->admin = 0;
-            $user->save();
-            redirect("users/show_list");
+            if($user->id)
+            {
+               $this->args['error'] = "This username is already in use.";
+               return;
+            }
+            else
+            {
+               $user->name = $_POST['name'];
+               $user->username = $_POST['username'];
+               $user->email = $_POST['email'];
+               $user->password = $_POST['password'];
+               $user->admin = 0;
+               $user->save();
+               if(isset($SM_USER) && $SM_USER->admin)
+                  redirect("users/show_list");
+               else
+                  redirect();
+            }
          }
       }
       else
@@ -123,6 +178,14 @@ class Users extends Module
       else
       {
          // a username was provided
+
+         // make sure the user is an admin to edit someone else
+         if(!$SM_USER->admin && $SM_USER->username != $SM_ARGS[2])
+         {
+            $this->args['error'] = "You are not an admin.";
+            return;
+         }
+
          $user = new user();
          if(!$user->load("username=?", array($SM_ARGS[2])))
             $user = null;

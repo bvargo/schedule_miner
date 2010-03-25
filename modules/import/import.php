@@ -49,19 +49,29 @@ class Import extends Module
    // the main index action that makes the import module go vrooom
    public function index()
    {
+      global $SM_USER;
+
+      if(!$SM_USER->admin)
+      {
+         $this->args['error'] = "You are not an admin.";
+         return;
+      }
+
       // TODO: clean this up and put it somewhere
       // load the file
       $file = "/tmp/courses";
-      $file_h = fopen($file, "r");
-      $raw_data = fread($file_h, filesize($file));
-      fclose($file_h);
-      $records = self::create_records($raw_data);
-      $this->args['imported_classes'] = self::process_records($records);
-
-//      $building = new building();
-//      print_r($building->find("abbreviation=? or abbreviation=?", array('MH', 'BB')));
-//      echo "\n";
-//      print_r($building);
+      if(is_readable($file))
+      {
+         $file_h = fopen($file, "r");
+         $raw_data = fread($file_h, filesize($file));
+         fclose($file_h);
+         $records = self::create_records($raw_data);
+         $this->args['imported_classes'] = self::process_records($records);
+      }
+      else
+      {
+         $this->args['error'] = "The courses file ($file) either does not exist or is not readable.";
+      }
    }
 
    // process all of the records

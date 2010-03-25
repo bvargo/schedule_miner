@@ -57,7 +57,6 @@ class Error
       global $SM_LOG;
 
       $out = 'Fatal error: '.$message;
-      $out .= "\r\n".'If this problem persists, please contact the administrator.';
 
       if (!isset($SM_LOG))
       {
@@ -65,10 +64,13 @@ class Error
          die();
       }
 
+      // log the error
+      $SM_LOG->log_error($out);
+
       //TODO: make this go somewhere in the template with buffering instead of
       //printing
+      $out .= "<br />".'If this problem persists, please contact the administrator.';
       print($out."\n");
-      $SM_LOG->log_error($out);
 
       die();
    }

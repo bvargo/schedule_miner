@@ -21,39 +21,44 @@ class Module
    function __destruct()
    {
       global $SM_MODULE, $SM_ACTION, $SM_FS_ROOT, $SM_RR;
-      $display = new Display();
 
-      // TODO: check for various output formats here (html, json, etc) and
-      // modify the template filename accordingly
-      $template = $this->template_name.".tpl";
+      // only try to display a template if the action is valid
+      if((is_callable(array($this, $SM_ACTION)) && substr($SM_ACTION, 0, 1) != "_") || is_callable(array($this, "unknown_action")))
+      {
+         $display = new Display();
 
-      // set the title
-      if(array_key_exists('title', $this->args))
-         $this->args['title'] .= " - ".smconfig_get('page_title');
-      else
-         $this->args['title'] = smconfig_get('page_title');
+         // TODO: check for various output formats here (html, json, etc) and
+         // modify the template filename accordingly
+         $template = $this->template_name.".tpl";
 
-      // setup additional css array
+         // set the title
+         if(array_key_exists('title', $this->args))
+            $this->args['title'] .= " - ".smconfig_get('page_title');
+         else
+            $this->args['title'] = smconfig_get('page_title');
 
-      // TODO: the module has set additional css files already
-      // if it's a full path, include it in addition to the found css
-      // files
-      // if it isn't a full path, find the requested file and make the
-      // reference a full path
+         // setup additional css array
 
-      // look for module-specific css
-      if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE.css"))
-         $this->args['css'][] = $SM_RR . "/css/$SM_MODULE.css";
+         // TODO: the module has set additional css files already
+         // if it's a full path, include it in addition to the found css
+         // files
+         // if it isn't a full path, find the requested file and make the
+         // reference a full path
 
-      // look for action-specific css
-      if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE/$SM_ACTION.css"))
-         $this->args['css'][] = $SM_RR . "/css/$SM_MODULE/$SM_ACTION.css";
+         // look for module-specific css
+         if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE.css"))
+            $this->args['css'][] = $SM_RR . "/css/$SM_MODULE.css";
 
-      // display the page template
-      $display->smarty_assign('CONTENT', $display->fetch_template($SM_MODULE, $template, $this->args));
+         // look for action-specific css
+         if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE/$SM_ACTION.css"))
+            $this->args['css'][] = $SM_RR . "/css/$SM_MODULE/$SM_ACTION.css";
 
-      // TODO: theming would be here - just select a different page template
-      $display->display_template('core', 'page.tpl', $this->args);
+         // display the page template
+         $display->smarty_assign('CONTENT', $display->fetch_template($SM_MODULE, $template, $this->args));
+
+         // TODO: theming would be here - just select a different page template
+         $display->display_template('core', 'page.tpl', $this->args);
+      }
    }
 }
 

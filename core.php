@@ -161,7 +161,7 @@ try {
    {
       // TODO: better error message for someone trying to exploit this
       if(!safe_name($SM_ARGS[0]))
-         error("Invalid module");
+         error("Invalid action");
       $SM_ACTION = $SM_ARGS[1];
    }
 
@@ -179,25 +179,22 @@ try {
 
    // instantiate the module
    $module = new $SM_MODULE();
-   if(!$module instanceof Module)
-   {
-      // module does not exist, or is not complete
-      error("Error loading module");
-   }
 
-   // invoke the function, if it exists
-   // if the action does not exist, call module->no_action() or throw an
+   // invoke the function, if it exists and is callable and is not an internal
+   // function (begins with _)
+   // if the action does not exist, call module->unknown_action() or throw an
    // error
-   if(method_exists($module, $SM_ACTION))
+   if($module instanceof Module && is_callable(array($module, $SM_ACTION)) && substr($SM_ACTION, 0, 1) != "_")
    {
       $module->$SM_ACTION();
    }
-   else if(method_exists($module, "no_action"))
+   else if($module instanceof Module && is_callable(array($module, "unknown_action")))
    {
       $module->unknown_action();
    }
    else
    {
+      unset($module);
       error("Invalid action");
    }
 

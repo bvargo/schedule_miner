@@ -119,7 +119,7 @@ class schedule extends ADOdb_Active_Record
    {
       global $SM_SQL;
 
-      // if this is only a temporary object, and is not from the database, do 
+      // if this is only a temporary object, and is not from the database, do
       // not allow course_sections
       // FIXME
       if(!$this->id)

@@ -9,6 +9,9 @@ Create a user.
 *>]
 
 <h1>Create an Account</h1>
+[<if isset($error)>]
+   <h3>[<$error>]</h3>
+[</if>]
 <form action="[<$SM_ROOT>]/users/create" method="post">
    <table>
       <tr>
@@ -21,11 +24,11 @@ Create a user.
       </tr>
       <tr>
          <td>Name:</td>
-         <td><input type="text" name="name" value="[<$user->name>]" /></td>
+         <td><input type="text" name="name" value="" /></td>
       </tr>
       <tr>
          <td>Email:</td>
-         <td><input type="text" name="email" value="[<$user->email>]" /></td>
+         <td><input type="text" name="email" value="" /></td>
       </tr>
       <tr>
          <td>Password:</td>
@@ -38,6 +41,7 @@ Create a user.
    </table>
    <input type="submit" value="Create Account" />
 </form>
-TODO: if admin
-<br />
-<a href="[<$SM_ROOT>]/users/show_list">List of users</a>
+[<if isset($SM_USER) && $SM_USER->admin>]
+   <br />
+   <a href="[<$SM_ROOT>]/users/show_list">List of users</a>
+[</if>]

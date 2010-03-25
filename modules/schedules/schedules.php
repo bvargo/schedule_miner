@@ -81,7 +81,7 @@ class Schedules extends Module
       global $SM_USER;
 
       // see if there is a POST request to create a schedule
-      if(!empty($_POST) && isset($_POST['schedule_name']) && $_POST['schedule_name'] != "")
+      if(!empty($_POST) && isset($_POST['schedule_name']) && trim($_POST['schedule_name']) != "")
       {
          // create a schedule
          $schedule = new schedule();
@@ -116,7 +116,7 @@ class Schedules extends Module
       {
          // if we are not provided an id, and there is no user logged in,
          // redirect to the homepage
-         redirect('');
+         redirect();
       }
       else if(!isset($SM_ARGS[2]) && isset($SM_USER))
       {
@@ -147,11 +147,12 @@ class Schedules extends Module
       }
 
       // if the schedule is our schedule, it can be displayed
-      // or, if the schedule is public, it can be displayed
+      // if the schedule is public, it can be displayed
+      // if the current user is an admin, it can be displayed
       // otherwise, don't display the schedule
       if(!$schedule->public)
       {
-        if(!(isset($SM_USER) && $schedule->user_id == $SM_USER->id))
+         if(!(isset($SM_USER) && ($schedule->user_id == $SM_USER->id || $SM_USER->admin)))
          {
             $this->args['error'] = "The requested schedule is private.";
             return;
@@ -165,28 +166,32 @@ class Schedules extends Module
          $schedule->save();
       }
 
-      // check for the modification of any CRNs
-      if(array_key_exists('sections', $_POST) && $schedule->user_id == $SM_USER->id)
+      // the schedule can only be changed if a user is logged in
+      if(isset($SM_USER))
       {
-         // create an array of CRNs
-         // split on any number of spaces or commas
-         $crns = preg_split('/[\s,]+/', $_POST['sections']);
+         // check for the modification of any CRNs
+         if(array_key_exists('sections', $_POST) && $schedule->user_id == $SM_USER->id)
+         {
+            // create an array of CRNs
+            // split on any number of spaces or commas
+            $crns = preg_split('/[\s,]+/', $_POST['sections']);
 
-         // add the course section - if it isn't valid, nothing will change
-         $schedule->remove_all_course_sections();
-         $schedule->add_course_sections($crns);
-         $schedule->save();
-      }
+            // add the course section - if it isn't valid, nothing will change
+            $schedule->remove_all_course_sections();
+            $schedule->add_course_sections($crns);
+            $schedule->save();
+         }
 
-      // check for the addition of a CRN (used by other pages to add a section)
-      if(array_key_exists('add', $_POST) && $schedule->user_id == $SM_USER->id)
-      {
-         // get the crn
-         $crn = trim($_POST['add']);
+         // check for the addition of a CRN (used by other pages to add a section)
+         if(array_key_exists('add', $_POST) && $schedule->user_id == $SM_USER->id)
+         {
+            // get the crn
+            $crn = trim($_POST['add']);
 
-         // add the course section - if it isn't valid, nothing will change
-         $schedule->add_course_section($crn);
-         $schedule->save();
+            // add the course section - if it isn't valid, nothing will change
+            $schedule->add_course_section($crn);
+            $schedule->save();
+         }
       }
 
       // create a list of course sections, comma separated
