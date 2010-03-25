@@ -87,9 +87,9 @@ class Search
       if($this->check_error($results))
          return false;
 
-      $matches = $results['matches'];
-
-      if(empty($matches))
+      if(isset($results['matches']) && !empty($results['matches']))
+         $matches = $results['matches'];
+      else
          return array();
 
       $course_sections = array();
