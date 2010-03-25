@@ -69,6 +69,13 @@ class Users extends Module
          // see if there is a POST request to update a user
          if(!empty($_POST))
          {
+            // check to make sure the email is valid
+            if(!valid_email($_POST['email']))
+            {
+               $this->args['invalid_email'] = 1;
+               return;
+            }
+
             // there is data - update the user and pass the updated user to the
             // template
             $user->name = $_POST['name'];
@@ -118,39 +125,44 @@ class Users extends Module
             return;
          }
 
+         // email format must be valid format
+         if(!valid_email($_POST['email']))
+         {
+            $this->args['error'] = "The email address is not valid.";
+            return;
+         }
+
          // the two passwords must be the same
          if($_POST['password'] != $_POST['password_verify'])
          {
             // passwords do not match
-            $this->args['error'] = "The entered passwords do not match.";
+            $this->args['error'] = "The passwords do not match.";
+            return;
+         }
+
+         $user = new user();
+
+         // see if the user already exists
+         // if so, display an error message
+         // if not, $user is still a new user
+         $user->load("username=?", array($_POST['username']));
+         if($user->id)
+         {
+            $this->args['error'] = "This username is already in use.";
             return;
          }
          else
          {
-            $user = new user();
-
-            // see if the user already exists
-            // if so, display an error message
-            // if not, $user is still a new user
-            $user->load("username=?", array($_POST['username']));
-            if($user->id)
-            {
-               $this->args['error'] = "This username is already in use.";
-               return;
-            }
+            $user->name = $_POST['name'];
+            $user->username = $_POST['username'];
+            $user->email = $_POST['email'];
+            $user->password = $_POST['password'];
+            $user->admin = 0;
+            $user->save();
+            if(isset($SM_USER) && $SM_USER->admin)
+               redirect("users/show_list");
             else
-            {
-               $user->name = $_POST['name'];
-               $user->username = $_POST['username'];
-               $user->email = $_POST['email'];
-               $user->password = $_POST['password'];
-               $user->admin = 0;
-               $user->save();
-               if(isset($SM_USER) && $SM_USER->admin)
-                  redirect("users/show_list");
-               else
-                  redirect();
-            }
+               redirect();
          }
       }
       else
@@ -196,8 +208,21 @@ class Users extends Module
          $this->args['user'] = $user;
 
          // see if there is a POST request to update a user
-         if(!empty($_POST))
+         if(isset($_POST['password']) && isset($_POST['password_verify']) && isset($_POST['current_password']))
          {
+            if(!$SM_USER->check_password($_POST['current_password']))
+            {
+               $this->args['bad_current_password'] = 1;
+               return;
+            }
+
+            if($_POST['password'] != $_POST['password_verify'])
+            {
+               // passwords do not match
+               $this->args['no_match'] = 1;
+               return;
+            }
+
             // there is data - update the user
             $user->password = $_POST['password'];
             $success = $user->save();

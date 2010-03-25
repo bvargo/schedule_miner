@@ -14,12 +14,22 @@ Change password.
    [<if isset($user)>]
       <h1>Change password for [<$user->username>]</h1>
       [<if isset($update_success) and $update_success eq 1>]
-         <h3>User updated successfully</h3>
+         <h3>Password updated successfully</h3>
+      [</if>]
+      [<if isset($no_match)>]
+         <h3>The passwords entered do not match</h3>
+      [</if>]
+      [<if isset($bad_current_password)>]
+         <h3>The current password you entered is incorrect</h3>
       [</if>]
       <table>
          <form action="[<$SM_ROOT>]/users/change_password/[<$user->username>]" method="post">
             <tr>
-               <td>Password:</td>
+               <td>Current Password:</td>
+               <td><input type="password" name="current_password" value="" /></td>
+            </tr>
+            <tr>
+               <td>New Password:</td>
                <td><input type="password" name="password" value="" /></td>
             </tr>
             <tr>

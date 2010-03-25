@@ -16,6 +16,9 @@ Edit a user
       [<if isset($update_success) and $update_success eq 1>]
          <h3>User updated successfully</h3>
       [</if>]
+      [<if isset($invalid_email)>]
+         <h3>The email address entered is invalid</h3>
+      [</if>]
       <form action="[<$SM_ROOT>]/users/edit/[<$user->username>]" method="post">
          <table>
             <tr>
