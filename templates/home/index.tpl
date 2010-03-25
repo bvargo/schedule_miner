@@ -60,7 +60,7 @@ perfect schedule, without having to navigate Trailhead.</p>
    [<if count($SM_USER->schedules) eq 0>]
       <h1 class="center"><a href="[<$SM_ROOT>]/schedules/create">Create a Schedule</a></h1>
    [<else>]
-      <h1 class="center"><a href="[<$SM_ROOT>]/courses">Browse Courses</a> or <a href="[<$SM_ROOT>]/schedules">View Schedules</a>.</h1>
+      <h1 class="center"><a href="[<$SM_ROOT>]/courses">Browse Courses</a> or <a href="[<$SM_ROOT>]/schedules">View Schedules</a></h1>
    [</if>]
 [</if>]
 
