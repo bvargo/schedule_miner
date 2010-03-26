@@ -3,15 +3,18 @@
 #   (note the lack of a trailing slash)
 # replace WEB_LOCATION with the URL
 #   example: /directory/miner/
-#   (not the trailing slash)
+#   (note the trailing slash)
 
 <IfModule mod_rewrite.c>
 	RewriteEngine On
+
+   # force SSL
+   RewriteCond %{HTTPS} !=on
+   RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+
+   # redirect URLs into core unless they match one of the resources
 	RewriteBase WEB_LOCATION
 	RewriteRule ^(FILESYSTEM_LOCATION$) FILESYSTEM_LOCATION/core.php [L]
 	RewriteRule ^www/ - [L]
-	RewriteRule ^private/ - [L]
-	RewriteRule ^images/ - [L]
-	RewriteRule ^login - [L]
 	RewriteRule ^(.*)$ FILESYSTEM_LOCATION/core.php?$1?%{QUERY_STRING} [L]
 </IfModule>
