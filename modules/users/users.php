@@ -31,8 +31,22 @@ class Users extends Module
       }
 
       $user = new user();
-      $results = $user->find("");
-      $this->args['users'] = $results;
+      $users = $user->find("");
+      $this->args['users'] = $users;
+
+      // look if any users were deleted
+      if(!empty($_POST))
+      {
+         foreach($users as &$user)
+         {
+            if(isset($_POST["delete" . $user->id]))
+               $user->delete();
+         }
+
+         // find users again, in case a user as removed
+         $users = $user->find("");
+         $this->args['users'] = $users;
+      }
    }
 
    // edits a user

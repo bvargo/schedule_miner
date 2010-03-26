@@ -36,6 +36,17 @@ class user extends ADOdb_Active_Record
          $this->salt = substr(md5(uniqid(rand(), true)), 0, 12);
       return md5(sha1($this->salt.$password));
    }
+
+   // delete the user
+   public function delete()
+   {
+      // remove all of this user's schedules
+      foreach($this->schedules as &$schedule)
+         $schedule->delete();
+
+      // remove the object from the database
+      parent::delete();
+   }
 }
 
 // users have many schedules
