@@ -134,6 +134,19 @@ try {
    // log the access
    $SM_LOG->log_access();
 
+   // check to make sure the user's session has not timed out
+   // only logout if a user is logged in
+   if(isset($_SESSION['last_access_time']) && isset($SM_USER))
+   {
+      if(time() - $_SESSION['last_access_time'] > smconfig_get('autologout_period', 1800, 'core'))
+      {
+         // have the user logout
+         $SM_ARGS[0] = 'users';
+         $SM_ARGS[1] = 'logout';
+      }
+   }
+   $_SESSION['last_access_time'] = time();
+
    // pass control to the specified module
    // if no module is specified, default to the startpage
 
