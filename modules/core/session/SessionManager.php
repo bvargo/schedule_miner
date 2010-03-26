@@ -24,6 +24,11 @@ class SessionManager
    {
       session_destroy();
    }
+
+   public static function session_regenerate_id()
+   {
+      session_regenerate_id();
+   }
 }
 
 ?>

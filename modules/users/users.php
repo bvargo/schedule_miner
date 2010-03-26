@@ -258,6 +258,9 @@ class Users extends Module
                // log the successful authentication
                $SM_LOG->log_auth($_SESSION['username'], true);
 
+               // regenerate the session id to prevent session hijacking
+               SessionManager::session_regenerate_id();
+
                // get the referring URL, to see if we should redirect
                // somewhere
                $ref = $_SERVER["HTTP_REFERER"];
