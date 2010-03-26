@@ -77,13 +77,48 @@ try {
          if ($query)
          {
             $element = explode('=', urldecode($query));
-            if (sizeof($element) > 1)
+
+            // check to see if query is of the form query[]
+            // if it is, then make SM_QUERY['query'] an array of the values 
+            // given
+            if(strpos($element[0], "[]") == strlen($element[0]) - 2)
             {
-               $SM_QUERY[$element[0]] = $element[1];
+               $array = 1;
+               $element[0] = substr($element[0], 0, strlen($element[0]) - 2);
             }
             else
             {
-               $SM_QUERY[$element[0]] = TRUE;
+               $array = 0;
+            }
+
+            // assign the values
+            if(sizeof($element) > 1)
+            {
+               // key-value pair
+               if($array)
+               {
+                  if(!isset($SM_QUERY[$element[0]]))
+                     $SM_QUERY[$element[0]] = array();
+                  $SM_QUERY[$element[0]][] = $element[1];
+               }
+               else
+               {
+                  $SM_QUERY[$element[0]] = $element[1];
+               }
+            }
+            else
+            {
+               // just the key is given
+               if($array)
+               {
+                  if(!isset($SM_QUERY[$element[0]]))
+                     $SM_QUERY[$element[0]] = array();
+                  $SM_QUERY[$element[0]][] = TRUE;
+               }
+               else
+               {
+                  $SM_QUERY[$element[0]] = TRUE;
+               }
             }
          }
       }
