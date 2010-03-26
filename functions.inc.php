@@ -76,7 +76,10 @@ function __autoload($class_name)
    if (!($class_file=get_sm_module($class_name)))
    {
       // the module still cannot be loaded - throw an error
-      error('Cannot load module/class \''.$class_name.'\': the file \''.$class_file.'\' is not readable.');
+      // DISABLED: errors thrown here cannot be caught in < PHP 5.3, so just
+      // log the error
+      //error('Cannot load module/class \''.$class_name.'\': the file \''.$class_file.'\' is not readable.');
+      warn('Cannot load module/class \''.$class_name.'\': the file \''.$class_file.'\' is not readable.');
    }
    else
    {

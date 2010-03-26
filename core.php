@@ -172,10 +172,14 @@ try {
    }
    else
    {
+      $SM_ACTION = $SM_ARGS[1];
       // TODO: better error message for someone trying to exploit this
       if(!safe_name($SM_ARGS[0]))
-         error("Invalid action");
-      $SM_ACTION = $SM_ARGS[1];
+      {
+         warn("Unsafe URL: " . $_SERVER['REDIRECT_QUERY_STRING']);
+         $SM_MODULE = "errorpage";
+         $SM_ACTION = "error404";
+      }
    }
 
    // if the user is not logged in, and this isn't the login page, the
@@ -185,13 +189,25 @@ try {
    //if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "schedules" && $SM_ACTION == "display") || ($SM_MODULE == "users" && ($SM_ACTION == "login" || $SM_ACTION == "create"))))
    if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "schedules" && $SM_ACTION == "display") || ($SM_MODULE == "users" && ($SM_ACTION == "login"))))
    {
-      // show the homepage
-      $SM_MODULE = $SM_MODULE = smconfig_get('startmodule', 'home');
+      // access denied - show the homepage
+      header("HTTP/1.0 401 Unauthorized");
+      if(isset($_SERVER['HTTP_REFERER']))
+         warn("401: " . $_SERVER['REDIRECT_QUERY_STRING'] . " from " . $_SERVER['HTTP_REFERER']);
+      else
+         warn("401: " . $_SERVER['REDIRECT_QUERY_STRING']);
+      $SM_MODULE = smconfig_get('startmodule', 'home');
       $SM_ACTION = "index";
    }
 
    // instantiate the module
-   $module = new $SM_MODULE();
+   if(class_exists($SM_MODULE))
+   {
+      $module = new $SM_MODULE();
+   }
+   else
+   {
+      $module = null;
+   }
 
    // invoke the function, if it exists and is callable and is not an internal
    // function (begins with _)
@@ -207,8 +223,16 @@ try {
    }
    else
    {
+      // 404 - page does not exist
       unset($module);
-      error("Invalid action");
+      if(isset($_SERVER['HTTP_REFERER']))
+         warn("404: " . $_SERVER['REDIRECT_QUERY_STRING'] . " from " . $_SERVER['HTTP_REFERER']);
+      else
+         warn("404: " . $_SERVER['REDIRECT_QUERY_STRING']);
+      $SM_MODULE = "errorpage";
+      $SM_ACTION = "error404";
+      $module = new $SM_MODULE();
+      $module->$SM_ACTION();
    }
 
    /*$reflector = new ReflectionClass($module_name);
