@@ -402,10 +402,28 @@ function sortby($sortby)
             \$keyb = \$b;
             ";
          }
+         else if(is_numeric($key))
+         {
+            // must be the index of an array - variables/functions start with
+            // letters
+            $code .= "
+            if(is_array(\$a) && is_array(\$b) && isset(\$a['$key']) && isset(\$b['$key']))
+            {
+               \$keya = \$a['$key'];
+               \$keyb = \$b['$key'];
+            }
+            else
+            {
+               // bad key given
+               \$keya = 0;
+               \$keyb = 0;
+            }
+            ";
+         }
          else
          {
             $code .= "
-            if(is_numeric(\$a))
+            if(is_numeric(\$a) && is_numberic(\$b))
             {
                \$keya = \$a;
                \$keyb = \$b;
@@ -420,7 +438,7 @@ function sortby($sortby)
                \$keya = \$a->$key;
                \$keyb = \$b->$key;
             }
-            else if(is_array(\$a) && is_array(\$b))
+            else if(is_array(\$a) && is_array(\$b) && isset(\$a['$key']) && isset(\$b['$key']))
             {
                \$keya = \$a['$key'];
                \$keyb = \$b['$key'];
