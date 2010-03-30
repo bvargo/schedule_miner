@@ -38,7 +38,7 @@ current user.
    [<if count($schedule->course_sections())>]
       [<include file="_schedule_display.tpl">]
    [<else>]
-      The current schedule does not have any course sections.
+   <b>The current schedule does not have any course sections. Try <a href="[<$SM_ROOT>]/courses">browsing</a> or <a href="[<$SM_ROOT>]/courses/search">searching</a> for courses. Or, try the <a href="[<$SM_ROOT>]/builder">schedule builder</a>.</b>
    [</if>]
 
 [</if>]
