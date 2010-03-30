@@ -9,16 +9,26 @@ Display a schedule, given a schedule object or a list of course sections.
 *>]
 
 [<php>]
-   function date_to_minutes($date)
+   if(!function_exists('date_to_minutes'))
    {
-      $t = explode(":", $date);
-      $hour = intval($t[0]);
-      $minute = intval($t[1]);
-      $minutes = $hour * 60 + $minute;
-      return $minutes;
+      function date_to_minutes($date)
+      {
+         $t = explode(":", $date);
+         $hour = intval($t[0]);
+         $minute = intval($t[1]);
+         $minutes = $hour * 60 + $minute;
+         return $minutes;
+      }
    }
 
-   if(array_key_exists('class_periods', $this->_tpl_vars))
+   if(array_key_exists('schedule', $this->_tpl_vars))
+   {
+      $course_sections = $this->_tpl_vars['schedule']->course_sections();
+      $class_periods = array();
+      foreach($course_sections as $course_section)
+         $class_periods = array_merge($class_periods, $course_section->class_periods);
+   }
+   else if(array_key_exists('class_periods', $this->_tpl_vars))
    {
       $class_periods = $this->_tpl_vars['class_periods'];
       if(array_key_exists('course_sections', $this->_tpl_vars))
@@ -40,11 +50,8 @@ Display a schedule, given a schedule object or a list of course sections.
    }
    else
    {
-      // FIXME: more checks here - don't just assume a schedule exists
-      $course_sections = $this->_tpl_vars['schedule']->course_sections();
+      // ERROR: cannot find anything to display
       $class_periods = array();
-      foreach($course_sections as $course_section)
-         $class_periods = array_merge($class_periods, $course_section->class_periods);
    }
 
    // construct an array of meeting times containing:
@@ -273,9 +280,16 @@ Display a schedule, given a schedule object or a list of course sections.
 
    // figure out the number of credit hours
    $total_credit_hours = 0;
+   $total_credit_hours_unique = 0;
+   $courses_credit_hours = array();
    foreach($course_sections as $course_section)
    {
       $total_credit_hours += $course_section->course->credit_hours;
+      if(!in_array($course_section->course->id, $courses_credit_hours))
+      {
+         $courses_credit_hours[] = $course_section->course->id;
+         $total_credit_hours_unique += $course_section->course->credit_hours;
+      }
    }
 
    // assign colors to the courses
@@ -320,6 +334,7 @@ Display a schedule, given a schedule object or a list of course sections.
    $this->assign('calendar', $calendar);
    $this->assign('course_sections', $course_sections); // needed, since we add colors above;
    $this->assign('total_credit_hours', $total_credit_hours);
+   $this->assign('total_credit_hours_unique', $total_credit_hours_unique);
    $this->assign('color_assign', $color_assign);
 [</php>]
 
@@ -427,7 +442,11 @@ Display a schedule, given a schedule object or a list of course sections.
                [</foreach>]
             </ul>
             <div id="total-credit-hours">
-               Total: [<$total_credit_hours>] credit hours
+               [<if $total_credit_hours eq $total_credit_hours_unique>]
+                  Total: [<$total_credit_hours>] credit hours
+               [<else>]
+                  Total: [<$total_credit_hours>] ([<$total_credit_hours_unique>]) credit hours
+               [</if>]
             </div>
          </div>
       </div>
