@@ -41,7 +41,7 @@ class user extends ADOdb_Active_Record
    public function delete()
    {
       // remove all of this user's schedules
-      foreach($this->schedules as &$schedule)
+      foreach($this->schedules as $schedule)
          $schedule->delete();
 
       // remove the object from the database
