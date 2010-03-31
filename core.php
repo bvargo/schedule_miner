@@ -219,10 +219,9 @@ try {
 
    // if the user is not logged in, and this isn't the login page, the
    // registration page, or the homepage, send them to the homepage
-   // FIXME: registration is turned off here - uncomment the next line and
-   // comment the second if statement to enable registration
-   //if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "schedules" && $SM_ACTION == "display") || ($SM_MODULE == "users" && ($SM_ACTION == "login" || $SM_ACTION == "create"))))
-   if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "schedules" && $SM_ACTION == "display") || ($SM_MODULE == "users" && ($SM_ACTION == "login"))))
+   // FIXME: registration is turned on/off here
+   if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "schedules" && $SM_ACTION == "display") || ($SM_MODULE == "users" && ($SM_ACTION == "login" || $SM_ACTION == "create"))))
+   //if(!($SM_USER || $SM_MODULE == "home" || ($SM_MODULE == "schedules" && $SM_ACTION == "display") || ($SM_MODULE == "users" && ($SM_ACTION == "login"))))
    {
       // access denied - show the homepage
       header("HTTP/1.0 401 Unauthorized");
