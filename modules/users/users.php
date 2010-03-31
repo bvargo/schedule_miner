@@ -174,9 +174,17 @@ class Users extends Module
             $user->admin = 0;
             $user->save();
             if(isset($SM_USER) && $SM_USER->admin)
+            {
                redirect("users/show_list");
+            }
             else
+            {
+               // log in as the new user
+               SessionManager::session_destroy();
+               SessionManager::session_start();
+               $_SESSION['username'] = $user->username;
                redirect();
+            }
          }
       }
       else
