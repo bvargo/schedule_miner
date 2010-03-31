@@ -21,7 +21,7 @@ class Schedules extends Module
 
       // set the active schedule if the active schedule id is not set or the
       // id references a schedule does not exist
-      // if the user does not have any schedules, set the id to -1
+      // if the user does not have any schedules, set the id to null
       $schedule_ids = array();
       $schedules = $SM_USER->schedules;
       usort($schedules, sortby("name"));
@@ -31,7 +31,7 @@ class Schedules extends Module
       }
       if(count($schedule_ids) < 1)
       {
-         $SM_USER->active_schedule_id = -1;
+         $SM_USER->active_schedule_id = null;
          $SM_USER->save();
       }
       else if(!in_array($SM_USER->active_schedule_id, $schedule_ids))
