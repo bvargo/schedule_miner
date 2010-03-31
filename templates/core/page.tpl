@@ -104,7 +104,8 @@ Main page layout
             });
          });
       </script>
-
+      <script type="text/javascript" src="/awstatsjs/awstats_misc_tracker.js"></script>
+      <noscript><img src="/awstatsjs/awstats_misc_tracker.js?nojs=y" height=0 width=0 border=0 style="display: none"></noscript>
    </body>
 </html>
 
