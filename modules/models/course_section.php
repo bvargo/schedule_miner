@@ -6,7 +6,23 @@
 
 require_once('adodb/adodb-active-record.inc.php');
 
-class course_section extends ADOdb_Active_Record {}
+class course_section extends ADOdb_Active_Record
+{
+   // returns if this section conflicts with the other section
+   function conflicts($other_section)
+   {
+      // loop throw all class_period paris
+      foreach($this->class_periods as $this_class_period)
+      {
+         foreach($other_section->class_periods as $other_class_period)
+         {
+            if($this_class_period->conflicts($other_class_period))
+               return true;
+         }
+      }
+      return false;
+   }
+}
 
 // a course section has many class periods
 ADODB_Active_Record::ClassHasMany('course_section', 'class_periods', 'section_id', 'class_period');

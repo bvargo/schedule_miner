@@ -37,23 +37,26 @@ sections. Get an edge in the schedule-making process and build the
 perfect schedule, without having to navigate Trailhead.</p>
 
 <h1>Here's how it works:</h1>
+<h3>Option 1: Make your schedule manually:</h3>
 <ol>
-   <li>Search for course sections by name, course number, department, instructor, credit hours, or time</li>
-   <li>Select the sections you like best</li>
-   <li>Keep customizing until you have the perfect schedule</li>
+   <li>Search for course sections by name, course number, department, instructor, credit hours, or time.</li>
+   <li>Select the sections you like best.</li>
+   <li>Keep customizing until you have the perfect schedule.</li>
+</ol>
+<h3>Option 2: Use the schedule builder:</h3>
+<ol>
+   <li>Select your preferred courses and course sections.</li>
+   <li>Let the scheduler show you all the schedules that contain the classes you want.</li>
+</ol>
+<h3>Option 3: Use both:</h3>
+<ol>
+   <li>Start out using the schedule builder for those hard-to-schedule classes.</li>
+   <li>Save the schedule the schedule builder gives you.</li>
+   <li>Customize the schedule by browsing for more courses and course sections.</li>
 </ol>
 
-[<*
-<h2>Guided Schedule Builder</h2>
-<ol>
-   <li>Select your preferred courses</li>
-   <li>Specify preferences for class times and teachers</li>
-   <li>Let the scheduler show you all the options</li>
-</ol>*>]
-
-
 [<if isset($SM_USER)>]
-   <h1>Need Help? Have a suggestion?</h1>
+   <h1>Need help? Have a suggestion?</h1>
    <p>Take a look at the <a href="[<$SM_ROOT>]/faq">FAQ</a>. If your question is
    not answered, or you have a suggestion, please visit the <a href="[<$SM_ROOT>]/suggestions">suggestions page</a>.</p>
 

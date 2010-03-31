@@ -104,6 +104,16 @@ class Schedules extends Module
             $SM_USER->save();
          }
 
+         // add sections to the schedule, if passed
+         if(isset($_POST['crn']))
+         {
+            foreach($_POST['crn'] as $crn)
+            {
+               $schedule->add_course_section($crn);
+            }
+         }
+         $schedule->save();
+
          redirect("schedules/display/".$schedule->id);
       }
    }

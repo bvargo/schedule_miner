@@ -1,0 +1,13 @@
+/*
+ *********************************
+ * schedule builder
+ *********************************
+ */
+
+#schedule_input tr {
+   text-align: center;
+}
+
+#schedule_input input {
+   width: 8em;
+}

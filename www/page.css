@@ -214,3 +214,11 @@ dd {
    /* initially hidden */
    margin-top: -33px;
 }
+
+hr {
+   margin-top: 20px;
+   margin-bottom: 20px;
+   height: 4px;
+   background-color: #4f4f4f;
+   color: #4f4f4f;
+}
