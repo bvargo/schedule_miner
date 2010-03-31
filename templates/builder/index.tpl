@@ -43,7 +43,7 @@ Want the perfect schedule? Let the schedule builder show you your options.
          <td><input name="priority[]" value="[<$last_group>]" /></td>
       </tr>
    </table>
-   <input type="submit" value="Generate" /> (This may take a few seconds)
+   <input type="submit" value="Generate / Add More" /> (This may take a few seconds)
 </form>
 
 [<if isset($schedule_count)>]
