@@ -11,7 +11,7 @@ Display a list of users
 [<if isset($error)>]
    [<$error>]
 [<else>]
-   <h1>Users</h1>
+   <h1>Users ([<$users|@count>])</h1>
    <form action="[<$SM_ROOT>]/users/show_list" method="post">
       <table class="data">
          <thead>
