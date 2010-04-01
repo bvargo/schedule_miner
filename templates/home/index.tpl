@@ -10,7 +10,8 @@ Main homepage
 
 [<if !isset($SM_USER)>]
    <div class="login_box">
-      <p class="center">Type your username and password to get started</p>
+      <p class="center">Type your Schedule Miner username/password to login.</p>
+      <p class="center">This website is not associated with Mines.</p>
       <form id="login_form" action="[<$SM_ROOT>]/users/login/" method="post">
          <table>
             <tr>

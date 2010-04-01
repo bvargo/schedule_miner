@@ -12,6 +12,7 @@ Create a user.
 [<if isset($error)>]
    <h3>[<$error>]</h3>
 [</if>]
+<b>Please consider using a username/password different from those you use at Mines. This website is not associated with Mines.</b>
 <form action="[<$SM_ROOT>]/users/create" method="post">
    <table>
       <tr>

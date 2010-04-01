@@ -12,6 +12,8 @@ Login form.
 [<if isset($username)>]
    You are currently logged in as [<$username>]
 [</if>]
+<h3>Type your Schedule Miner username/password to login.</h3>
+<b>This website is not associated with Mines.</b>
 [<if isset($error)>]
    <h3 class="error">Error: username/password unknown</h3>
 [</if>]
