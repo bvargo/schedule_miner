@@ -423,7 +423,7 @@ function sortby($sortby)
          else
          {
             $code .= "
-            if(is_numeric(\$a) && is_numberic(\$b))
+            if(is_numeric(\$a) && is_numeric(\$b))
             {
                \$keya = \$a;
                \$keyb = \$b;
