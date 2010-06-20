@@ -11,13 +11,38 @@ class Builder extends Module
 {
    function index()
    {
-      global $SM_QUERY;
+      global $SM_QUERY, $SM_USER;
 
       $this->args['max_schedules'] = smconfig_get('max_schedules', 20);
 
       // FIXME - the CSS should be specified in the template, not here
       global $SM_RR;
       $this->args['css'][] = $SM_RR . "/css/partials/_schedule_display.css";
+
+      if(isset($SM_QUERY['from_schedule']))
+      {
+         $id = $SM_QUERY['from_schedule'];
+         $schedule = new schedule();
+         if($schedule->load("id=?", array($id)) && $schedule->user_id == $SM_USER->id)
+         {
+            // the schedule exists and it is our schedule; overwrite any other
+            // parameters passed
+            $SM_QUERY['department'] = array();
+            $SM_QUERY['course_number'] = array();
+            $SM_QUERY['course_section'] = array();
+            $SM_QUERY['priority'] = array();
+            $i = 1;
+            $sections = $schedule->course_sections();
+            uasort($sections, sortby("course->department->abbreviation,#course->course_number,section"));
+            foreach($sections as $section)
+            {
+               $SM_QUERY['department'][] = $section->course->department->abbreviation;
+               $SM_QUERY['course_number'][] = $section->course->course_number;
+               $SM_QUERY['course_section'][] = $section->section;
+               $SM_QUERY['priority'][] = $i++;
+            }
+         }
+      }
 
       if(isset($SM_QUERY['department']) && isset($SM_QUERY['course_number']))
       {

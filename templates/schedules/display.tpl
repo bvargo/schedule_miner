@@ -29,6 +29,10 @@ current user.
          <input type="text" name="sections" value="[<$course_sections_string>]" size="40" />
          <input type="submit" value="Save Sections" />
       </form>
+      <form action="[<$SM_ROOT>]/builder" method="get">
+         <input type="hidden" name="from_schedule" value="[<$schedule->id>]" />
+         <input type="submit" value="Use in Builder" />
+      </form>
       <br />
    [<else>]
       <h1>[<$schedule->user->name>]&#8217;s Schedule - [<$schedule->name>]</h1>
@@ -38,7 +42,7 @@ current user.
    [<if count($schedule->course_sections())>]
       [<include file="_schedule_display.tpl">]
    [<else>]
-   <b>The current schedule does not have any course sections. Try <a href="[<$SM_ROOT>]/courses">browsing</a> or <a href="[<$SM_ROOT>]/courses/search">searching</a> for courses. Or, try the <a href="[<$SM_ROOT>]/builder">schedule builder</a>.</b>
+      <b>The current schedule does not have any course sections. Try <a href="[<$SM_ROOT>]/courses">browsing</a> or <a href="[<$SM_ROOT>]/courses/search">searching</a> for courses. Or, try the <a href="[<$SM_ROOT>]/builder">schedule builder</a>.</b>
    [</if>]
 
 [</if>]
