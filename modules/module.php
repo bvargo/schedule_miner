@@ -16,6 +16,7 @@ class Module
       global $SM_ACTION;
       $this->template_name = $SM_ACTION;
       $this->args['css'] = array();
+      $this->args['js'] = array();
    }
 
    function __destruct()
@@ -37,12 +38,12 @@ class Module
          else
             $this->args['title'] = smconfig_get('page_title');
 
-         // setup additional css array
+         // setup additional css and js arrays
 
-         // TODO: the module has set additional css files already
-         // if it's a full path, include it in addition to the found css
-         // files
-         // if it isn't a full path, find the requested file and make the
+         // TODO: the module has set additional css or js files already
+         // if it's a full path, include it in addition to the found css and 
+         // js files
+         // if it isn't a full path, find the requested file and make the 
          // reference a full path
 
          // look for module-specific css
@@ -52,6 +53,14 @@ class Module
          // look for action-specific css
          if(file_exists($SM_FS_ROOT . "/www/css/$SM_MODULE/$SM_ACTION.css"))
             $this->args['css'][] = $SM_RR . "/css/$SM_MODULE/$SM_ACTION.css";
+         
+         // look for module-specific js
+         if(file_exists($SM_FS_ROOT . "/www/js/$SM_MODULE.js"))
+            $this->args['js'][] = $SM_RR . "/js/$SM_MODULE.js";
+
+         // look for action-specific js
+         if(file_exists($SM_FS_ROOT . "/www/js/$SM_MODULE/$SM_ACTION.js"))
+            $this->args['js'][] = $SM_RR . "/js/$SM_MODULE/$SM_ACTION.js";
 
          // display the page template
          $display->smarty_assign('CONTENT', $display->fetch_template($SM_MODULE, $template, $this->args));

@@ -18,7 +18,12 @@ Main page layout
          [</foreach>]
       [</if>]
       <script src="[<$SM_RR>]/js/jquery.js" type="text/javascript"></script>
-      <meta http-equiv="Content-TYpe" content="text/html; charset=utf-8" />
+      [<if isset($js)>]
+         [<foreach from=$js item=js_file>]
+            <script src="[<$js_file>]" type="text/javascript"></script>
+         [</foreach>]
+      [</if>]
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    </head>
    <body>
       <div id="page-background"></div>
