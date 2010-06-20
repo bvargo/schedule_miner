@@ -11,13 +11,14 @@ Main page layout
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
       <title>[<$title>]</title>
-      <link rel="stylesheet" href="[<$SM_RR>]/page.css" />
+      <link rel="stylesheet" href="[<$SM_RR>]/css/core/page.css" />
+      <script src="[<$SM_RR>]/js/jquery.js" type="text/javascript"></script>
+      <script src="[<$SM_RR>]/js/core/page.js" type="text/javascript"></script>
       [<if isset($css)>]
          [<foreach from=$css item=css_sheet>]
             <link rel="stylesheet" href="[<$css_sheet>]" />
          [</foreach>]
       [</if>]
-      <script src="[<$SM_RR>]/js/jquery.js" type="text/javascript"></script>
       [<if isset($js)>]
          [<foreach from=$js item=js_file>]
             <script src="[<$js_file>]" type="text/javascript"></script>
@@ -69,44 +70,7 @@ Main page layout
       </div>
 
       <div id="search_open_close" style="display:none"></div>
-      <script type="text/javascript">
-         $(document).ready(function()
-         {
-            //$("#search_bar").width($("#search_bar").width() + 105);
-            $("#search_link").click(function(e)
-            {
-               e.preventDefault();
-               if($("#search_open_close").is(":hidden"))
-               {
-                  $("#search_bar").animate({marginTop:"0px"}, 300);
-                  $("#search_field").focus();
-               }
-               else
-               {
-                  $("#search_bar").animate({marginTop:"-33px"}, 300);
-               }
-               $("#search_open_close").toggle();
-            });
 
-            $("#search_bar").mouseup(function()
-            {
-               return false;
-            });
-
-            $(document).mouseup(function(e)
-            {
-               if($(e.target).attr("id") != "search_link")
-               {
-                  //$("#search_bar").hide();
-                  if($("#search_open_close").is(":visible"))
-                  {
-                     $("#search_bar").animate({marginTop:"-33px"}, 500);
-                     $("#search_open_close").hide();
-                  }
-               }
-            });
-         });
-      </script>
       <script type="text/javascript" src="/awstatsjs/awstats_misc_tracker.js"></script>
       <noscript><img src="/awstatsjs/awstats_misc_tracker.js?nojs=y" height=0 width=0 border=0 style="display: none"></noscript>
    </body>
