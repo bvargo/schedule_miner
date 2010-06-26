@@ -6,7 +6,13 @@
 
 require_once('adodb/adodb-active-record.inc.php');
 
-class instructor extends ADOdb_Active_Record {}
+class instructor extends ADOdb_Active_Record
+{
+   public function __toString()
+   {
+      return $this->name;
+   }
+}
 
 // an instructor has many course_sections
 aDODB_Active_Record::ClassHasMany('instructor', 'course_sections', 'instructor_id', 'course_section');
