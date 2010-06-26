@@ -27,10 +27,9 @@ Main page layout
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    </head>
    <body>
-      <div id="page-background"></div>
       <div id="page-container">
 
-         <div id="header">Schedule Miner</div>
+         <div id="header"><img id="logo" src="[<$SM_RR>]/img/core/logo.png" alt="Logo" /></div>
 
          [<if isset($SM_USER)>]
             [<* display this menu if a user is logged in*>]

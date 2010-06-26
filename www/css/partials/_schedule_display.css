@@ -61,7 +61,7 @@
 
 /* day of the week labels */
 .calendar thead th {
-   background-color: #4f4f4f;
+   background-color: #316195;
    color: white;
    width: 19%; /* 95% for week, 5% for times */
    text-align: center;

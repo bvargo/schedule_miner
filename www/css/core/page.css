@@ -4,46 +4,42 @@
  *********************************
  */
 
-#page-background {
-   position: absolute;
-   top: 0px;
-   left: 0px;
-   height: 611px;
-   min-height: 611px;
-   width: 100%;
-   /*background-image: url(page-background.jpg);*/
-   background-repeat: no-repeat;
-   background-position: center top;
-   z-index: -1;
+body {
+   background-color: #c0c0c0;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 0.75em;
 }
 
 #page-container {
    margin-left: 24px;
    margin-right: 24px;
    min-width: 885px;
-   /*width: 90%;*/
 }
 
 #header {
-   background-color: #818181;
+   background-color: #000000;
    border: 1px solid #000000;
    color: #fafafa;
-   font-size: 2em;
    vertical-align: middle;
-   text-align: center;
+   text-align: left;
    line-height: 100px;
    height: 100px;
-   /*background-image: url(syslablogo.png);*/
-   background-repeat: no-repeat;
-   background-position: right top;
+   background-image: url(../../img/core/header-background.png);
+   background-repeat: repeat;
    position: relative;
    z-index: 5;
 }
 
+#logo {
+   width: 166px;
+   height: 80px;
+   margin-top: 8px;
+   margin-left: 10px;
+}
+
 .menu-div {
-   background-color: #4f4f4f;
-   height: 2.4em;
-   max-height: 2.4em;
+   background-color: #316195;
+   height: 2.0em;
    border-left: 1px solid #000000;
    border-right: 1px solid #000000;
    border-bottom: 1px solid #000000;
@@ -66,14 +62,13 @@
 }
 
 .menu a:hover {
-   color: #679;
-   text-decoration: none;
+   color: #85abd6;
 }
 
 .menu li {
    display: inline;
    margin: 0;
-   padding: 0.6em 10px;
+   padding: 0.45em 10px;
 }
 
 .menu-left li {
@@ -100,45 +95,13 @@
    border: 1px solid #202020;
    border-top: 0;
    color: #000;
-   padding: 1.5em;
+   padding: 1em 1.6em 1.6em 1.6em;
    z-index: 0;
-}
-
-.login_box {
-   float: right;
-   border: 1px solid #343433;
-   background-color: #E9E9E9;
-   margin-left: 7px;
-   margin-right: 5px;
-   margin-top: 5px;
-   margin-bottom: 5px;
-}
-
-.login_box table {
-   margin: auto auto auto auto;
-}
-
-.login_box p {
-   margin: 5px;
-}
-
-.login_submit {
-   text-align: right;
-}
-
-.login_box #username, #password {
-   width: 175px;
 }
 
 a {
    color: #000;
    text-decoration: underline;
-}
-
-body {
-   background-color: #CDCDCD;
-   font-family: Verdana, Arial, Helvetica, sans-serif;
-   font-size: 0.75em;
 }
 
 h1 {
@@ -189,7 +152,7 @@ dd {
 }
 
 .data thead th {
-   background-color: #4f4f4f;
+   background-color: #316195;
    color: white;
    text-align: center;
    font-size: 1em;
@@ -205,7 +168,7 @@ dd {
    padding: 3px 5px 3px 5px;
    -moz-border-radius: 0px 0px 0px 10px;
    -webkit-border-radius: 0px 0px 0px 10px;
-   background-color: #818181;
+   background-color: #414141;
    /* hide beneath the header, but above the content */
    z-index: 1;
    /* position on the right side of the menu */
@@ -219,6 +182,6 @@ hr {
    margin-top: 20px;
    margin-bottom: 20px;
    height: 4px;
-   background-color: #4f4f4f;
-   color: #4f4f4f;
+   background-color: #316195;
+   color: #316195;
 }

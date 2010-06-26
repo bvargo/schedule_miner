@@ -1,0 +1,25 @@
+.login_box {
+   float: right;
+   border: 1px solid #343433;
+   background-color: #e9e9e9;
+   margin-left: 7px;
+   margin-right: 5px;
+   margin-top: 5px;
+   margin-bottom: 5px;
+}
+
+.login_box table {
+   margin: auto auto auto auto;
+}
+
+.login_box p {
+   margin: 5px;
+}
+
+.login_submit {
+   text-align: right;
+}
+
+.login_box #username, #password {
+   width: 175px;
+}
