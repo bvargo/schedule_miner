@@ -36,10 +36,17 @@ current user.
       <br />
    [<else>]
       <h1>[<$schedule->user->name>]&#8217;s Schedule - [<$schedule->name>]</h1>
-      <br />
    [</if>]
 
    [<if count($schedule->course_sections())>]
+      [<if $schedule->public >]
+         <span class="bold">People sharing at least one class:</span>
+         [<foreach from=$schedule->users_sharing_class() item=shared_user name=shared_user>]
+            <a href="[<$SM_ROOT>]/schedules/display/[<$shared_user.schedule_id>]">[<$shared_user.name>]</a>[<if !$smarty.foreach.shared_user.last>],[</if>]
+         [</foreach>]
+         <br />
+      [</if>]
+      <br />
       [<include file="_schedule_display.tpl">]
    [<else>]
       <b>The current schedule does not have any course sections. Try <a href="[<$SM_ROOT>]/courses">browsing</a> or <a href="[<$SM_ROOT>]/courses/search">searching</a> for courses. Or, try the <a href="[<$SM_ROOT>]/builder">schedule builder</a>.</b>

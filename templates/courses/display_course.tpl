@@ -69,6 +69,11 @@ Display a course.
       [</foreach>]
    </table>
 
+   <h3>People in This Course:</h3>
+   [<foreach from=$course->users() item=user name=user>]
+      <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.name>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+   [</foreach>]
+
    <h3>Course Schedule:</h3>
    [<include file="_schedule_display.tpl" course_sections=$course->course_sections>]
 [</if>]

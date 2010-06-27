@@ -44,7 +44,18 @@
    <dd>Your active schedule is the schedule that is modified when you click
    "add section" (or similar) when browsing or searching for course
    sections. Generally, you should set your active schedule to the schedule
-   with which you are currently working.</dd>
+   with which you are currently working. Further, only active schedules are
+   searched when displaying which people are in a class or section.</dd>
+
+   <dt>What does making a schedule public entail?</dt>
+   <dd>Making your schedule public allows other people to look at your
+   schedule, for example if you email the URL of your schedule to someone
+   else. Others will not need to log in to see your schedule if it is public.
+   Further, by marking your schedule public, it allows other users to see that
+   you are in one of their classes, among other nice features. In addition, if
+   your schedule is not marked public, then certain features will be disabled,
+   such as the display of other people in your classes on the show schedule
+   display.</dd>
 
    <dt>In the credit hours column, what is the number in parenthesis?</dt>
    <dd>If you have multiple sections of the same course in your schedule, for

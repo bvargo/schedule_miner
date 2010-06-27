@@ -227,6 +227,29 @@ class schedule extends ADOdb_Active_Record
 
       return false;
    }
+
+   // returns an array of associative arrays containing users' schedules that
+   // share a course section of their active schedule with at least one class
+   // of this schedule
+   // only public schedules are searched
+   // each array element contains an array with keys:
+   // - user id (id)
+   // - user's full name (name)
+   // - schedule id (schedule_id)
+   public function users_sharing_class()
+   {
+      global $SM_SQL;
+
+      // a is schedule_course_section_map where the schedule_id is this
+      // schedule
+      // b is schedule_course_section_map where the schedule_id is what we are
+      // trying to find
+      // schedules is selecting the schedule we are trying to find to see if
+      // it is public
+      $query = "SELECT DISTINCT users.id, users.name, b.schedule_id FROM users, schedules, schedule_course_section_map AS a JOIN schedule_course_section_map AS b ON a.crn = b.crn WHERE a.schedule_id = ? AND b.schedule_id = users.active_schedule_id AND b.schedule_id = schedules.id AND schedules.public = 1 AND a.schedule_id != b.schedule_id ORDER BY users.name;";
+      $results = $SM_SQL->GetAll($query, array($this->id));
+      return $results;
+   }
 }
 
 // a schedule has one user

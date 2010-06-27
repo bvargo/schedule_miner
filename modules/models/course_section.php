@@ -22,6 +22,22 @@ class course_section extends ADOdb_Active_Record
       }
       return false;
    }
+
+   // returns an array of associative arrays containing users' schedules that
+   // contain this course section in their active schedule
+   // only public schedules are searched
+   // each array element contains an array with keys:
+   // - user id (id)
+   // - user's full name (name)
+   // - schedule id (schedule_id)
+   public function users()
+   {
+      global $SM_SQL;
+
+      $query = "SELECT DISTINCT users.id, users.name, schedule_course_section_map.schedule_id FROM users JOIN schedule_course_section_map ON users.active_schedule_id = schedule_course_section_map.schedule_id JOIN schedules ON schedule_course_section_map.schedule_id = schedules.id WHERE schedules.public = 1 AND  schedule_course_section_map.crn = ? ORDER BY users.name;";
+      $results = $SM_SQL->GetAll($query, array($this->crn));
+      return $results;
+   }
 }
 
 // a course section has many class periods
