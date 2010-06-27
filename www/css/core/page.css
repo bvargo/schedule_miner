@@ -30,11 +30,16 @@ body {
    z-index: 5;
 }
 
+#header a {
+   text-decoration: none;
+}
+
 #logo {
    width: 166px;
    height: 80px;
    margin-top: 8px;
    margin-left: 10px;
+   border: 0;
 }
 
 .menu-div {

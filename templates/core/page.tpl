@@ -29,7 +29,7 @@ Main page layout
    <body>
       <div id="page-container">
 
-         <div id="header"><img id="logo" src="[<$SM_RR>]/img/core/logo.png" alt="Logo" /></div>
+         <div id="header"><a href="[<$SM_ROOT>]"><img id="logo" src="[<$SM_RR>]/img/core/logo.png" alt="Logo" /></a></div>
 
          [<if isset($SM_USER)>]
             [<* display this menu if a user is logged in*>]
