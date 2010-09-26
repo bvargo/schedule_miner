@@ -284,11 +284,19 @@ Display a schedule, given a schedule object or a list of course sections.
    $courses_credit_hours = array();
    foreach($course_sections as $course_section)
    {
-      $total_credit_hours += $course_section->course->credit_hours;
-      if(!in_array($course_section->course->id, $courses_credit_hours))
+      $total_credit_hours += $course_section->credit_hours;
+      // skip sections that do not have any credit hours
+      // this makes sure that if there is a lab with 0 credits and the
+      // course with x credits, then the x is added; if a course actually
+      // has 0 credit hours, it won't affect the total count, so it doesn't
+      // matter
+      if($course_section->credit_hours != 0)
       {
-         $courses_credit_hours[] = $course_section->course->id;
-         $total_credit_hours_unique += $course_section->course->credit_hours;
+         if(!in_array($course_section->course->id, $courses_credit_hours))
+         {
+            $courses_credit_hours[] = $course_section->course->id;
+            $total_credit_hours_unique += $course_section->credit_hours;
+         }
       }
    }
 
@@ -426,7 +434,7 @@ Display a schedule, given a schedule object or a list of course sections.
                            </h3>
                            <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/[<$course_section->course->department->abbreviation>]/[<$course_section->course->course_number>]">[<$course_section->name>]</a></h4>
                            <h4 class="name"><a href="[<$SM_ROOT>]/courses/display/instructor/[<$course_section->instructor->id>]">[<$course_section->instructor->name>]</a></h4>
-                           [<math equation="credit_hours" credit_hours=$course_section->course->credit_hours format="%.1f" assign=credit_hours>]
+                           [<math equation="credit_hours" credit_hours=$course_section->credit_hours format="%.1f" assign=credit_hours>]
                            <div class="credit-hours">[<$credit_hours>] <abbr title="Credit Hours">CR</abbr></div>
                         [<else>]
                            <h3 class="number">
@@ -434,7 +442,7 @@ Display a schedule, given a schedule object or a list of course sections.
                            </h3>
                            <h4 class="name">[<$course_section->name>]</h4>
                            <h4 class="name">[<$course_section->instructor->name>]</h4>
-                           [<math equation="credit_hours" credit_hours=$course_section->course->credit_hours format="%.1f" assign=credit_hours>]
+                           [<math equation="credit_hours" credit_hours=$course_section->credit_hours format="%.1f" assign=credit_hours>]
                            <div class="credit-hours">[<$credit_hours>] <abbr title="Credit Hours">CR</abbr></div>
                         [</if>]
                      </div>

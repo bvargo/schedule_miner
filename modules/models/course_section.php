@@ -53,6 +53,7 @@ ADODB_Active_Record::ClassBelongsTo('course_section', 'instructor', 'instructor_
 // course
 // instructor
 // section
+// credit_hours
 // name
 // description
 

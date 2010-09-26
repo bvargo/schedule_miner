@@ -26,6 +26,10 @@ Display a section.
          <td>[<$course_section->crn>]</td>
       </tr>
       <tr>
+         <td>Credit Hours:</td>
+         <td>[<$course_section->credit_hours>]</td>
+      </tr>
+      <tr>
          <td>Course:</td>
          <td><a href="[<$SM_ROOT>]/courses/display/[<$course->department->abbreviation>]/[<$course->course_number>]">[<$course->department->abbreviation>] [<$course->course_number>]</a></td>
       </tr>

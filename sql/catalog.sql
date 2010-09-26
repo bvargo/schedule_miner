@@ -14,7 +14,7 @@ SELECT
    `course_sections`.`name` AS `name`,
    `course_sections`.`description` AS `description`,
    `courses`.`course_number` AS `course_number`,
-   `courses`.`credit_hours` AS `credit_hours`,
+   `course_sections`.`credit_hours` AS `credit_hours`,
    `instructors`.`name` AS `instructor_name`,
    `departments`.`abbreviation` AS `department_abbreviation`,
    `departments`.`name` AS `department_name`

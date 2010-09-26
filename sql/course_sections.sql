@@ -10,6 +10,7 @@ CREATE TABLE `course_sections` (
   `course_id` mediumint(8) unsigned NOT NULL,
   `instructor_id` mediumint(8) unsigned default NULL,
   `section` text NOT NULL,
+  `credit_hours` decimal(6,3) NOT NULL,
   `name` varchar(128) NOT NULL,
   `description` text,
   PRIMARY KEY  (`id`)

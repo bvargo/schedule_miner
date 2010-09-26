@@ -185,7 +185,6 @@ class Import extends Module
       // add/modify the course
       $course->department_id = $dept->id;
       $course->course_number = $course_number;
-      $course->credit_hours = floatval($credit_hours);
       $course->save();
 
       // add the course section
@@ -198,6 +197,7 @@ class Import extends Module
       $course_section->course_id = $course->id;
       $course_section->instructor_id = $instruct->id;
       $course_section->section = $section_letter;
+      $course_section->credit_hours = floatval($credit_hours);
       $course_section->name = $title;
       $course_section->save();
 

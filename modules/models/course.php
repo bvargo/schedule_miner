@@ -72,6 +72,5 @@ ADODB_Active_Record::ClassBelongsTo('course', 'department', 'department_id', 'id
 // id
 // department
 // course_number
-// credit_hours
 
 ?>

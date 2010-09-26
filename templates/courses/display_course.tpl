@@ -24,10 +24,6 @@ Display a course.
          <td>Course Number:</td>
          <td>[<$course->course_number>]</td>
       </tr>
-      <tr>
-         <td>Credit Hours:</td>
-         <td>[<$course->credit_hours>]</td>
-      </tr>
    </table>
 
    [<foreach from=$course->course_sections item=course_section>]
