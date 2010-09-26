@@ -97,7 +97,7 @@ class Builder extends Module
    }
 
    // validates entry rows
-   // makes sure all coures / course sections are valid
+   // makes sure all courses / course sections are valid
    // makes sure all group numbers are actually numbers
    // entry_rows =  array(department, course_number, course_section, priority)
    private static function validate_entry_rows(&$entry_rows)
@@ -166,7 +166,7 @@ class Builder extends Module
          return $schedules;
       }
 
-      // push empty scheduel and entry_rows into the queue
+      // push empty schedule and entry_rows into the queue
       array_push($queue, array(new schedule_temp(), $entry_rows));
 
       // get the memory limit
