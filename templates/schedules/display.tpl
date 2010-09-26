@@ -53,7 +53,11 @@ current user.
       <br />
       [<include file="_schedule_display.tpl">]
    [<else>]
-      <b>The current schedule does not have any course sections. Try <a href="[<$SM_ROOT>]/courses">browsing</a> or <a href="[<$SM_ROOT>]/courses/search">searching</a> for courses. Or, try the <a href="[<$SM_ROOT>]/builder">schedule builder</a>.</b>
+      [<if isset($SM_USER) && $schedule->user->id eq $SM_USER->id>]
+         <b>This schedule does not have any course sections. Try <a href="[<$SM_ROOT>]/courses">browsing</a> or <a href="[<$SM_ROOT>]/courses/search">searching</a> for courses. Or, try the <a href="[<$SM_ROOT>]/builder">schedule builder</a>.</b>
+      [<else>]
+         <b>This schedule does not have any course sections.</b>
+      [</if>]
    [</if>]
 
 [</if>]
