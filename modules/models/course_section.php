@@ -34,7 +34,7 @@ class course_section extends ADOdb_Active_Record
    {
       global $SM_SQL;
 
-      $query = "SELECT DISTINCT users.id, users.name, schedule_course_section_map.schedule_id FROM users JOIN schedule_course_section_map ON users.active_schedule_id = schedule_course_section_map.schedule_id JOIN schedules ON schedule_course_section_map.schedule_id = schedules.id WHERE schedules.public = 1 AND  schedule_course_section_map.crn = ? ORDER BY users.name;";
+      $query = "SELECT DISTINCT users.id, users.username, users.name, schedule_course_section_map.schedule_id FROM users JOIN schedule_course_section_map ON users.active_schedule_id = schedule_course_section_map.schedule_id JOIN schedules ON schedule_course_section_map.schedule_id = schedules.id WHERE schedules.public = 1 AND  schedule_course_section_map.crn = ? ORDER BY users.name;";
       $results = $SM_SQL->GetAll($query, array($this->crn));
       return $results;
    }

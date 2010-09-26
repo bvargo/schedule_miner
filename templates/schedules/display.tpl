@@ -42,7 +42,11 @@ current user.
       [<if $schedule->public >]
          <span class="bold">People sharing at least one class:</span>
          [<foreach from=$schedule->users_sharing_class() item=shared_user name=shared_user>]
-            <a href="[<$SM_ROOT>]/schedules/display/[<$shared_user.schedule_id>]">[<$shared_user.name>]</a>[<if !$smarty.foreach.shared_user.last>],[</if>]
+            [<if $shared_user.name>]
+               <a href="[<$SM_ROOT>]/schedules/display/[<$shared_user.schedule_id>]">[<$shared_user.name>]</a>[<if !$smarty.foreach.shared_user.last>],[</if>]
+            [<else>]
+               <a href="[<$SM_ROOT>]/schedules/display/[<$shared_user.schedule_id>]">[<$shared_user.username>]</a>[<if !$smarty.foreach.shared_user.last>],[</if>]
+            [</if>]
          [</foreach>]
          <br />
       [</if>]

@@ -71,7 +71,11 @@ Display a section.
 
    <h3>People in This Section:</h3>
    [<foreach from=$course_section->users() item=user name=user>]
-      <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.name>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+      [<if $user.name>]
+         <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.name>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+      [<else>]
+         <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.username>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+      [</if>]
    [</foreach>]
 
    <h3>Section Schedule:</h3>

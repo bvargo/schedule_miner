@@ -67,7 +67,11 @@ Display a course.
 
    <h3>People in This Course:</h3>
    [<foreach from=$course->users() item=user name=user>]
-      <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.name>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+      [<if $user.name>]
+         <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.name>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+      [<else>]
+         <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.username>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+      [</if>]
    [</foreach>]
 
    <h3>Course Schedule:</h3>
