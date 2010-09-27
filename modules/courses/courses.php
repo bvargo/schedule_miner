@@ -149,6 +149,67 @@ class Courses extends Module
       }
    }
 
+   // search by time
+   public function time_search()
+   {
+      global $SM_QUERY, $SM_ARGS;
+
+      $this->args['start_times'] = class_period::start_times();
+      $this->args['end_times'] = class_period::end_times();
+
+      // set options for redisplay
+      if(isset($SM_QUERY['start_time']) && isset($SM_QUERY['end_time']))
+      {
+         $start_time = $SM_QUERY['start_time'];
+         $end_time = $SM_QUERY['end_time'];
+         $this->args['start_time'] = $start_time;
+         $this->args['end_time'] = $end_time;
+
+         $days = array();
+         if(isset($SM_QUERY['monday']))
+         {
+            $days[] = 'M';
+            $this->args['monday'] = 1;
+         }
+         if(isset($SM_QUERY['tuesday']))
+         {
+            $days[] = 'T';
+            $this->args['tuesday'] = 1;
+         }
+         if(isset($SM_QUERY['wednesday']))
+         {
+            $days[] = 'W';
+            $this->args['wednesday'] = 1;
+         }
+         if(isset($SM_QUERY['thursday']))
+         {
+            $days[] = 'R';
+            $this->args['thursday'] = 1;
+         }
+         if(isset($SM_QUERY['friday']))
+         {
+            $days[] = 'F';
+            $this->args['friday'] = 1;
+         }
+
+         // if no days were selected, select them all
+         if(empty($days))
+         {
+            $days = array('M', 'T', 'W', 'R', 'F');
+            $this->args['monday'] = 1;
+            $this->args['tuesday'] = 1;
+            $this->args['wednesday'] = 1;
+            $this->args['thursday'] = 1;
+            $this->args['friday'] = 1;
+         }
+
+         // perform the search
+         $results = course_section::time_search($start_time, $end_time, $days);
+         $this->args['course_sections'] = $results;
+      }
+
+   }
+
    // displays a course or course section
    public function display()
    {

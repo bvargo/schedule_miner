@@ -38,8 +38,8 @@ Main page layout
                   <li><a href="[<$SM_ROOT>]">Home</a></li>
                   <li><a href="[<$SM_ROOT>]/courses">Browse</a></li>
                   <li><a href="[<$SM_ROOT>]/builder">Builder</a></li>
+                  <li><a href="[<$SM_ROOT>]/courses/time_search">By Time</a></li>
                   <li><a href="[<$SM_ROOT>]/courses/search" id="search_link">Search</a></li>
-                  <li><a href="[<$SM_ROOT>]/suggestions">Suggestions</a></li>
                </ul>
                <ul class="menu menu-right">
                   <li><a href="[<$SM_ROOT>]/users/logout">Logout</a></li>

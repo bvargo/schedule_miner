@@ -38,6 +38,40 @@ class course_section extends ADOdb_Active_Record
       $results = $SM_SQL->GetAll($query, array($this->crn));
       return $results;
    }
+
+   // finds all course sections that take place between start_time and
+   // end_time and fall on the days provided
+   // days should contains strings of M, T, W, R, F and is assumed to be sql-safe
+   // returns an array of sections
+   public static function time_search($start_time, $end_time, $days)
+   {
+      $section_ids = class_period::time_search($start_time, $end_time, $days);
+
+      $sections = array();
+      foreach($section_ids as $id)
+      {
+         $section = new course_section();
+         $section->load("id=?", $id);
+         $sections[] = $section;
+      }
+
+      foreach($sections as $section_id => &$section)
+      {
+         foreach($section->class_periods as &$period)
+         {
+            if($period->start_time < $start_time || $period->end_time > $end_time || !in_array($period->day, $days))
+            {
+               // the section does not match - remove the course
+               unset($sections[$section_id]);
+
+               // go on to the next course
+               break;
+            }
+         }
+      }
+
+      return $sections;
+   }
 }
 
 // a course section has many class periods

@@ -36,6 +36,67 @@ class class_period extends ADOdb_Active_Record
       $minutes = $hour * 60 + $minute;
       return $minutes;
    }
+
+   // returns an array of distinct start times
+   public static function start_times()
+   {
+      global $SM_SQL;
+
+      $query = "SELECT DISTINCT start_time FROM class_periods;";
+      $results = $SM_SQL->GetAll($query);
+
+      $return_results = array();
+      foreach($results as $result)
+      {
+         $return_results[] = $result['start_time'];
+      }
+
+      return $return_results;
+   }
+
+   // returns an array of distinct end times
+   public static function end_times()
+   {
+      global $SM_SQL;
+
+      $query = "SELECT DISTINCT end_time FROM class_periods;";
+      $results = $SM_SQL->GetAll($query);
+
+      $return_results = array();
+      foreach($results as $result)
+      {
+         $return_results[] = $result['end_time'];
+      }
+
+      return $return_results;
+   }
+
+   // finds all sections that have at least one class period that takes place
+   // between start_time and end_time and falls on the day provided
+   // days should contains strings of M, T, W, R, F and is assumed to be sql-safe
+   // returns an array of section ids
+   public static function time_search($start_time, $end_time, $days)
+   {
+      global $SM_SQL;
+
+      $query = "SELECT DISTINCT section_id FROM class_periods WHERE start_time >= ? AND end_time <= ? AND day IN (";
+      foreach($days as $day)
+      {
+         $query .= "'$day'";
+         if($day != end($days))
+            $query .= ',';
+      }
+      $query .= ");";
+      $results = $SM_SQL->GetAll($query, array($start_time, $end_time, $days));
+
+      $section_ids = array();
+      foreach($results as $result)
+      {
+         $section_ids[] = $result['section_id'];
+      }
+
+      return $section_ids;
+   }
 }
 
 // a class period has one building
