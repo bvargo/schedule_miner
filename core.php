@@ -79,7 +79,7 @@ try {
             $element = explode('=', urldecode($query));
 
             // check to see if query is of the form query[]
-            // if it is, then make SM_QUERY['query'] an array of the values 
+            // if it is, then make SM_QUERY['query'] an array of the values
             // given
             if(strpos($element[0], "[]") == strlen($element[0]) - 2)
             {
