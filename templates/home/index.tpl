@@ -54,6 +54,7 @@ perfect schedule, without having to navigate Trailhead.</p>
    <li>Start out using the schedule builder for those hard-to-schedule classes.</li>
    <li>Save the schedule the schedule builder gives you.</li>
    <li>Customize the schedule by browsing for more courses and course sections.</li>
+   <li>Reuse a saved schedule in the builder to make a new schedule.</li>
 </ol>
 
 [<if isset($SM_USER)>]
