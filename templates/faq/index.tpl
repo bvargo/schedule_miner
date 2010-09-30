@@ -21,7 +21,7 @@
    system.</dd>
 
    <dt>If this site is not run by CSM, where do you get your data?</dt>
-   <dd>All schedule data made available trough this site is also publicly available at <a href="http://inside.mines.edu/SG-Class-Schedule">http://inside.mines.edu/SG-Class-Schedule</a>.</dd>
+   <dd>All schedule data made available trough this site is also publicly available <a href="https://banner.mines.edu/prod/owa/bwckschd.p_disp_dyn_sched">here</a>.</dd>
 
    <dt>Can this website sign me up for classes?</dt>
    <dd>No. This website exists for the sole purpose of making the process of
