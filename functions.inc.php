@@ -433,15 +433,15 @@ function sortby($sortby)
                \$keya = \$a->$key();
                \$keyb = \$b->$key();
             }
-            else if(isset(\$a->$key) && isset(\$b->$key))
-            {
-               \$keya = \$a->$key;
-               \$keyb = \$b->$key;
-            }
             else if(is_array(\$a) && is_array(\$b) && isset(\$a['$key']) && isset(\$b['$key']))
             {
                \$keya = \$a['$key'];
                \$keyb = \$b['$key'];
+            }
+            else if(isset(\$a->$key) && isset(\$b->$key))
+            {
+               \$keya = \$a->$key;
+               \$keyb = \$b->$key;
             }
             else
             {
