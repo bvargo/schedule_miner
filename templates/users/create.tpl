@@ -58,7 +58,8 @@ Create a user.
    By using this website, you also understand and consent to the following terms:
    <ul>
       <li>When registering for use of the website, and throughout the use of the website, you provide information that is stored as a part of the website. This includes, but is not limited to, account information, schedule contents, and usage information.</li>
-      <li>The maintainers of this website will not transfer any private information to third parties, though general statistics that do not personally identify you by name may be made available. Information that is not explicitly marked as public in the website is considered private data. Any information that you make public can be made private again at any time.</li>
+      <li>The maintainers of this website will not transfer any private information to third parties, though general statistics that do not personally identify you by name may be made available. Any information that you make public can be made private again at any time.</li>
+      <li>Public information includes schedules that are marked public, account names associated with said public schedules, and other related information. If you mark all schedules as private, no information about you will be shared with any other user.</li>
       <li>The maintainers of this website reserve the right to transfer your personal information submitted through the website in the event of a transfer of ownership of the website. If this is the case, the website will notify you before this transfer of ownership takes place.</li>
       <li>If you decide to delete your account and end the use of the service, residual copies of information may still be stored in the system even after the deletion of your account.</li>
       <li>This privacy policy may be updated at any time. A future login affirms your agreement to any updated terms. This policy will always be available before logging into the system.</li>

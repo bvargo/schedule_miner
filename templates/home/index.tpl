@@ -27,6 +27,9 @@ Main homepage
             </tr>
          </table>
       </form>
+      <p class="error">
+         Last year&#8217;s accounts have been reset. Please make a new one.
+      </p>
       <p class="center"><a href="[<$SM_ROOT>]/users/create">Create an account</a></p>
    </div>
 [</if>]
