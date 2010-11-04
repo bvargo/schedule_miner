@@ -79,7 +79,7 @@ class Builder extends Module
          // generate the schedules, after validating entry_rows
          Builder::validate_entry_rows($entry_rows);
          $generated = Builder::get_schedules($entry_rows);
-         if($generated == null)
+         if($generated === null)
          {
             // the memory limit was hit
             $this->args['hit_limit'] = 1;
