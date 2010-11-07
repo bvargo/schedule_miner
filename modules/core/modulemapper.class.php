@@ -39,7 +39,7 @@ class ModuleMapper
             }
             else if (ends_with($file, '.php'))
             {
-               $arr = split('\.', $file);
+               $arr = preg_split("/\./", $file);
                self::$map[strtolower($arr[0])] = "$dir$file";
             }
             else

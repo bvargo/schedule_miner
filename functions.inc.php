@@ -380,7 +380,7 @@ function sortby($sortby)
    if(empty($sort_funcs[$sortby]))
    {
       $code = "\$compare = 0;";
-      foreach(split(',', $sortby) as $key)
+      foreach(preg_split('/,/', $sortby) as $key)
       {
          $direction = '1';
          $number = 0;
