@@ -193,8 +193,11 @@ class Builder extends Module
             return null;
          }
 
-         // get element at the front of the queue
-         $current = array_shift($queue);
+         // BFS: get element at the front of the queue
+         //$current = array_shift($queue);
+         // DFS: get element off the end of the queue
+         $current = array_pop($queue);
+
          // split it up
          $schedule = $current[0];
          $rows = $current[1];
