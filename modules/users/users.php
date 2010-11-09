@@ -37,7 +37,7 @@ class Users extends Module
       // look if any users were deleted
       if(!empty($_POST))
       {
-         foreach($users as $user)
+         foreach($users as &$user)
          {
             if(isset($_POST["delete" . $user->id]))
                $user->delete();
@@ -47,6 +47,14 @@ class Users extends Module
          $users = $user->find("");
          $this->args['users'] = $users;
       }
+
+      $schedule_count = 0;
+      foreach($users as &$user)
+      {
+         $schedule_count += count($user->schedules);
+      }
+
+      $this->args['schedule_count'] = $schedule_count;
    }
 
    // edits a user
