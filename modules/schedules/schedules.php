@@ -131,8 +131,18 @@ class Schedules extends Module
       else if(!isset($SM_ARGS[2]) && isset($SM_USER))
       {
          // if we are not provided an id, but there is a user logged in,
-         // redirect to the active schedule
+         // redirect to the active schedule, if there is one; otherwise show
+         // an error
          $id = $SM_USER->active_schedule_id;
+         if(!$id || $id == -1)
+         {
+            $this->args['error'] = "You do not have a valid active schedule.";
+            return;
+         }
+         else
+         {
+            redirect('schedules/display/' . $id);
+         }
       }
       else
       {
@@ -144,15 +154,7 @@ class Schedules extends Module
       $schedule = new schedule();
       if(!$schedule->load("id=?", array($id)))
       {
-         if(!isset($SM_ARGS[2]) && isset($SM_USER))
-         {
-            // tried to get the active schedule, but it doesn't exist
-            $this->args['error'] = "You do not have a valid active schedule.";
-         }
-         else
-         {
-            $this->args['error'] = "The requested schedule could not be found.";
-         }
+         $this->args['error'] = "The requested schedule could not be found.";
          return;
       }
 

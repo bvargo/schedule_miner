@@ -46,7 +46,7 @@ Main page layout
                   <li><a href="[<$SM_ROOT>]/users/edit">Preferences</a></li>
                   <li><a href="[<$SM_ROOT>]/schedules">Schedules</a></li>
                   [<if count($SM_USER->schedules)>]
-                     <li><a href="[<$SM_ROOT>]/schedules/display">Active Schedule</a></li>
+                     <li><a href="[<$SM_ROOT>]/schedules/display/[<$SM_USER->active_schedule_id>]">Active Schedule</a></li>
                   [</if>]
                </ul>
             </div>
