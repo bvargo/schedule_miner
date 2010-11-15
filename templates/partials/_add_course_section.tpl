@@ -22,7 +22,7 @@ Arguments:
          Already in schedule
       [</if>]
    [<else>]
-      <form action="[<$SM_ROOT>]/schedules/display" method="post">
+   <form action="[<$SM_ROOT>]/schedules/display/[<$SM_USER->active_schedule_id>]" method="post">
          <input type="hidden" name="add" value="[<$course_section->crn>]" />
          [<if isset($button_text)>]
             <input type="submit" value="[<$button_text>]" />
