@@ -95,13 +95,14 @@ class Display
    // prepare a template - returns the path to the template
    private function prepare_template($module, $template, $args=array())
    {
-      global $SM_USER,$SM_ROOT,$SM_SELF,$SM_ARGS, $SM_RR;
+      global $SM_USER,$SM_ROOT,$SM_SELF,$SM_ARGS,$SM_RR,$SM_URL;
 
       // assign some global values
 		$this->smarty_assign('SM_ROOT', $SM_ROOT);
 		$this->smarty_assign('SM_SELF', $SM_SELF);
 		$this->smarty_assign('SM_ARGSTRING', implode('/', $SM_ARGS));
 		$this->smarty_assign('SM_RR', $SM_RR);
+		$this->smarty_assign('SM_URL', $SM_URL);
 		$this->smarty_assign('SM_MODULE', $module);
       if($SM_USER)
          $this->smarty_assign('SM_USER', $SM_USER);

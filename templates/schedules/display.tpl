@@ -14,6 +14,22 @@ current user.
 [<else>]
 
    [<if isset($SM_USER) && $schedule->user->id eq $SM_USER->id>]
+      [<if $schedule->public>]
+         <div id="share_facebook">
+            <a name="fb_share" href="https://www.facebook.com/sharer.php?u=[<$SM_URL>]&amp;t=[<$title>]&amp;src=sp" style="text-decoration: none;" target="_blank" onclick="return fbs_click()" rel="nofollow">
+               <span class="fb_share_size_Small ">
+                  <span class="FBConnectButton FBConnectButton_Small" style="cursor:pointer;">
+                     <span class="FBConnectButton_Text">Share</span>
+                  </span>
+                  <span class="fb_share_count_nub_right fb_share_no_count">
+                  </span>
+                  <span class="fb_share_count fb_share_no_count fb_share_count_right">
+                     <span class="fb_share_count_inner">&nbsp;</span>
+                  </span>
+               </span>
+            </a>
+         </div>
+      [</if>]
       [<if $SM_USER->active_schedule_id eq $schedule->id>]
          <h1>Your Schedule - [<$schedule->name>] (active schedule)</h1>
       [<else>]
@@ -39,7 +55,7 @@ current user.
    [</if>]
 
    [<if count($schedule->course_sections())>]
-      [<if $schedule->public >]
+      [<if $schedule->public>]
          <span class="bold">People sharing at least one class:</span>
          [<foreach from=$schedule->users_sharing_class() item=shared_user name=shared_user>]
             [<if $shared_user.name>]

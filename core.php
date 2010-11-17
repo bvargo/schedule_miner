@@ -20,6 +20,7 @@ define('CONFIG_FILENAME', 'config/config.ini');
 // helpful global variables
 $SM_SELF = $_SERVER['REDIRECT_URL'];
 $SM_DOMAIN = $_SERVER['HTTP_HOST'];
+$SM_URL = (isSet($_SERVER['HTTPS'])?'https://':'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 // define globals for the URL root and the filesystem root
 // used to strip off the current filename for paths

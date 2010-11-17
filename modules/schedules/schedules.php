@@ -223,6 +223,11 @@ class Schedules extends Module
       // FIXME - the CSS should be specified in the template, not here
       global $SM_RR;
       $this->args['css'][] = $SM_RR . "/css/partials/_schedule_display.css";
+
+      // for the facebook share button
+      $this->args['css'][] = "https://s-static.ak.fbcdn.net/connect.php/css/share-button-css";
+
+      $this->args['title'] = $schedule->name;
    }
 }
 ?>

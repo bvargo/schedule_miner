@@ -39,7 +39,8 @@ There only one several special variable for now:
      in the configuration file, in the title of the page
 In addition, several global variables are available in all templates:
    - $SM_ROOT - the URL root for the application, without the trailing slash
-   - $SM_SELF - the URL of the current page
+   - $SM_SELF - the URL of the current page (no hostname)
+   - $SM_URL - full hostname to the current page
    - $SM_ARGS - the arguments array, as above
    - $SM_RR   - the URL for resources such as images, javascript, etc
    - $SM_USER - the current user, only defined if someone is logged in
