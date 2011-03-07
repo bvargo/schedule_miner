@@ -166,7 +166,7 @@ dd {
 
 .data td {
    padding: 0.3em;
-   border: dashed #b8b8b8 1px;
+   border: 1px dashed #b8b8b8;
 }
 
 #search_bar {
