@@ -82,7 +82,7 @@ try {
             // check to see if query is of the form query[]
             // if it is, then make SM_QUERY['query'] an array of the values
             // given
-            if(strpos($element[0], "[]") == strlen($element[0]) - 2)
+            if(strpos($element[0], "[]") === strlen($element[0]) - 2)
             {
                $array = 1;
                $element[0] = substr($element[0], 0, strlen($element[0]) - 2);
@@ -161,6 +161,8 @@ try {
       $user = new user();
       if($user->load("username=?", array($_SESSION['username'])))
          $SM_USER = $user;
+      else
+         $SM_USER = null;
    }
    else
    {
