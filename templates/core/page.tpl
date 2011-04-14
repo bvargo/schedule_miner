@@ -72,6 +72,19 @@ Main page layout
 
       <script type="text/javascript" src="/awstatsjs/awstats_misc_tracker.js"></script>
       <noscript><img src="/awstatsjs/awstats_misc_tracker.js?nojs=y" height=0 width=0 border=0 style="display: none"></noscript>
+
+
+      <script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://bvargo.com/piwik/" : "http://bvargo.com/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://bvargo.com/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+
    </body>
 </html>
 
