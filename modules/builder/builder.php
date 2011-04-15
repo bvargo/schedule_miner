@@ -13,7 +13,8 @@ class Builder extends Module
    {
       global $SM_QUERY, $SM_USER;
 
-      $this->args['max_schedules'] = smconfig_get('max_schedules', 20);
+      $max_schedules = smconfig_get('max_schedules', 20);
+      $this->args['max_schedules'] = $max_schedules;
 
       // FIXME - the CSS should be specified in the template, not here
       global $SM_RR;
@@ -78,7 +79,7 @@ class Builder extends Module
 
          // generate the schedules, after validating entry_rows
          Builder::validate_entry_rows($entry_rows);
-         $generated = Builder::get_schedules($entry_rows);
+         $generated = Builder::get_schedules($entry_rows, $max_schedules);
          if($generated === null)
          {
             // the memory limit was hit
@@ -88,7 +89,7 @@ class Builder extends Module
          {
             $this->args['schedules'] = $generated;
             $this->args['schedule_count'] = count($generated);
-            $this->args['number_schedules_display'] = min($this->args['max_schedules'], count($generated));
+            $this->args['number_schedules_display'] = min($max_schedules, count($generated));
          }
 
          // set entry_rows in template
@@ -154,7 +155,9 @@ class Builder extends Module
    // returned
    // if the memory/time limit is hit, null is returned
    // entry_rows =  array(department, course_number, course_section, priority)
-   private static function get_schedules($entry_rows)
+   // num_schedules is the maximum number of schedules to return, -1 if all
+   // schedules are requested
+   private static function get_schedules($entry_rows, $num_schedules)
    {
       // final schedule results
       $schedules = array();
@@ -193,6 +196,12 @@ class Builder extends Module
             return null;
          }
 
+         // see if we have the number of requested schedules
+         if($num_schedules > 0 && count($schedules) >= $num_schedules)
+         {
+            return $schedules;
+         }
+
          // BFS: get element at the front of the queue
          //$current = array_shift($queue);
          // DFS: get element off the end of the queue
@@ -225,7 +234,7 @@ class Builder extends Module
             if($row[3] == $min_priority)
             {
                $current_selections[] = $row;
-               unset($entry_rows[$id]);
+               unset($rows[$id]);
             }
          }
 
@@ -253,7 +262,7 @@ class Builder extends Module
                {
                   $new_schedule = clone $schedule;
                   $new_schedule->add_course_section($section);
-                  array_push($queue, array($new_schedule, $entry_rows));
+                  array_push($queue, array($new_schedule, $rows));
                }
             }
             else
@@ -267,7 +276,7 @@ class Builder extends Module
                   {
                      $new_schedule = clone $schedule;
                      $new_schedule->add_course_section($section);
-                     array_push($queue, array($new_schedule, $entry_rows));
+                     array_push($queue, array($new_schedule, $rows));
                   }
                }
             }
