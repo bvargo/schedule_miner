@@ -115,7 +115,7 @@ class Display
       $tpl = self::get_template($template, $module);
       // if both have failed, throw an error
       if($tpl === NULL)
-         error("Invalid template `$tpl` passed to Display");
+         error("Invalid template `$template` passed to Display");
 
       return $tpl;
    }
