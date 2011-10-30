@@ -16,7 +16,7 @@ Suggestion input form.
    [</if>]
 [<else>]
    <h1>Suggestions/Questions</h1>
-   <p>We will contact you at <strong>[<$SM_USER->email>]</strong> if appropriate. If this email address is incorrect, please update your <a href="[<$SM_ROOT>]/users/edit">preferences</a>.</p>
+   <p>We will contact you at <strong>[<$SM_USER->email|escape>]</strong> if appropriate. If this email address is incorrect, please update your <a href="[<$SM_ROOT>]/users/edit">preferences</a>.</p>
    <form method="post" action="[<$SM_ROOT>]/suggestions">
       <div id="suggestion_div">
          <textarea name="suggestion_box" id="suggestion_box"></textarea>

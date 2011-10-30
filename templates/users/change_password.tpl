@@ -12,7 +12,7 @@ Change password.
    [<$error>]
 [<else>]
    [<if isset($user)>]
-      <h1>Change password for [<$user->username>]</h1>
+      <h1>Change password for [<$user->username|escape>]</h1>
       [<if isset($update_success) and $update_success eq 1>]
          <h3>Password updated successfully</h3>
       [</if>]
@@ -23,7 +23,7 @@ Change password.
          <h3>The current password you entered is incorrect</h3>
       [</if>]
       <table>
-         <form action="[<$SM_ROOT>]/users/change_password/[<$user->username>]" method="post">
+         <form action="[<$SM_ROOT>]/users/change_password/[<$user->username|escape>]" method="post">
             <tr>
                <td>Current Password:</td>
                <td><input type="password" name="current_password" value="" /></td>
@@ -42,7 +42,7 @@ Change password.
          </form>
       </table>
    [<else>]
-      <h1>User [<$username>] not found!</h1>
+      <h1>User [<$username|escape>] not found!</h1>
    [</if>]
    [<if $SM_USER->admin>]
       <br />

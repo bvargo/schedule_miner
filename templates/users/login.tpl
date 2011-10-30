@@ -10,7 +10,7 @@ Login form.
 
 <h1>Login</h1>
 [<if isset($username)>]
-   You are currently logged in as [<$username>]
+   You are currently logged in as [<$username|escape>]
 [</if>]
 <h3>Type your Schedule Miner username/password to login.</h3>
 <b>This website is not associated with Mines.</b>

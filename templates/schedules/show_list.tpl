@@ -28,7 +28,7 @@ Displays a list of schedules
          <tbody>
             [<foreach from=$SM_USER->schedules|@sortby:"name" item=schedule>]
                <tr>
-                  <td class="center bold"><a href="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]">[<$schedule->name>]</a></td>
+                  <td class="center bold"><a href="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]">[<$schedule->name|escape>]</a></td>
                   <td>
                      [<assign var=course_sections value=$schedule->course_sections()>]
                      [<foreach from=$course_sections|@sortby:"name,#crn" item=course_section>]

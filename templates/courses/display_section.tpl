@@ -69,14 +69,17 @@ Display a section.
       [</foreach>]
    </table>
 
-   <h3>People in This Section:</h3>
-   [<foreach from=$course_section->users() item=user name=user>]
-      [<if $user.name>]
-         <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.name>]</a>[<if !$smarty.foreach.user.last>],[</if>]
-      [<else>]
-         <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.username>]</a>[<if !$smarty.foreach.user.last>],[</if>]
-      [</if>]
-   [</foreach>]
+   [<assign var="users" value=$course_section->users()>]
+   [<if count($users)>]
+      <h3>People in This Section:</h3>
+      [<foreach from=$users item=user name=user>]
+         [<if $user.name>]
+            <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.name>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+         [<else>]
+            <a href="[<$SM_ROOT>]/schedules/display/[<$user.schedule_id>]">[<$user.username>]</a>[<if !$smarty.foreach.user.last>],[</if>]
+         [</if>]
+      [</foreach>]
+   [</if>]
 
    <h3>Section Schedule:</h3>
    [<include file="_schedule_display.tpl">]

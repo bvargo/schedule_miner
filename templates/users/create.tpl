@@ -18,7 +18,7 @@ Create a user.
       <tr>
          <td>Username:</td>
          [<if isset($username)>]
-            <td><input type="text" name="username" value="[<$username>]" /></td>
+            <td><input type="text" name="username" value="[<$username|escape>]" /></td>
          [<else>]
             <td><input type="text" name="username" value="" /></td>
          [</if>]

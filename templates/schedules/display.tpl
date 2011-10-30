@@ -31,13 +31,13 @@ current user.
          </div>
       [</if>]
       [<if $SM_USER->active_schedule_id eq $schedule->id>]
-         <h1>Your Schedule - [<$schedule->name>] (active schedule)</h1>
+         <h1>Your Schedule - [<$schedule->name|escape>] (active schedule)</h1>
       [<else>]
-         <h1>Your Schedule - [<$schedule->name>]</h1>
+         <h1>Your Schedule - [<$schedule->name|escape>]</h1>
       [</if>]
       <form action="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]" method="post">
          <span class="bold">Schedule Name:</span>
-         <input type="text" name="name" value="[<$schedule->name>]" />
+         <input type="text" name="name" value="[<$schedule->name|escape>]" />
          <input type="submit" value="Save Name" />
       </form>
       <form action="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]" method="post">
@@ -51,7 +51,7 @@ current user.
       </form>
       <br />
    [<else>]
-      <h1>[<$schedule->user->name>]&#8217;s Schedule - [<$schedule->name>]</h1>
+      <h1>[<$schedule->user->name|escape>]&#8217;s Schedule - [<$schedule->name|escape>]</h1>
    [</if>]
 
    [<if count($schedule->course_sections())>]

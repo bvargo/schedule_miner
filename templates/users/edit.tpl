@@ -19,7 +19,7 @@ Edit a user
       [<if isset($invalid_email)>]
          <h3>The email address entered is invalid</h3>
       [</if>]
-      <form action="[<$SM_ROOT>]/users/edit/[<$user->username>]" method="post">
+      <form action="[<$SM_ROOT>]/users/edit/[<$user->username|escape:'url'>]" method="post">
          <table>
             <tr>
                <td>Username:</td>
@@ -27,15 +27,15 @@ Edit a user
             </tr>
             <tr>
                <td>Name:</td>
-               <td><input type="text" name="name" value="[<$user->name>]" /></td>
+               <td><input type="text" name="name" value="[<$user->name|escape>]" /></td>
             </tr>
             <tr>
                <td>Email:</td>
-               <td><input type="text" name="email" value="[<$user->email>]" /></td>
+               <td><input type="text" name="email" value="[<$user->email|escape>]" /></td>
             </tr>
             <tr>
                <td>Password:</td>
-               <td><a href="[<$SM_ROOT>]/users/change_password/[<$user->username>]">Change password</a></td>
+               <td><a href="[<$SM_ROOT>]/users/change_password/[<$user->username|escape>]">Change password</a></td>
             </tr>
             <tr>
                <td colspan="2"><input type="submit" value="Save" /></td>
@@ -45,7 +45,7 @@ Edit a user
    [<else>]
       <h1>User [<$username>] not found!</h1>
       [<if $SM_USER->admin>]
-         Create user <a href="[<$SM_ROOT>]/users/create/[<$username>]">[<$username>]</a>. <br />
+         Create user <a href="[<$SM_ROOT>]/users/create/[<$username|escape:'url'>]">[<$username|escape>]</a>. <br />
       [</if>]
    [</if>]
    [<if $SM_USER->admin>]

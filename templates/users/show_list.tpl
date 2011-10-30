@@ -23,17 +23,17 @@ Display a list of users
          </thead>
          [<foreach from=$users item=user>]
             <tr>
-               <td><a href="[<$SM_ROOT>]/users/edit/[<$user->username>]">[<$user->username>]</a></td>
+               <td><a href="[<$SM_ROOT>]/users/edit/[<$user->username|escape:'url'>]">[<$user->username|escape>]</a></td>
                <td>[<$user->name>]</td>
                <td>
                   [<if isset($user->email)>]
-                     <a href="mailto:[<$user->email>]">[<$user->email>]</a>
+                     <a href="mailto:[<$user->email|escape:'url'>]">[<$user->email|escape>]</a>
                   [</if>]
                </td>
                <td>
                   <ul>
                      [<foreach from=$user->schedules item=schedule>]
-                        <li><a href="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]">[<$schedule->name>]</a>[<if $schedule->public eq 1>] (Public)[</if>][<if $user->active_schedule_id eq $schedule->id>] (Active)[</if>]</li>
+                        <li><a href="[<$SM_ROOT>]/schedules/display/[<$schedule->id>]">[<$schedule->name|escape>]</a>[<if $schedule->public eq 1>] (Public)[</if>][<if $user->active_schedule_id eq $schedule->id>] (Active)[</if>]</li>
                      [</foreach>]
                   </ul>
                </td>
