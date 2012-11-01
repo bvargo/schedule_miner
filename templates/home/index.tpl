@@ -28,7 +28,7 @@ Main homepage
          </table>
       </form>
       <p class="error center">
-         Note: Accounts were reset on March 21, 2012.
+         Note: Accounts were reset on November 01, 2012.
       </p>
       <p class="center"><a href="[<$SM_ROOT>]/users/create">Create an account</a></p>
    </div>
